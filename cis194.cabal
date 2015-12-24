@@ -16,6 +16,8 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Homework.Week1
+                     , Homework.Week2.Log
+                     , Homework.Week2.LogAnalysis
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
 
