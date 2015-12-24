@@ -12,7 +12,7 @@ main = hspec spec
 
 spec :: Spec
 spec = do
-  describe "week1" $ do
+  describe "week1:checkpoint" $ do
     it "is complete" $ do
       let complete = True
        in complete `shouldBe` True
