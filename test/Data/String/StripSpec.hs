@@ -14,7 +14,7 @@ spec :: Spec
 spec = do
   describe "week1:checkpoint" $ do
     it "is complete" $ do
-      let complete = True
+      let complete = False
        in complete `shouldBe` True
   describe "strip" $ do
     it "removes leading and trailing whitespace" $ do
