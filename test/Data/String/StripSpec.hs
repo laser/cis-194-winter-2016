@@ -16,7 +16,6 @@ spec = do
     it "is complete" $ do
       let complete = True
        in complete `shouldBe` True
-
   describe "strip" $ do
     it "removes leading and trailing whitespace" $ do
       strip "\t  foo bar\n" `shouldBe` "foo bar"
