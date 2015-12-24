@@ -12,8 +12,15 @@ main = hspec spec
 
 spec :: Spec
 spec = do
+  describe "week1" $ do
+    it "is complete" $ do
+      let complete = undefined
+       in complete `shouldBe` True
+
   describe "strip" $ do
     it "removes leading and trailing whitespace" $ do
       strip "\t  foo bar\n" `shouldBe` "foo bar"
     it "is idempotent" $ property $
       \str -> strip str == strip (strip str)
+    it "does something else cool" $ do
+      pending
