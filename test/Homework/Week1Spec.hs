@@ -69,5 +69,5 @@ spec = do
 
   describe "week1:checkpoint" $ do
     it "should be complete" $ do
-      let complete = False
+      let complete = True
        in complete `shouldBe` True
