@@ -1,7 +1,6 @@
 module Homework.Week1Spec (main, spec) where
 
 import Test.Hspec
-import Test.QuickCheck
 
 import Homework.Week1
 
@@ -19,9 +18,8 @@ spec = do
     it "should return an empty list for zero" $ do
       toDigits 0 `shouldBe` []
 
-    -- uses QuickCheck - need to learn how to generate constrained inputs
-    it "should return an empty list for negative numbers" $ property $
-      \x -> (if x < 0 then (toDigits x) else []) == ([] :: [Integer])
+    it "should return an empty list for negative numbers" $ do
+      toDigits (-1) `shouldBe` []
 
   describe "toDigitsRev" $ do
     it "should return an empty list for zero" $ do
@@ -66,8 +64,3 @@ spec = do
 
     it "should solve for 1 disc" $ do
       hanoi 1 "a" "b" "c" `shouldBe` [("a", "b")]
-
-  describe "week1:checkpoint" $ do
-    it "should be complete" $ do
-      let complete = True
-       in complete `shouldBe` True
