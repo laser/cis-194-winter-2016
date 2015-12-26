@@ -5,7 +5,7 @@
 Week | Lecture                                                | Assignment              | Due     |
 ---- | ------------------------------------------------------ | ----------------------- | ------- |
 1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 12 |
-2    | [Algebraic Data Types][2]                              | [log parsin][22]        | Jan. 19 |
+2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 19 |
 3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 26 |
 4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 2  |
 5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 9  |
