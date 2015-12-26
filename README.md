@@ -48,7 +48,7 @@ Week | Lecture                                                | Assignment      
 
 ### Install Stack
 
-This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install). 
+This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install).
 
 ### Installing Project Dependencies
 
@@ -57,6 +57,25 @@ Project dependencies (including GHC version) are specified in the project's `.ca
 ### Running the Tests
 
 Assignments are tested with Hspec and QuickCheck. The full test suite can be run by running the `stack test` command.
+
+To run a single week's tests:
+
+```
+~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test
+```
+
+To rebuild and run the tests each time one of the project's files change:
+
+```
+~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test --file-watch
+```
+
+### Charting Your Progress
+
+The `coursework-progress` application ([link here][100]) provides a basic view
+of who is participating in the course and how far they've progressed.
+
+  [100]: http://coursework-progress.herokuapp.com
 
 ## Useful Links
 
