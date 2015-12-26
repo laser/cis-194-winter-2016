@@ -2,8 +2,8 @@ module Homework.Week2Spec (main, spec) where
 
 import Test.Hspec
 
+import Homework.Week2.Assignment
 import Homework.Week2.Log
-import Homework.Week2.LogAnalysis
 
 main :: IO ()
 main = hspec spec
