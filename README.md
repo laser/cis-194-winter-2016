@@ -1,5 +1,7 @@
 # CIS194: Winter 2016
 
+Click [here](http://coursework-progress.herokuapp.com/) to chart your progress through the course.
+
 ## Schedule
 
 Week | Lecture                                                | Assignment              | Due     |
@@ -41,3 +43,23 @@ Week | Lecture                                                | Assignment      
   [29]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week10A-applicative-cont.pdf
   [30]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week11A-monads.pdf
   [31]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week12A-quickcheck.pdf
+
+## Getting Started
+
+### Install Stack
+
+This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install). 
+
+### Installing Project Dependencies
+
+Project dependencies (including GHC version) are specified in the project's `.cabal` file and are downloaded and built by Stack. To build the project along with all of its dependencies, run the `stack build` command from the root directory of the project.
+
+### Running the Tests
+
+Assignments are tested with Hspec and QuickCheck. The full test suite can be run by running the `stack test` command.
+
+## Useful Links
+
+* [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/chapters)
+* [Hoogle](https://www.haskell.org/hoogle/)
+* [Standard library aka Prelude documentation](http://hackage.haskell.org/package/base)
