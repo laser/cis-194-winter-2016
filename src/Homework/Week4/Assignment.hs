@@ -1,4 +1,23 @@
-module Homework.Week4.Assignment where
+module Homework.Week4.Assignment (
+  BST(..),
+  ex1,
+  ex2,
+  ex3,
+  ex4,
+  ex5,
+  ex6,
+  ex7,
+  ex8,
+  ex9,
+  ex10,
+  ex11,
+  ex12,
+  insertBST,
+  allCaps,
+  dropTrailingWhitespace,
+  firstLetters,
+  asList
+) where
 
 import Homework.Week4.BST
 

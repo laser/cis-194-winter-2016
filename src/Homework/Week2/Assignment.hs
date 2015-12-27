@@ -1,4 +1,15 @@
-module Homework.Week2.Assignment where
+module Homework.Week2.Assignment (
+  build,
+  inOrder,
+  insert,
+  parse,
+  parseMessage,
+  whatWentWrong,
+  LogMessage(..),
+  MessageTree(..),
+  MessageType(..),
+  TimeStamp
+) where
 
 import Homework.Week2.Log
 

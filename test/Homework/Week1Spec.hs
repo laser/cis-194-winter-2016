@@ -1,13 +1,10 @@
-module Homework.Week1Spec (main, spec) where
+module Homework.Week1Spec (
+  spec
+) where
 
 import Test.Hspec
 
 import Homework.Week1.Assignment
-
--- `main` is here so that this module can be run from GHCi on its own.  It is
--- not needed for automatic spec discovery.
-main :: IO ()
-main = hspec spec
 
 spec :: Spec
 spec = do
