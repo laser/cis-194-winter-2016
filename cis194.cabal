@@ -43,9 +43,7 @@ test-suite cis194-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Main.hs
-  other-modules:       Homework.Week1Spec
-                     , Homework.Week2Spec
-                     , Spec
+  other-modules:       Spec
   build-depends:       base
                      , cis194
                      , hspec
