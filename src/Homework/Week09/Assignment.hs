@@ -1,6 +1,11 @@
-module Homework.Week9.Assignment where
+module Homework.Week09.Assignment (
+  first,
+  abParser,
+  abParser_,
+  intOrUppercase
+) where
 
-import Homework.Week9.AParser
+import Homework.Week09.AParser
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)

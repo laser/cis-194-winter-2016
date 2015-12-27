@@ -1,4 +1,4 @@
-module Homework.Week1.Assignment where
+module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]

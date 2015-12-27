@@ -1,5 +1,4 @@
-module Homework.Week4.Assignment (
-  BST(..),
+module Homework.Week04.Assignment (
   ex1,
   ex2,
   ex3,
@@ -16,10 +15,11 @@ module Homework.Week4.Assignment (
   allCaps,
   dropTrailingWhitespace,
   firstLetters,
-  asList
+  asList,
+  BST(..)
 ) where
 
-import Homework.Week4.BST
+import Homework.Week04.BST
 
 -- #1
 ex1 :: a -> b -> b

@@ -1,4 +1,4 @@
-module Homework.Week2.Assignment (
+module Homework.Week02.Assignment (
   build,
   inOrder,
   insert,
@@ -11,7 +11,7 @@ module Homework.Week2.Assignment (
   TimeStamp
 ) where
 
-import Homework.Week2.Log
+import Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage

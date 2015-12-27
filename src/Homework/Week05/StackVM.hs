@@ -1,4 +1,4 @@
-module Homework.Week5.StackVM (
+module Homework.Week05.StackVM (
   StackVal(..), 
   StackExp(..), 
   Stack, 

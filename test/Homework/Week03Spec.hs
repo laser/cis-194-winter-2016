@@ -1,10 +1,10 @@
-module Homework.Week3Spec (
+module Homework.Week03Spec (
   spec
 ) where
 
 import Test.Hspec
 
-import Homework.Week3.Assignment
+import Homework.Week03.Assignment
 
 spec :: Spec
 spec = do
