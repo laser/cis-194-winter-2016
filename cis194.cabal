@@ -17,6 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Homework.Week01.Assignment
                      , Homework.Week02.Assignment
+                     , Homework.Week02.Log
                      , Homework.Week03.Assignment
                      , Homework.Week04.Assignment
                      , Homework.Week04.BST
@@ -25,9 +26,13 @@ library
                      , Homework.Week06.Assignment
                      , Homework.Week07.Assignment
                      , Homework.Week09.Assignment
+                     , Homework.Week09.AParser
                      , Homework.Week10.Assignment
+                     , Homework.Week10.AParser
                      , Homework.Week11.Assignment
                      , Homework.Week12.Assignment
+                     , Homework.Week12.BST
+                     , Homework.Week12.Ring
   build-depends:       base >= 4.7 && < 5
                      , MonadRandom
                      , QuickCheck
