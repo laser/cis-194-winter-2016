@@ -10,14 +10,14 @@ import Spec (spec)
 data Assignment = Assignment { name :: String, issued :: Day, due :: Day }
 
 as :: [Assignment]
-as = [ Assignment { name = "Homework.Week1", issued = fromGregorian 2015 12 01, due = fromGregorian 2016 01 12 } 
-     , Assignment { name = "Homework.Week2", issued = fromGregorian 2016 01 13, due = fromGregorian 2016 01 19 } 
-     , Assignment { name = "Homework.Week3", issued = fromGregorian 2016 01 20, due = fromGregorian 2016 01 26 }
-     , Assignment { name = "Homework.Week4", issued = fromGregorian 2016 01 27, due = fromGregorian 2016 02 02 }
-     , Assignment { name = "Homework.Week5", issued = fromGregorian 2016 02 03, due = fromGregorian 2016 02 09 }
-     , Assignment { name = "Homework.Week6", issued = fromGregorian 2016 02 10, due = fromGregorian 2016 02 16 }
-     , Assignment { name = "Homework.Week8", issued = fromGregorian 2016 02 17, due = fromGregorian 2016 02 23 }
-     , Assignment { name = "Homework.Week9", issued = fromGregorian 2016 02 24, due = fromGregorian 2016 03 01 }
+as = [ Assignment { name = "Homework.Week01", issued = fromGregorian 2015 12 01, due = fromGregorian 2016 01 12 }
+     , Assignment { name = "Homework.Week02", issued = fromGregorian 2016 01 13, due = fromGregorian 2016 01 19 }
+     , Assignment { name = "Homework.Week03", issued = fromGregorian 2016 01 20, due = fromGregorian 2016 01 26 }
+     , Assignment { name = "Homework.Week04", issued = fromGregorian 2016 01 27, due = fromGregorian 2016 02 02 }
+     , Assignment { name = "Homework.Week05", issued = fromGregorian 2016 02 03, due = fromGregorian 2016 02 09 }
+     , Assignment { name = "Homework.Week06", issued = fromGregorian 2016 02 10, due = fromGregorian 2016 02 16 }
+     , Assignment { name = "Homework.Week08", issued = fromGregorian 2016 02 17, due = fromGregorian 2016 02 23 }
+     , Assignment { name = "Homework.Week09", issued = fromGregorian 2016 02 24, due = fromGregorian 2016 03 01 }
      , Assignment { name = "Homework.Week10", issued = fromGregorian 2016 03 02, due = fromGregorian 2016 03 08 }
      , Assignment { name = "Homework.Week11", issued = fromGregorian 2016 03 09, due = fromGregorian 2016 03 15 }
      , Assignment { name = "Homework.Week12", issued = fromGregorian 2016 03 16, due = fromGregorian 2016 03 22 }]

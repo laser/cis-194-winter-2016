@@ -1,4 +1,4 @@
-module Homework.Week2.Log where
+module Homework.Week02.Log where
 
 import Control.Applicative
 
@@ -34,4 +34,4 @@ testWhatWentWrong :: (String -> [LogMessage])
                   -> IO [String]
 testWhatWentWrong parse whatWentWrong file
   = whatWentWrong . parse <$> readFile file
-  
+

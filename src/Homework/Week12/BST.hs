@@ -5,7 +5,7 @@ import Control.Applicative
 
 data BST a = Leaf
            | Node (BST a) a (BST a)
-  deriving Show
+  deriving (Show, Eq)
 
 -- | Is the tree empty?
 isEmpty :: BST a -> Bool

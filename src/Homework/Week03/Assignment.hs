@@ -1,4 +1,4 @@
-module Homework.Week3.Assignment where
+module Homework.Week03.Assignment where
 
 -- #1
 skips :: [a] -> [[a]]

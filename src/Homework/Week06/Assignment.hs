@@ -1,4 +1,15 @@
-module Homework.Week6.Assignment where
+module Homework.Week06.Assignment (
+  fib,
+  fibs1,
+  fibs2,
+  streamToList,
+  streamRepeat,
+  streamMap,
+  streamFromSeed,
+  nats,
+  ruler,
+  Stream(..)
+) where
 
 -- #1a
 fib :: Integer -> Integer
@@ -12,7 +23,7 @@ fibs2 :: [Integer]
 fibs2 = undefined
 
 -- #3
-data Stream a = Stream a
+data Stream a = Stream a -- replace this with your own definition; this one is wrong
 
 streamToList :: Stream a -> [a]
 streamToList = undefined

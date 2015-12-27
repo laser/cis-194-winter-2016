@@ -1,6 +1,19 @@
 {-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
 
-module Homework.Week7.Assignment where
+module Homework.Week07.Assignment (
+  ynToBool,
+  parseData,
+  parseMarkets,
+  loadData,
+  search,
+  firstFound,
+  lastFound,
+  numberFound,
+  orderedNtoS,
+  Market(..),
+  OrdList(..),
+  Searcher(..)
+) where
 
 import Data.Aeson
 import Data.Monoid
@@ -18,9 +31,9 @@ ynToBool = undefined
 parseData :: B.ByteString -> Either String Value
 parseData = undefined
 
--- #3 
-data Market = Market { marketname :: String 
-                     , x :: Double 
+-- #3
+data Market = Market { marketname :: String
+                     , x :: Double
                      , y :: Double
                      , state :: String } deriving (Show, Generic)
 
@@ -36,7 +49,7 @@ loadData = undefined
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
---instance Ord a => Monoid (OrdList a) where 
+--instance Ord a => Monoid (OrdList a) where
 --  compare = ???
 
 -- #6

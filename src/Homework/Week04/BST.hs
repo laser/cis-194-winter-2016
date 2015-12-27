@@ -1,11 +1,11 @@
-module Homework.Week4.BST where
+module Homework.Week04.BST where
 
 import Test.QuickCheck
 import Control.Applicative
 
 data BST a = Leaf
            | Node (BST a) a (BST a)
-  deriving Show
+  deriving (Eq, Show)
 
 -- | Is the tree empty?
 isEmpty :: BST a -> Bool

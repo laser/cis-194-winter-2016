@@ -1,4 +1,13 @@
-module Homework.Week10.Assignment where
+module Homework.Week10.Assignment (
+  zeroOrMore,
+  oneOrMore,
+  spaces,
+  ident,
+  parseSExpr,
+  Ident(..),
+  Atom(..),
+  SExpr(..)
+) where
 
 import Control.Applicative
 

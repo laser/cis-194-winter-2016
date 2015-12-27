@@ -15,20 +15,17 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Homework.Week1.Assignment
-                     , Homework.Week2.Assignment
-                     , Homework.Week2.Log
-                     , Homework.Week3.Assignment
-                     , Homework.Week4.Assignment
-                     , Homework.Week4.BST
-                     , Homework.Week5.Assignment
-                     , Homework.Week5.ExprT
-                     , Homework.Week6.Assignment
-                     , Homework.Week7.Assignment
-                     , Homework.Week9.Assignment
-                     , Homework.Week9.AParser
+  exposed-modules:     Homework.Week01.Assignment
+                     , Homework.Week02.Assignment
+                     , Homework.Week03.Assignment
+                     , Homework.Week04.Assignment
+                     , Homework.Week04.BST
+                     , Homework.Week05.Assignment
+                     , Homework.Week05.ExprT
+                     , Homework.Week06.Assignment
+                     , Homework.Week07.Assignment
+                     , Homework.Week09.Assignment
                      , Homework.Week10.Assignment
-                     , Homework.Week10.AParser
                      , Homework.Week11.Assignment
                      , Homework.Week12.Assignment
   build-depends:       base >= 4.7 && < 5
@@ -43,9 +40,7 @@ test-suite cis194-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Main.hs
-  other-modules:       Homework.Week1Spec
-                     , Homework.Week2Spec
-                     , Spec
+  other-modules:       Spec
   build-depends:       base
                      , cis194
                      , hspec

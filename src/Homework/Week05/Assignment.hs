@@ -1,6 +1,10 @@
-module Homework.Week5.Assignment where
+module Homework.Week05.Assignment (
+  eval,
+  evalStr,
+  ExprT(..)
+) where
 
-import Homework.Week5.ExprT
+import Homework.Week05.ExprT
 
 -- #1
 eval :: ExprT -> Integer
