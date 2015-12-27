@@ -16,7 +16,7 @@ as = [ Assignment { name = "Homework.Week01", issued = fromGregorian 2015 12 01,
      , Assignment { name = "Homework.Week04", issued = fromGregorian 2016 01 27, due = fromGregorian 2016 02 02 }
      , Assignment { name = "Homework.Week05", issued = fromGregorian 2016 02 03, due = fromGregorian 2016 02 09 }
      , Assignment { name = "Homework.Week06", issued = fromGregorian 2016 02 10, due = fromGregorian 2016 02 16 }
-     , Assignment { name = "Homework.Week08", issued = fromGregorian 2016 02 17, due = fromGregorian 2016 02 23 }
+     , Assignment { name = "Homework.Week07", issued = fromGregorian 2016 02 17, due = fromGregorian 2016 02 23 }
      , Assignment { name = "Homework.Week09", issued = fromGregorian 2016 02 24, due = fromGregorian 2016 03 01 }
      , Assignment { name = "Homework.Week10", issued = fromGregorian 2016 03 02, due = fromGregorian 2016 03 08 }
      , Assignment { name = "Homework.Week11", issued = fromGregorian 2016 03 09, due = fromGregorian 2016 03 15 }
