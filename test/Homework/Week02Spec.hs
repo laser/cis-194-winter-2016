@@ -1,16 +1,10 @@
 module Homework.Week02Spec (
-  spec,
-  forceCIToRunThisTest
+  spec
 ) where
 
 import Test.Hspec
 
 import Homework.Week02.Assignment
-
--- Set this to True if you've finished the assignment early and want to tell
--- the whole world how awesome you are.
-forceCIToRunThisTest :: Bool
-forceCIToRunThisTest = False
 
 spec :: Spec
 spec = do

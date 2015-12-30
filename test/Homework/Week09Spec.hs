@@ -1,14 +1,10 @@
 module Homework.Week09Spec (
-  spec,
-  forceCIToRunThisTest
+  spec
 ) where
 
 import Test.Hspec
 
 import Homework.Week09.Assignment
-
-forceCIToRunThisTest :: Bool
-forceCIToRunThisTest = False
 
 spec :: Spec
 spec = do

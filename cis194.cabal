@@ -44,8 +44,7 @@ library
 test-suite cis194-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             Main.hs
-  other-modules:       Spec
+  main-is:             Spec.hs
   build-depends:       base
                      , cis194
                      , hspec
