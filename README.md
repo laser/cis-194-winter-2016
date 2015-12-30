@@ -50,9 +50,43 @@ Week | Lecture                                                | Assignment      
 
 This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install).
 
-### Installing Project Dependencies
+Or, use Homebrew: 
 
-Project dependencies (including GHC version) are specified in the project's `.cabal` file and are downloaded and built by Stack. To build the project along with all of its dependencies, run the `stack build` command from the root directory of the project.
+```
+brew install haskell-stack
+```
+
+### Clone the Repo (Don't Fork!!)
+
+```
+15:07 $ git clone git@github.com:laser/cis-194-winter-2016.git
+Cloning into 'cis-194-winter-2016'...
+remote: Counting objects: 350, done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 350 (delta 13), reused 10 (delta 10), pack-reused 331
+Receiving objects: 100% (350/350), 9.41 MiB | 2.93 MiB/s, done.
+Resolving deltas: 100% (134/134), done.
+Checking connectivity... done.
+```
+
+### Create a Branch
+
+Create a new branch off of `master` whose name is the same as your GitHub username. Then, push the branch to the remote (GitHub) repository. If you don't have permission to push to this repository, let me know and I'll grant them.
+
+```
+15:07 $ cd cis-194-winter-2016/
+✔ ~/dev/cis-194-winter-2016 [master|✔]
+
+15:09 $ git checkout -b laser
+Switched to a new branch 'laser'
+✔ ~/dev/cis-194-winter-2016 [laser|✔]
+
+15:09 $ git push origin laser
+Total 0 (delta 0), reused 0 (delta 0)
+To git@github.com:laser/cis-194-winter-2016.git
+ * [new branch]      laser -> laser
+✔ ~/dev/cis-194-winter-2016 [laser|✔]
+```
 
 ### Running the Tests
 
