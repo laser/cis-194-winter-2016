@@ -55,5 +55,4 @@ runDev config spec = do
 
 main :: IO ()
 main = do
-  isTravisCI <- (lookupEnv "TRAVIS") >>= return . (maybe False ((==)"true"))
-  (if isTravisCI then runTravis else runDev) defaultConfig Spec.spec
+  runDev defaultConfig Spec.spec
