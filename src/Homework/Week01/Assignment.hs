@@ -37,9 +37,9 @@ __ = ""
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
 hanoi 0 _ _ _          = []
 hanoi 1 begin end _    = (begin,end) : hanoi 0 __ __ __
-hanoi n begin end temp = hanoi (n-1) begin temp  end  ++
-                         hanoi  1    begin end   temp ++
-                         hanoi (n-1) temp  end   begin
+hanoi n begin end temp = hanoi (n-1) begin end   temp ++
+                         hanoi  1    begin temp  end  ++
+                         hanoi (n-1) temp  begin end
                                   
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
