@@ -50,7 +50,7 @@ Week | Lecture                                                | Assignment      
 
 This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install).
 
-Or, use Homebrew:
+Or, use Homebrew: 
 
 ```
 brew install haskell-stack
@@ -95,13 +95,13 @@ Assignments are tested with Hspec and QuickCheck. The full test suite can be run
 To run a single week's tests:
 
 ```
-~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week02 stack test
+~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test
 ```
 
 To rebuild and run the tests each time one of the project's files change:
 
 ```
-~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week02 stack test --file-watch
+~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test --file-watch
 ```
 
 ### Charting Your Progress
