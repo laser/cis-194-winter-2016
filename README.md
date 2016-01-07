@@ -6,18 +6,18 @@ Click [here](http://coursework-progress.herokuapp.com/) to chart your progress t
 
 Week | Lecture                                                | Assignment              | Due     |
 ---- | ------------------------------------------------------ | ----------------------- | ------- |
-1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 12 |
-2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 19 |
-3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 26 |
-4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 2  |
-5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 9  |
-6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 16 |
-7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 23 |
+1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 14 |
+2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 21 |
+3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 28 |
+4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 4  |
+5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 11 |
+6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 |
+7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 |
 8    | [Functors][8]                                          | n/a                     | n/a     |
-9    | [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 1  |
-10   | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 8  |
-11   | [Monads][11]                                           | [risk][30]              | Mar. 15 |
-12   | [QuickCheck][12]                                       | [rings][31]             | Mar. 22 |
+9    | [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 3  |
+10   | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 |
+11   | [Monads][11]                                           | [risk][30]              | Mar. 17 |
+12   | [QuickCheck][12]                                       | [rings][31]             | Mar. 24 |
 
   [1]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week01L-intro.pdf
   [2]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week02L-ADTs.pdf
