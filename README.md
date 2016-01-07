@@ -88,6 +88,11 @@ To git@github.com:laser/cis-194-winter-2016.git
 ✔ ~/dev/cis-194-winter-2016 [laser|✔]
 ```
 
+### Initialize Stack
+
+We use Stack to build our project. After cloning the repository, run `stack setup`.
+
+
 ### Running the Tests
 
 Assignments are tested with Hspec and QuickCheck. The full test suite can be run by running the `stack test` command.
