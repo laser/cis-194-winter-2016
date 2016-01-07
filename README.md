@@ -92,11 +92,19 @@ To git@github.com:laser/cis-194-winter-2016.git
 
 Assignments are tested with Hspec and QuickCheck. The full test suite can be run by running the `stack test` command.
 
+To run a single test:
+
+```
+stack build && stack runghc test/Homework/Week01Spec.hs
+```
+
 To rebuild and run the tests each time one of the project's files change:
 
 ```
 ~/eswenson-healey> stack test --file-watch
 ```
+
+To rebuild the project and re-run a single test when a file changes, look into something like [entr](http://entrproject.org/).
 
 ### Charting Your Progress
 
