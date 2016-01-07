@@ -50,7 +50,7 @@ Week | Lecture                                                | Assignment      
 
 This project uses [Stack](http://docs.haskellstack.org/en/stable/README.html) to build and test the assignments. To install it, [follow the steps here](http://docs.haskellstack.org/en/stable/README.html#how-to-install).
 
-Or, use Homebrew: 
+Or, use Homebrew:
 
 ```
 brew install haskell-stack
@@ -92,16 +92,10 @@ To git@github.com:laser/cis-194-winter-2016.git
 
 Assignments are tested with Hspec and QuickCheck. The full test suite can be run by running the `stack test` command.
 
-To run a single week's tests:
-
-```
-~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test
-```
-
 To rebuild and run the tests each time one of the project's files change:
 
 ```
-~/eswenson-healey> CIS_194_TEST_TARGET=Homework.Week2 stack test --file-watch
+~/eswenson-healey> stack test --file-watch
 ```
 
 ### Charting Your Progress
