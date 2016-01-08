@@ -1,12 +1,15 @@
 module Homework.Week01.Assignment where
+import Data.Char
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits x
+	| x <= 0 = []
+	| otherwise = map toInteger (map digitToInt (show x))
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev x = reverse (toDigits x)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
