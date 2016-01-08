@@ -9,24 +9,25 @@ module Homework.Week02.Assignment (
   MessageTree(..),
   MessageType(..),
   TimeStamp
-  ) where
+) where
 
 import Homework.Week02.Log
 
 toTimeStamp :: String -> TimeStamp
 toTimeStamp  = read  
 
-toMsg        :: MessageType -> [String] -> LogMessage
-toMsg        msgType (time : xs)  = LogMessage msgType (toTimeStamp time) (unwords xs)
-
 parseInfo    ::  [String] -> LogMessage
-parseInfo    =  toMsg Info
+parseInfo (ts : rest ) =    LogMessage Info    (toTimeStamp ts)  (unwords rest)
 
 parseWarning :: [String] -> LogMessage
-parseWarning  = toMsg Warning 
+parseWarning (ts : rest) =  LogMessage Warning (toTimeStamp ts)  (unwords rest)
+
 
 parseError   :: [String] -> LogMessage
-parseError (error : xxs  )   = toMsg(Error errCode) xxs
+parseError (error : ts : rest )   =
+   LogMessage (Error errCode)
+              (toTimeStamp ts)
+              (unwords rest)
    where errCode = read error :: Int
 
 -- #1a
@@ -40,32 +41,20 @@ parseMessage line = case level of
                     
 -- #1b
 parse :: String -> [LogMessage]
-parse = map parseMessage .lines 
+parse input = map parseMessage $ lines input
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert (Unknown s) tree  = tree
-insert logMsg      Leaf  = Node Leaf logMsg Leaf
-insert logMsg@(LogMessage _ logTime _ )
-           tree@(Node left  visitedLogMsg@(LogMessage _ visitedTime _ ) right)
-       | logTime < visitedTime  = Node (insert logMsg left) visitedLogMsg  right
-       | logTime > visitedTime  = Node  left                visitedLogMsg (insert logMsg right)
-       | otherwise              = tree
+insert = undefined
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build  = foldl (flip insert) Leaf 
+build = undefined
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder Leaf = []
-inOrder (Node leftSubTree visit rightSubTree) =
-  (inOrder leftSubTree) ++ [visit] ++ (inOrder rightSubTree)
+inOrder = undefined
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = map (\ (LogMessage  _ _ msg ) -> msg ) .
-                 filter (\ (LogMessage logMsg  _  _ ) -> 
-                          case logMsg of
-                            Error n -> n > 50
-                            _       -> False ) . inOrder . build
+whatWentWrong = undefined
