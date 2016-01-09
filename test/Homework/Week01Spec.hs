@@ -39,7 +39,7 @@ spec = do
     it "should double every other int in the list, from right to left" $ do
       doubleEveryOther [8,7,6,5] `shouldBe`[16,7,12,5]
       doubleEveryOther [1,2,3] `shouldBe` [1,4,3]
-----------------------------------------------
+
   describe "sumDigits" $ do
     it "should return zero for an empty list" $ do
       sumDigits [] `shouldBe` 0
