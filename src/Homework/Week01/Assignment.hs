@@ -2,30 +2,35 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits n = if n <= 0 
+               then [] 
+               else toDigits(div n 10) ++ [mod n 10]
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev n = reverse $ toDigits n
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther xs = 
+    zipWith (*) xs $ cycle $ if odd (length xs) then [1,2] else [2,1]
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits xs = sum . concat $ map toDigits xs
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate n = 0 == mod (sumDigits (doubleEveryOther (toDigits n))) 10
 
 -- #5
 type Peg = String
 type Move = (Peg, Peg)
 
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi = undefined
+hanoi 0 a b c = []
+hanoi 1 a b c = [(a,b)]
+hanoi n a b c = hanoi (pred n) a c b ++ hanoi 1 a b c ++ hanoi (pred n) c b a
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
 hanoi4 = undefined
