@@ -1,16 +1,29 @@
 module Homework.Week01.Assignment where
 
+import Data.List (zipWith)
+
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits n
+   | n <= 0 = []
+   | n > 0  = toDigits divBy10 ++ [val]
+    where val      = n `rem` 10
+          divBy10  = n `div` 10
+revList :: [Integer] -> [Integer]
+revList = foldl (flip (:)) []
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev n
+   | n <= 0    = []
+   | n > 0     = (revList . toDigits) n
+
 
 -- #2
+-- rev . doubleEveryOther . rev
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther = revList . zipWith (*) multiplier . revList
+  where multiplier = concat $ replicate 20 [1,2]
 
 -- #3
 sumDigits :: [Integer] -> Integer
