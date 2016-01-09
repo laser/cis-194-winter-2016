@@ -1,10 +1,14 @@
 module Homework.Week03Spec (
+  main,
   spec
 ) where
 
 import Test.Hspec
 
 import Homework.Week03.Assignment
+
+main :: IO ()
+main = hspec spec
 
 spec :: Spec
 spec = do
