@@ -12,8 +12,10 @@ toDigitsRev n = reverse $ toDigits n
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther xs = 
-    zipWith (*) xs $ cycle $ if odd (length xs) then [1,2] else [2,1]
+doubleEveryOther xs = zipWith (*) xs $ cycle ys
+    where ys = if odd (length xs) 
+                 then [1,2] 
+                 else [2,1]
 
 -- #3
 sumDigits :: [Integer] -> Integer
@@ -30,7 +32,7 @@ type Move = (Peg, Peg)
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
 hanoi 0 a b c = []
 hanoi 1 a b c = [(a,b)]
-hanoi n a b c = hanoi (pred n) a c b ++ hanoi 1 a b c ++ hanoi (pred n) c b a
+hanoi n a b c = hanoi (n-1) a c b ++ hanoi 1 a b c ++ hanoi (n-1) c b a
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
 hanoi4 = undefined
