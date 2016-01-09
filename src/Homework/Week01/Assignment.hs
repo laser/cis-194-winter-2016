@@ -13,11 +13,11 @@ toDigitsRev x = reverse (toDigits x)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther [] = []
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits x = sum (concat (map toDigits x))
 
 -- #4
 validate :: Integer -> Bool
