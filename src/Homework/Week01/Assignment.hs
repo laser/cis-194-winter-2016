@@ -29,7 +29,6 @@ toDigitsRev n
    | n <= 0    = []
    | n > 0     = (revList . toDigits) n
 
-
 -- #2
 -- rev . doubleEveryOther . rev
 doubleEveryOther :: [Integer] -> [Integer]
@@ -58,12 +57,12 @@ validate :: Integer -> Bool
 validate n = validate' n  == 0 where
   validate'  = rem10 . sumDigits . doubleEveryOther . toDigits
 
--- #5
-type Peg = String
-type Move = (Peg, Peg)
+-- -- #5
+-- type Peg = String
+-- type Move = (Peg, Peg)
 
-hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi = undefined
-
-hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
-hanoi4 = undefined
+-- hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+-- hanoi = undefined
+--
+-- hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
+-- hanoi4 = undefined
