@@ -13,16 +13,19 @@ main = hspec spec
 spec :: Spec
 spec = do
   describe "LogAnalysis" $ do
+    it "should partial parse 'E' guts" $ do
+      parseErrorMessage "E 2 562 yo, dawg" `shouldBe` LogMessage (Error 2) 562 "yo, dawg"
+
     it "should parse error lines" $ do
-      pending
       parseMessage "E 2 562 help help" `shouldBe` LogMessage (Error 2) 562 "help help"
 
+    it "should parse warning lines" $ do
+      parseMessage "W 29 la la la" `shouldBe` LogMessage Warning 29 "la la la"
+
     it "should parse info lines" $ do
-      pending
       parseMessage "I 29 la la la" `shouldBe` LogMessage Info 29 "la la la"
 
     it "should parse unknown lines" $ do
-      pending
       parseMessage "This is not in the right format" `shouldBe`  Unknown "This is not in the right format"
 
   describe "parse" $ do
@@ -88,4 +91,3 @@ spec = do
       let messages = [LogMessage (Error 49) 10 "alpha", LogMessage (Error 100) 9 "kappa", LogMessage (Error 51) 11 "beta", Unknown "foo", LogMessage Warning 100 "blar"]
 
       whatWentWrong messages `shouldBe` ["kappa", "beta"]
-
