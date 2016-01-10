@@ -88,4 +88,4 @@ spec = do
       hanoi4 0 "a" "b" "c" "d" `shouldBe` []
 
     --it "should take 129 moves to move 15 discs" $ do
-    --  length (hanoi4 15 "a" "b" "c" "d") `shouldBe` 129
+      --length (hanoi4 15 "a" "b" "c" "d") `shouldBe` 129

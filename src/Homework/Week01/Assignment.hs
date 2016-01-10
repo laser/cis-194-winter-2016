@@ -36,8 +36,10 @@ type Move = (Peg, Peg)
 
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
 hanoi 0 _ _ _ = []
-hanoi n a b c = hanoi (n-1) a c b ++ [("a","b")] ++ hanoi (n-1) c b a
+hanoi n a b c = hanoi (n-1) a c b ++ [(a,b)] ++ hanoi (n-1) c b a
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
 hanoi4 0 _ _ _ _ = []
-hanoi4 n a b c d = []
+hanoi4 1 a b c d = [(a,d)]
+-- atempt at Frame–Stewart algorithm:
+hanoi4 n a b c d = hanoi4 (n - (n `div` 2)) a b d c ++ hanoi (n `div` 2) a d b ++ hanoi4 (n - (n `div` 2)) c a b d
