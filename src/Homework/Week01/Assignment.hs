@@ -26,7 +26,9 @@ sumDigits x = sum (concat (map toDigits x))
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate x = if (sumDigits (doubleEveryOther (toDigits x)) `mod` 10 == 0) 
+		then True 
+			else False
 
 -- #5
 type Peg = String
