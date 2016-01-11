@@ -1,13 +1,12 @@
 module Homework.Week01.Assignment where
 
--- #1a
--- helper functions
-
+-- helper functions for 1a
 parseDigitsToArray :: Integer -> [Integer]
 parseDigitsToArray n
   | n < 10 = [n]
   | otherwise = parseDigitsToArray(n `div` 10) ++ [n `mod` 10]
 
+-- #1a
 toDigits :: Integer -> [Integer]
 toDigits n
   | n <= 0 = []
