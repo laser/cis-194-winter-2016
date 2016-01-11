@@ -5,6 +5,7 @@ module Homework.Week02.Assignment (
   parse,
   parseMessage,
   parseErrorMessage,
+  timeStamp,
   whatWentWrong,
   LogMessage(..),
   MessageTree(..),
@@ -13,6 +14,7 @@ module Homework.Week02.Assignment (
 ) where
 
 import Homework.Week02.Log
+import Data.List (foldl')
 
 -- #1a
 
@@ -49,17 +51,42 @@ parseMessage s = case s of
 parse :: String -> [LogMessage]
 parse = map parseMessage . lines
 
+-- helper: grab the ts. if you give it a LogMessage, it'll
+-- spit back a ts
+timeStamp :: LogMessage -> TimeStamp
+timeStamp (LogMessage _ ts _) = ts
+timeStamp _ = 0
+
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
+insert lm@(LogMessage mt ts str) Leaf = Node Leaf lm Leaf
+insert lm@(LogMessage mt ts str) (Node lft lm1@(LogMessage _ ts2 _) rt)
+  | ts > ts2 = Node lft lm1 (insert lm rt)
+  | ts <= ts2 = Node (insert lm lft) lm1 rt
+insert _ mt = mt
+
+-- assume a sorted messageTree to start. if you're inserting an Unknown LogMessage,
+-- just return an empty [Leaf MT]
+-- If you're inserting a 'real' LogMessage [with it's ts], try to figure out
+-- where to insert it. It should be larger that the one on the left and
+-- smaller than the one on the right should go to the right of the the node with the LogMessage's ts tha
+-- starting with the left [smallest] node, ask whether your ts is bigger
+-- than the leftMessage, AND is it bigger than
+
 
 -- #3
+--build :: Foldable t => t LogMessage -> MessageTree
 build :: [LogMessage] -> MessageTree
-build = undefined
+--build = foldr insert Leaf
+--build [] = Leaf
+--build (x : xs) = insert x (build xs)
+build = foldl' (flip insert) Leaf
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder Leaf = [] -- it stops
+inOrder (Node lfs lm rts) =
+  inOrder lfs ++ [lm] ++ inOrder rts
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]

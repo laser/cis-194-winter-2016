@@ -32,23 +32,21 @@ spec = do
     it "should take a multi-line string and parse out the LogMessages" $ do
       let fakeLogFile = "E 2 562 help help \nI 2 hello ma"
       parse fakeLogFile `shouldBe` [LogMessage (Error 2) 562 "help help", LogMessage Info 2 "hello ma"]
------------------------------
+
   describe "insert" $ do
     it "no-ops given an Unknown LogMessage" $ do
-      pending
       insert (Unknown "foo") Leaf `shouldBe` Leaf
 
+    -- this is a new MessageTree, since Leaf's represent empty left and right to start
     it "returns a new tree with itself included, given a Leaf" $ do
-      pending
       let a = Leaf
       let b = LogMessage Warning 5 "baz"
       let c = insert b a
 
       c `shouldBe` Node Leaf b Leaf
 
-
     it "maintains the sort order of messages in the tree" $ do
-      pending
+
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"
@@ -63,7 +61,7 @@ spec = do
 
   describe "build" $ do
     it "builds a MessageTree from a list of LogMessages" $ do
-      pending
+
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"
@@ -73,7 +71,7 @@ spec = do
 
   describe "inOrder" $ do
     it "will deconstruct the MessageTree into a list of LogMessages" $ do
-      pending
+      
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"
