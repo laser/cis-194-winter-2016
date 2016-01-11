@@ -5,6 +5,7 @@ module Homework.Week02.Assignment (
   parse,
   parseMessage,
   parseErrorMessage,
+  timeStamp,
   whatWentWrong,
   LogMessage(..),
   MessageTree(..),
@@ -49,9 +50,24 @@ parseMessage s = case s of
 parse :: String -> [LogMessage]
 parse = map parseMessage . lines
 
+timeStamp :: LogMessage -> TimeStamp
+timeStamp (LogMessage _ ts _) = ts
+timeStamp _ = 0
+
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
+insert (Unknown _) _ = Leaf
+insert (LogMessage mt ts s) Leaf = Node Leaf (LogMessage mt ts s) Leaf
+--insert (LogMessage mt ts s) mtree = case mtree
+
+-- assume a sorted messageTree to start. if you're inserting an Unknown LogMessage,
+-- just return an empty [Leaf MT]
+-- If you're inserting a 'real' LogMessage [with it's ts], try to figure out
+-- where to insert it. It should be larger that the one on the left and
+-- smaller than the one on the right should go to the right of the the node with the LogMessage's ts tha
+-- starting with the left [smallest] node, ask whether your ts is bigger
+-- than the leftMessage, AND is it bigger than
+
 
 -- #3
 build :: [LogMessage] -> MessageTree
