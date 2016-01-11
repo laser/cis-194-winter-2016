@@ -16,6 +16,9 @@ spec = do
     it "should split digits of integer into a list" $ do
       toDigits 1234 `shouldBe` [1,2,3,4]
 
+    it "should make a single digit integer list with that number" $ do
+      toDigits 1 `shouldBe` [1]
+
     it "should return an empty list for zero" $ do
       toDigits 0 `shouldBe` []
 

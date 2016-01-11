@@ -1,16 +1,25 @@
 module Homework.Week01.Assignment where
 
 -- #1a
+-- helper functions
+
+parseDigitsToArray :: Integer -> [Integer]
+parseDigitsToArray n
+  | n < 10 = [n]
+  | otherwise = parseDigitsToArray(n `div` 10) ++ [n `mod` 10]
+
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits n
+  | n <= 0 = []
+  | otherwise = parseDigitsToArray n
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev n = reverse (toDigits n)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther list = map(\x -> x * 2) list
 
 -- #3
 sumDigits :: [Integer] -> Integer
