@@ -2,8 +2,8 @@ module Homework.Week01.Assignment where
 import Data.Char
 
 doubleEveryOther_helper :: [Integer] -> [Integer]
-doubleEveryOther_helper x
-	| length x <= 1 = x
+doubleEveryOther_helper [] = []
+doubleEveryOther_helper (x:[]) = [x] 
 doubleEveryOther_helper (x:y:xs) = [x] ++ (y * 2) : [] ++ doubleEveryOther_helper xs
 
 -- #1a
@@ -26,9 +26,7 @@ sumDigits x = sum (concat (map toDigits x))
 
 -- #4
 validate :: Integer -> Bool
-validate x = if (sumDigits (doubleEveryOther (toDigits x)) `mod` 10 == 0) 
-		then True 
-			else False
+validate x = (sumDigits (doubleEveryOther (toDigits x)) `mod` 10 == 0) 
 
 -- #5
 type Peg = String
