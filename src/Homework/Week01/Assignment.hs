@@ -2,15 +2,25 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits x = reverse (toDigitsRev x)
+-- toDigits = undefined
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev 0 = []
+toDigitsRev x
+    | x < 0 = []
+    | otherwise = (x `mod` 10) : toDigitsRev (x `div` 10) 
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther xs = reverse (doubleEveryOther1(reverse(xs)))
+
+doubleEveryOther1 :: [Integer] -> [Integer]
+doubleEveryOther1 [] = []
+doubleEveryOther1 (x:[]) = [x]
+doubleEveryOther1 (x:(y:[])) = x : (2*y) : []
+doubleEveryOther1 (x:(y:xs)) = x : (2*y) : doubleEveryOther1(xs)
 
 -- #3
 sumDigits :: [Integer] -> Integer
