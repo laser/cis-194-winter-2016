@@ -1,6 +1,11 @@
 module Homework.Week01.Assignment where
 import Data.Char
 
+doubleEveryOther_helper :: [Integer] -> [Integer]
+doubleEveryOther_helper x
+	| length x <= 1 = x
+doubleEveryOther_helper (x:y:xs) = [x] ++ (y * 2) : [] ++ doubleEveryOther_helper xs
+
 -- #1a
 toDigits :: Integer -> [Integer]
 toDigits x
@@ -13,7 +18,7 @@ toDigitsRev x = reverse (toDigits x)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther [] = []
+doubleEveryOther x = reverse (doubleEveryOther_helper (reverse x))
 
 -- #3
 sumDigits :: [Integer] -> Integer
