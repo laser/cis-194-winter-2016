@@ -16,9 +16,17 @@ toDigits n
 toDigitsRev :: Integer -> [Integer]
 toDigitsRev n = reverse (toDigits n)
 
+returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList :: Int -> [Int] -> Int
+returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList n list
+  | n `mod` 2 == 1 = 2 * (drop n list !! 0)
+  | otherwise = drop n list !! 0
+
 -- #2
-doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = map(\x -> x * 2) list
+doubleEveryOtherFromLeft :: [Int] -> [Int]
+doubleEveryOtherFromLeft list = foldr (\x y -> ((returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList x) list) : y) [] [0 .. length list - 1]
+
+doubleEveryOther :: [Int] -> [Int]
+doubleEveryOther list = reverse (doubleEveryOtherFromLeft (reverse list))
 
 -- #3
 sumDigits :: [Integer] -> Integer
