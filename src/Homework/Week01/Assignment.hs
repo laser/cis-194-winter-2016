@@ -2,11 +2,19 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits number
+  | number < 1 = []
+  | otherwise =
+      let (remain, digit) = divMod number 10
+      in toDigits(remain) ++ [digit]
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev number
+  | number < 1 = []
+  | otherwise =
+      let (remain, digit) = divMod number 10
+      in digit : toDigitsRev(remain)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
