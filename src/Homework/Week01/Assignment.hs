@@ -2,7 +2,7 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = reverse . toDigitsRev
+toDigits number = reverse . toDigitsRev
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
@@ -29,7 +29,7 @@ sumDigits = sum . concatMap toDigits
 
 -- #4
 validate :: Integer -> Bool
-validate = (\x -> x == 0) . (\x -> mod x 10) . sumDigits . doubleEveryOther . toDigits
+validate = (== 0) . (\x -> mod x 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
