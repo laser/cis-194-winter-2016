@@ -1,40 +1,32 @@
 module Homework.Week01.Assignment where
-
--- helper functions for 1a
-parseDigitsToArray :: Integer -> [Integer]
-parseDigitsToArray n
-  | n < 10 = [n]
-  | otherwise = parseDigitsToArray(n `div` 10) ++ [n `mod` 10]
-
 -- #1a
 toDigits :: Integer -> [Integer]
 toDigits n
   | n <= 0 = []
-  | otherwise = parseDigitsToArray n
+  | otherwise = toDigits(n `div` 10) ++ [n `mod` 10]
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
 toDigitsRev n = reverse (toDigits n)
 
-returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList :: Int -> [Int] -> Int
+returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList :: Int -> [Integer] -> Integer
 returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList n list
-  | n `mod` 2 == 1 = 2 * (drop n list !! 0)
-  | otherwise = drop n list !! 0
+  | n `mod` 2 == 1 = 2 * head (drop n list)
+  | otherwise = head (drop n list)
 
 -- #2
-doubleEveryOtherFromLeft :: [Int] -> [Int]
-doubleEveryOtherFromLeft list = foldr (\x y -> ((returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList x) list) : y) [] [0 .. length list - 1]
+doubleEveryOtherFromLeft :: [Integer] -> (Int -> [Integer] -> Integer) -> [Integer]
+doubleEveryOtherFromLeft list accFunc = foldr (\x y -> accFunc x list : y) [] [0 .. length list - 1]
 
-doubleEveryOther :: [Int] -> [Int]
-doubleEveryOther list = reverse (doubleEveryOtherFromLeft (reverse list))
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther list = reverse (doubleEveryOtherFromLeft (reverse list) returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList)
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
-
+sumDigits list = sum(concatMap toDigits list)
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate n = sumDigits (doubleEveryOther (toDigits n) ) `mod` 10 == 0
 
 -- #5
 type Peg = String
