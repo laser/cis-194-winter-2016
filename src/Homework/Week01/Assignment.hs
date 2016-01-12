@@ -2,11 +2,7 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits number
-  | number < 1 = []
-  | otherwise =
-      let (remain, digit) = divMod number 10
-      in toDigits(remain) ++ [digit]
+toDigits = reverse . toDigitsRev
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
