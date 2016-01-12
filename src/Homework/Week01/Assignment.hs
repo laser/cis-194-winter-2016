@@ -7,26 +7,26 @@ toDigits n
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev n = reverse (toDigits n)
+toDigitsRev = reverse . toDigits
 
 returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList :: Int -> [Integer] -> Integer
 returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList n list
-  | n `mod` 2 == 1 = 2 * head (drop n list)
-  | otherwise = head (drop n list)
+  | n `mod` 2 == 1 = 2 * (head $ drop n list)
+  | otherwise = head $ drop n list
 
 -- #2
 doubleEveryOtherFromLeft :: [Integer] -> (Int -> [Integer] -> Integer) -> [Integer]
 doubleEveryOtherFromLeft list accFunc = foldr (\x y -> accFunc x list : y) [] [0 .. length list - 1]
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = reverse (doubleEveryOtherFromLeft (reverse list) returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList)
+doubleEveryOther list = reverse $ doubleEveryOtherFromLeft (reverse list) returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits list = sum(concatMap toDigits list)
+sumDigits list = sum $ concatMap toDigits list
 -- #4
 validate :: Integer -> Bool
-validate n = sumDigits (doubleEveryOther (toDigits n) ) `mod` 10 == 0
+validate = (\x -> x== 0 ) . (\x -> x `mod` 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
