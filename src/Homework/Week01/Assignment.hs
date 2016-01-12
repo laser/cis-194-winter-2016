@@ -12,9 +12,16 @@ toDigitsRev number
       let (remain, digit) = divMod number 10
       in digit : toDigitsRev(remain)
 
+splitEvery :: Int -> [a] -> [[a]]
+splitEvery _ [] = []
+splitEvery size list = (take size list) : (splitEvery size (drop size list))
+
+doubleFirst :: [Integer] -> [Integer]
+doubleFirst (first : remain) = (first * 2) : remain
+
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther list = concat (map doubleFirst (splitEvery 2 list))
 
 -- #3
 sumDigits :: [Integer] -> Integer
