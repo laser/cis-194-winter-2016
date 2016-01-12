@@ -14,21 +14,22 @@ toDigitsRev x
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther xs = reverse (doubleEveryOther1(reverse(xs)))
+doubleEveryOther xs = reverse (doubleEveryOtherFromLeft(reverse(xs)))
 
-doubleEveryOther1 :: [Integer] -> [Integer]
-doubleEveryOther1 [] = []
-doubleEveryOther1 (x:[]) = [x]
-doubleEveryOther1 (x:(y:[])) = x : (2*y) : []
-doubleEveryOther1 (x:(y:xs)) = x : (2*y) : doubleEveryOther1(xs)
+doubleEveryOtherFromLeft :: [Integer] -> [Integer]
+doubleEveryOtherFromLeft [] = []
+doubleEveryOtherFromLeft (x:[]) = [x]
+doubleEveryOtherFromLeft (x:(y:xs)) = x : (2*y) : doubleEveryOtherFromLeft(xs)
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits [] = 0
+sumDigits (x:[]) = x
+sumDigits (x:xs) = sumDigits(toDigits(x)) + sumDigits(xs)
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate x = sumDigits(doubleEveryOther(toDigits(x))) `mod` 10 == 0
 
 -- #5
 type Peg = String
