@@ -14,22 +14,22 @@ toDigitsRev number
 
 splitEvery :: Int -> [a] -> [[a]]
 splitEvery _ [] = []
-splitEvery size list = (take size list) : (splitEvery size (drop size list))
+splitEvery size list = (take size list) : splitEvery size (drop size list)
 
 doubleFirst :: [Integer] -> [Integer]
 doubleFirst (first : remain) = (first * 2) : remain
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = concat (map doubleFirst (splitEvery 2 list))
+doubleEveryOther list = concatMap doubleFirst $ splitEvery 2 list
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits listOfDigits = sum $ concatMap toDigits listOfDigits
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate number = (\x -> x == 0) $ (\x -> mod x 10) $ sumDigits $ doubleEveryOther $ toDigits number
 
 -- #5
 type Peg = String
