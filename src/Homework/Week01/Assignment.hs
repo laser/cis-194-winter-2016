@@ -21,15 +21,15 @@ doubleFirst (first : remain) = (first * 2) : remain
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = concatMap doubleFirst $ splitEvery 2 list
+doubleEveryOther = concatMap doubleFirst . splitEvery 2
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits listOfDigits = sum $ concatMap toDigits listOfDigits
+sumDigits = sum . concatMap toDigits
 
 -- #4
 validate :: Integer -> Bool
-validate number = (\x -> x == 0) $ (\x -> mod x 10) $ sumDigits $ doubleEveryOther $ toDigits number
+validate = (\x -> x == 0) . (\x -> mod x 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
