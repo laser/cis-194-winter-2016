@@ -45,11 +45,18 @@ parse input = map parseMessage $ lines input
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
+insert (Unknown s) tree  = tree
+insert logMsg      Leaf  = Node Leaf logMsg Leaf
+insert logMsg@(LogMessage _  ts  _ ) 
+       (Node leftSubTree visitedLogMsg @(LogMessage nMsgType nTs nMsg)  rightSubTree) 
+    |  ts < nTs          = Node (insert logMsg leftSubTree) visitedLogMsg rightSubTree
+    |  ts > nTs          = Node leftSubTree visitedLogMsg (insert logMsg rightSubTree)
+    |  otherwise         = Node leftSubTree logMsg rightSubTree
 
+            
 -- #3
 build :: [LogMessage] -> MessageTree
-build = undefined
+build = foldr insert Leaf  
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
