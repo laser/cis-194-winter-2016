@@ -48,9 +48,9 @@ insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown s) tree  = tree
 insert logMsg      Leaf  = Node Leaf logMsg Leaf
 insert logMsg@(LogMessage _  ts  _ ) 
-       (Node leftSubTree visitedLogMsg @(LogMessage nMsgType nTs nMsg)  rightSubTree) 
-    |  ts < nTs          = Node (insert logMsg leftSubTree) visitedLogMsg rightSubTree
-    |  ts > nTs          = Node leftSubTree visitedLogMsg (insert logMsg rightSubTree)
+       (Node leftSubTree visit@(LogMessage _ nTs _)  rightSubTree) 
+    |  ts < nTs          = Node (insert logMsg leftSubTree) visit rightSubTree
+    |  ts > nTs          = Node leftSubTree visit (insert logMsg rightSubTree)
     |  otherwise         = Node leftSubTree logMsg rightSubTree
 
             
@@ -60,8 +60,14 @@ build = foldr insert Leaf
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder Leaf = []
+inOrder (Node leftSubTree visit rightSubTree) =
+  (inOrder leftSubTree) ++ [visit] ++ (inOrder rightSubTree)
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = undefined
+whatWentWrong = map (\ (LogMessage  _ msg ) -> msg ) .
+                 filter (\ (LogMessage logMsg  _  _ ) -> 
+                          case logMsg of
+                            Error n -> n > 50
+                            _       -> False ) . inOrder . build
