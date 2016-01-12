@@ -2,21 +2,17 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits n
-    | n <= 0    = []
---    | otherwise = toDigits (n `div` 10) ++ [n `mod` 10]
-    | otherwise = reverse $ toDigitsRev n
+toDigits = reverse . toDigitsRev
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev n
-    | n <= 0    = []
-    | otherwise = (n `mod` 10) : toDigitsRev (n `div` 10)
+toDigitsRev x
+    | x <= 0    = []
+    | otherwise = (x `mod` 10) : toDigitsRev (x `div` 10)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther []             = []
-doubleEveryOther xs             = reverse $ doubleEveryOtherLeftToRight $ reverse xs
+doubleEveryOther = reverse . doubleEveryOtherLeftToRight . reverse
 
 doubleEveryOtherLeftToRight :: [Integer] -> [Integer]
 doubleEveryOtherLeftToRight []              = []
@@ -27,13 +23,11 @@ doubleEveryOtherLeftToRight (x : y : zs)    = x : (2 * y) : doubleEveryOtherLeft
 sumDigits :: [Integer] -> Integer
 sumDigits []        = 0
 sumDigits [x]       = x
-sumDigits (x : xs)  = (sumDigits $ toDigits x) + sumDigits xs
+sumDigits (x : xs)  = (sumDigits . toDigits $ x) + sumDigits xs
 
 -- #4
 validate :: Integer -> Bool
-validate n
-    | (sumDigits $ doubleEveryOther $ toDigits n) `mod` 10 == 0 = True
-    | otherwise                                                 = False
+validate x = (sumDigits . doubleEveryOther . toDigits $ x) `mod` 10 == 0
 
 
 -- #5
