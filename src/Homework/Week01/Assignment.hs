@@ -19,11 +19,12 @@ doubleEveryOther xs = zipWith (*) xs $ cycle ys
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits xs = sum . concat $ map toDigits xs
+sumDigits xs = sum $ concatMap toDigits xs
 
 -- #4
 validate :: Integer -> Bool
-validate n = 0 == mod (sumDigits (doubleEveryOther (toDigits n))) 10
+validate n = mod checksum 10 == 0
+    where checksum = sumDigits . doubleEveryOther $ toDigits n
 
 -- #5
 type Peg = String
