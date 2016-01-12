@@ -1,24 +1,38 @@
 module Homework.Week01.Assignment where
 
+import Data.Char
+
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits n
+  | n <= 0 = []
+  | otherwise = map toInteger (map digitToInt (show n))
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev n = reverse (toDigits n)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther n = reverse (reversedDouble (reverse n))
+
+reversedDouble :: [Integer] -> [Integer]
+reversedDouble [] = []
+reversedDouble [x] = [x]
+reversedDouble (x:y:z) = x : (2 * y) : (reversedDouble z)
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits n = foldr (+) 0 (map sumDigit n)
+
+sumDigit :: Integer -> Integer
+sumDigit n = foldr (+) 0 (toDigits n)
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate n
+  | (sumDigits (doubleEveryOther (toDigits n))) `mod` 10 == 0 = True
+  | otherwise = False
 
 -- #5
 type Peg = String
