@@ -29,7 +29,6 @@ type Move = (Peg, Peg)
 
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
 hanoi 0 from to storage = []
-hanoi 1 from to storage = [(from, to)]
 hanoi disks from to storage = (hanoi (disks-1) from storage to) ++ [(from, to)] ++ (hanoi (disks-1) storage to from)
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
