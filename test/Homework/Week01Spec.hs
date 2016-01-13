@@ -61,12 +61,24 @@ spec = do
     it "should return False for invalid card number" $ do
       validate 4012888888881882 `shouldBe` False
 
-{- this one is optional, will probably get to it later
-
   describe "hanoi" $ do
     it "should return an empty list for zero discs" $ do
       hanoi 0 "a" "b" "c" `shouldBe` []
 
     it "should solve for 1 disc" $ do
       hanoi 1 "a" "b" "c" `shouldBe` [("a", "b")]
--}
+
+    it "should solve for 2 discs" $ do
+      hanoi 2 "a" "b" "c" `shouldBe` [("a","c"),("a","b"),("c","b")]
+
+    it "should solve for 3 discs" $ do
+      hanoi 3 "a" "b" "c" `shouldBe` [("a","b"),("a","c"),("b","c"),("a","b"),("c","a"),("c","b"),("a","b")]
+
+    it "should have the correct number of moves for 4 discs" $ do
+      (length $ hanoi 4 "a" "b" "c") `shouldBe` 15
+
+    it "should have the correct number of moves for 5 discs" $ do
+      (length $ hanoi 5 "a" "b" "c") `shouldBe` 31
+
+    it "should have the correct number of moves for 6 discs" $ do
+      (length $ hanoi 6 "a" "b" "c") `shouldBe` 63
