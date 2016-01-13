@@ -34,7 +34,7 @@ returnIntegerTwoIfItsOdd n
 doubleIfIndexIsEven :: (Integer, Integer) -> Integer
 doubleIfIndexIsEven pair
   = let (digit, index) = pair
-    in digit * returnIntegerTwoIfItsOdd(index)
+    in digit * returnIntegerTwoIfItsOdd index
 
 
 doubleEveryOtherFromLeft :: [Integer] -> [Integer]
@@ -48,7 +48,7 @@ sumDigits :: [Integer] -> Integer
 sumDigits list = sum $ concatMap toDigits list
 -- #4
 validate :: Integer -> Bool
-validate = (\x -> x == 0 ) . (\x -> x `mod` 10) . sumDigits . doubleEveryOther . toDigits
+validate = (== 0 ) . (`mod` 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
