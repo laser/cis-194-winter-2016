@@ -6,11 +6,9 @@ toDigits = reverse . toDigitsRev
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev number
-  | number < 1 = []
-  | otherwise =
-      let (remain, digit) = divMod number 10
-      in digit : toDigitsRev(remain)
+toDigitsRev number = case divMod number 10 of
+  (0     , digit) -> [digit]
+  (remain, digit) -> digit : toDigitsRev(remain)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
