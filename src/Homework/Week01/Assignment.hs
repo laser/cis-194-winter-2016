@@ -23,25 +23,35 @@ toDigits = reverse . toDigitsRev
 -- doubleEveryOther list = reverse $ doubleEveryOtherFromLeft (reverse list) returnADoubleValueIfIndexIsEvenElseReturnSameValueFromList
 
 --second attempt
-getListWithIndices :: [Integer] -> [(Integer, Integer)]
-getListWithIndices list = zip list [0 .. toInteger $ length list - 1]
+-- getListWithIndices :: [Integer] -> [(Integer, Integer)]
+-- getListWithIndices list = zip list [0 .. toInteger $ length list - 1]
+--
+-- returnIntegerTwoIfItsOdd :: Integer -> Integer
+-- returnIntegerTwoIfItsOdd n
+--   | odd n = 2
+--   | otherwise = 1
+--
+-- doubleIfIndexIsEven :: (Integer, Integer) -> Integer
+-- doubleIfIndexIsEven pair
+--   = let (digit, index) = pair
+--     in digit * returnIntegerTwoIfItsOdd index
+--
+--
+-- doubleEveryOtherFromLeft :: [Integer] -> [Integer]
+-- doubleEveryOtherFromLeft list = map doubleIfIndexIsEven (getListWithIndices list)
+--
+-- doubleEveryOther :: [Integer] -> [Integer]
+-- doubleEveryOther list = reverse $ doubleEveryOtherFromLeft (reverse list)
 
-returnIntegerTwoIfItsOdd :: Integer -> Integer
-returnIntegerTwoIfItsOdd n
-  | odd n = 2
-  | otherwise = 1
-
-doubleIfIndexIsEven :: (Integer, Integer) -> Integer
-doubleIfIndexIsEven pair
-  = let (digit, index) = pair
-    in digit * returnIntegerTwoIfItsOdd index
-
+-- Solution that is similar to the chapter 1's sumEveryTwo
 
 doubleEveryOtherFromLeft :: [Integer] -> [Integer]
-doubleEveryOtherFromLeft list = map doubleIfIndexIsEven (getListWithIndices list)
+doubleEveryOtherFromLeft [] = []
+doubleEveryOtherFromLeft (x : []) = [x]
+doubleEveryOtherFromLeft (x : y : z) = x : (2 * y) : doubleEveryOtherFromLeft z
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = reverse $ doubleEveryOtherFromLeft (reverse list)
+doubleEveryOther list  = reverse $ doubleEveryOtherFromLeft (reverse list)
 
 -- #3
 sumDigits :: [Integer] -> Integer
