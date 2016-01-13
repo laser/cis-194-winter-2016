@@ -104,6 +104,17 @@ To rebuild and run the tests each time one of the project's files change:
 ~/eswenson-healey> stack test --file-watch
 ```
 
+To debug your code interactively
+```
+stack ghci
+```
+
+To shorten the annoyingly long prompt when loading packages, edit ~/.ghc/ghci.conf
+```
+:set prompt "> "
+```
+
+
 To rebuild the project and re-run a single test when a file changes, look into something like [entr](http://entrproject.org/).
 
 ### Charting Your Progress
