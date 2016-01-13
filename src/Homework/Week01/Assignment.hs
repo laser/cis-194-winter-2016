@@ -8,12 +8,12 @@ toDigits = reverse . toDigitsRev
 toDigitsRev :: Integer -> [Integer]
 toDigitsRev number = case divMod number 10 of
   (0     , digit) -> [digit]
-  (remain, digit) -> digit : toDigitsRev(remain)
+  (remain, digit) -> digit : (toDigitsRev remain)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther [] = []
-doubleEveryOther (first : second : remain) = (first * 2) : second : doubleEveryOther(remain)
+doubleEveryOther (first : second : remain) = (first * 2) : second : (doubleEveryOther remain)
 
 -- #3
 sumDigits :: [Integer] -> Integer
