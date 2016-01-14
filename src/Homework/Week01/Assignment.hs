@@ -1,24 +1,29 @@
 module Homework.Week01.Assignment where
-
+import Data.Char
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits n
+  |n <= 0 = []
+  |otherwise = map toInteger (map digitToInt (show n))
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev n = reverse (toDigits n)
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
-
+doubleEveryOther' [] = []
+doubleEveryOther' [x] = [x]
+doubleEveryOther' (x:y:xs) = x:(2*y):(doubleEveryOther' xs)
+doubleEveryOther = reverse . doubleEveryOther' . reverse
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits [] = 0
+sumDigits (x:xs) = sum(toDigits x) + (sumDigits xs)
 
 -- #4
 validate :: Integer -> Bool
-validate = undefined
+validate = (==0) .  (`mod` 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
