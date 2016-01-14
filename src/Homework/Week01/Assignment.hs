@@ -12,8 +12,11 @@ toDigitsRev number = case divMod number 10 of
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther [] = []
-doubleEveryOther (first : second : remain) = (first * 2) : second : (doubleEveryOther remain)
+doubleEveryOther = reverse . doubleEveryOtherStartAtSecond . reverse
+
+doubleEveryOtherStartAtSecond :: [Integer] -> [Integer]
+doubleEveryOtherStartAtSecond (first : second : remain) = first : second * 2 : doubleEveryOtherStartAtSecond remain
+doubleEveryOtherStartAtSecond list = list
 
 -- #3
 sumDigits :: [Integer] -> Integer
@@ -21,14 +24,14 @@ sumDigits = sum . concatMap toDigits
 
 -- #4
 validate :: Integer -> Bool
-validate = (== 0) . (`mod` 10) . sumDigits . doubleEveryOther . toDigits
+validate = (== 0) . (`mod` 10) . sumDigits  . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
 type Move = (Peg, Peg)
 
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi 0 from to storage = []
+hanoi 0 _ _ _ = []
 hanoi disks from to storage = (hanoi (disks-1) from storage to) ++ [(from, to)] ++ (hanoi (disks-1) storage to from)
 
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
