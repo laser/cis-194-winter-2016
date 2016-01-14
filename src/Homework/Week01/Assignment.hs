@@ -1,32 +1,32 @@
 module Homework.Week01.Assignment where
 import Data.Char
 
-doubleEveryOther_helper :: [Integer] -> [Integer]
-doubleEveryOther_helper [] = []
-doubleEveryOther_helper (x:[]) = [x] 
-doubleEveryOther_helper (x:y:xs) = [x] ++ (y * 2) : [] ++ doubleEveryOther_helper xs
-
 -- #1a
 toDigits :: Integer -> [Integer]
 toDigits x
 	| x <= 0 = []
-	| otherwise = map toInteger (map digitToInt (show x))
+	| otherwise = map toInteger . map digitToInt . show $ x
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev x = reverse (toDigits x)
+toDigitsRev = reverse . toDigits
 
 -- #2
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther x = reverse (doubleEveryOther_helper (reverse x))
+doubleEveryOther = reverse . deol . reverse
+
+deol :: [Integer] -> [Integer]
+deol [] = []
+deol (x:[]) = [x] 
+deol (x:y:xs) = [x] ++ [y * 2] ++ deol xs
 
 -- #3
 sumDigits :: [Integer] -> Integer
-sumDigits x = sum (concat (map toDigits x))
+sumDigits = sum . concat . map toDigits
 
--- #4
+-- #4()
 validate :: Integer -> Bool
-validate x = (sumDigits (doubleEveryOther (toDigits x)) `mod` 10 == 0) 
+validate =  (== 0) . (`mod` 10) . sumDigits . doubleEveryOther . toDigits
 
 -- #5
 type Peg = String
