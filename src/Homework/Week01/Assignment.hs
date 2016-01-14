@@ -2,9 +2,9 @@ module Homework.Week01.Assignment where
 
 -- #1a
 toDigits :: Integer -> [Integer]
-toDigits n = if n <= 0 
-               then [] 
-               else toDigits(div n 10) ++ [mod n 10]
+toDigits n
+     | n <= 0     = []
+     | otherwise  = toDigits(div n 10) ++ [mod n 10]
 
 -- #1b
 toDigitsRev :: Integer -> [Integer]
