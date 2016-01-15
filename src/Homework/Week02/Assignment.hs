@@ -22,17 +22,17 @@ errorMsg s = LogMessage error ts msg
           ts = read(tokens !! 2)
           msg = unwords $ drop 3 tokens
 
-makeMsg :: String -> MessageType -> LogMessage
-makeMsg s t = LogMessage t ts msg
+makeMsg :: MessageType -> String -> LogMessage
+makeMsg t s = LogMessage t ts msg
     where tokens = words s
           ts = read(tokens !! 1)
           msg = unwords $ drop 2 tokens
 
 infoMsg :: String -> LogMessage
-infoMsg s = makeMsg s Info
+infoMsg = makeMsg Info
 
 warnMsg :: String -> LogMessage
-warnMsg s = makeMsg s Warning
+warnMsg = makeMsg Warning
 
 parseMessage :: String -> LogMessage
 parseMessage s@('W':' ':_) = warnMsg s
@@ -42,7 +42,7 @@ parseMessage s = Unknown s
 
 -- #1b
 parse :: String -> [LogMessage]
-parse s = map parseMessage $ lines s
+parse = (map parseMessage) . lines
 
 -- #2
 when :: LogMessage -> Int
@@ -58,7 +58,7 @@ insert newMsg (Node left msg right) =
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build msgs = foldl (\ tree msg -> insert msg tree) Leaf msgs
+build = foldl (\ tree msg -> insert msg tree) Leaf 
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
@@ -74,4 +74,4 @@ error50 (LogMessage (Error code) _ msg) = code >= 50
 error50 _ = False
 
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong msgs = map msg $ filter error50 $ inOrder $ build msgs
+whatWentWrong = (map msg) . (filter error50) . inOrder . build
