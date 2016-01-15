@@ -14,21 +14,18 @@ module Homework.Week02.Assignment (
 import Homework.Week02.Log
 
 -- #1a
-readInt :: String -> Int
-readInt s = read(s) :: Int
-
 errorMsg :: String -> LogMessage
 errorMsg s = LogMessage error ts msg
     where tokens = words s
-          errCode = readInt(tokens !! 1)
+          errCode = read(tokens !! 1)
           error = Error errCode
-          ts = readInt(tokens !! 2)
+          ts = read(tokens !! 2)
           msg = unwords $ drop 3 tokens
 
 makeMsg :: String -> MessageType -> LogMessage
 makeMsg s t = LogMessage t ts msg
     where tokens = words s
-          ts = readInt(tokens !! 1)
+          ts = read(tokens !! 1)
           msg = unwords $ drop 2 tokens
 
 infoMsg :: String -> LogMessage
