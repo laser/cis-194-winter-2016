@@ -20,71 +20,78 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Char (isUpper, isSpace)
+import Data.List (intercalate)
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 a b = b
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 a _ = a
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ b = b
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 _ _ a = a
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 a = a
 
 -- #6
+-- impossible 
 ex6 :: (a -> a) -> a
 ex6 = undefined
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 f a = a
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 a = a
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f a = map f a
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 (Just a) = a
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 a = Just a
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 a = a
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST f a Leaf = (Node Leaf a Leaf)
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = all isFirstUpper 
+    where isFirstUpper []    = False
+          isFirstUpper (s:_) = isUpper s
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = reverse . (dropWhile isSpace) . reverse
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = filter (not . isSpace) . (map firstLetter)
+    where firstLetter []    = ' '
+          firstLetter (x:_) = x
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList ss = "[" ++ (intercalate ", " ss) ++ "]"
