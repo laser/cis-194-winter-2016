@@ -10,13 +10,7 @@ module Homework.Week02.Assignment (
   MessageType(..),
   TimeStamp
 ) where
-
 import Homework.Week02.Log
-
--- data LogMessage = LogMessage MessageType TimeStamp String
---                 | Unknown String
-
---  parseMessage "E 2 562 help help" `shouldBe` LogMessage (Error 2) 562 "help help"
 
 -- #1a
 parseMessageList :: [String] -> LogMessage
@@ -28,21 +22,36 @@ parseMessage :: String -> LogMessage
 parseMessage = parseMessageList . words
 
 -- #1b
+parseMessageListWithMultipleLines :: [String] -> [LogMessage]
+parseMessageListWithMultipleLines = map parseMessage
+
 parse :: String -> [LogMessage]
-parse = undefined
+parse = parseMessageListWithMultipleLines . lines
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
-
+insert (Unknown _) originalMessageTree  =  originalMessageTree
+insert element Leaf = Node Leaf element Leaf
+insert e @ (LogMessage _ elementTime _ ) m @ (Node left (logMessage @ (LogMessage _ nodeTime _ )) right) = case elementTime > nodeTime of
+                                                                                      True -> Node left logMessage (insert e right)
+                                                                                      otherwise -> Node (insert e left) logMessage right
 -- #3
 build :: [LogMessage] -> MessageTree
-build = undefined
+build (x:y) = foldr insert (Node Leaf x Leaf) y
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder Leaf = []
+inOrder (Node left singleElement right) =  inOrder left ++ singleElement : inOrder right
 
 -- #5
+extractSevMessage :: LogMessage -> String
+extractSevMessage (LogMessage _ _ message ) = message
+extractSevMessage idontknowwhatitis = ""
+
+extractSevLevelOver50 :: LogMessage -> Bool
+extractSevLevelOver50 (LogMessage (Error x) _ _ ) = x > 50
+extractSevLevelOver50 idontknowwhatitis = False
+
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = undefined
+whatWentWrong  = map extractSevMessage . filter extractSevLevelOver50
