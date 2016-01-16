@@ -22,10 +22,11 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
 import Data.List (intercalate)
+import Data.Maybe (mapMaybe)
 
 -- #1
 ex1 :: a -> b -> b
-ex1 a b = b
+ex1 _ b = b
 
 -- #2
 ex2 :: a -> a -> a
@@ -41,7 +42,7 @@ ex4 _ _ a = a
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 a = a
+ex5 = id
 
 -- #6
 -- impossible 
@@ -54,7 +55,7 @@ ex7 f a = a
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 a = a
+ex8 = id
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
@@ -63,6 +64,7 @@ ex9 f a = map f a
 -- #10
 ex10 :: Maybe a -> a
 ex10 (Just a) = a
+ex10 Nothing = error "sorry"
 
 -- #11
 ex11 :: a -> Maybe a
@@ -70,7 +72,7 @@ ex11 a = Just a
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 a = a
+ex12 = id
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
@@ -93,9 +95,9 @@ dropTrailingWhitespace = dropLastWhile isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = filter (not . isSpace) . (map firstLetter)
-    where firstLetter []    = ' '
-          firstLetter (x:_) = x
+firstLetters = mapMaybe firstLetter
+    where firstLetter []    = Nothing
+          firstLetter (x:_) = Just x
 
 -- #17
 asList :: [String] -> String
