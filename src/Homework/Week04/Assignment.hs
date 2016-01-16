@@ -83,8 +83,13 @@ allCaps = all isFirstUpper
           isFirstUpper (s:_) = isUpper s
 
 -- #15
+
+dropLastWhile :: (Char -> Bool) -> String -> String
+dropLastWhile _ [] = []
+dropLastWhile f xs = if f (last xs) then dropLastWhile f (init xs) else xs
+
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = reverse . (dropWhile isSpace) . reverse
+dropTrailingWhitespace = dropLastWhile isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
