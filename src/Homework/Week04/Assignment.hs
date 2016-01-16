@@ -21,8 +21,8 @@ module Homework.Week04.Assignment (
 
 import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
-import Data.List (intercalate)
-import Data.Maybe (mapMaybe)
+import Data.List (intercalate, dropWhileEnd)
+import Data.Maybe (mapMaybe, listToMaybe)
 
 -- #1
 ex1 :: a -> b -> b
@@ -80,24 +80,15 @@ insertBST f a Leaf = (Node Leaf a Leaf)
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = all isFirstUpper 
-    where isFirstUpper []    = False
-          isFirstUpper (s:_) = isUpper s
+allCaps = all ((maybe False isUpper) . listToMaybe)
 
 -- #15
-
-dropLastWhile :: (Char -> Bool) -> String -> String
-dropLastWhile _ [] = []
-dropLastWhile f xs = if f (last xs) then dropLastWhile f (init xs) else xs
-
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = dropLastWhile isSpace
+dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = mapMaybe firstLetter
-    where firstLetter []    = Nothing
-          firstLetter (x:_) = Just x
+firstLetters = mapMaybe listToMaybe
 
 -- #17
 asList :: [String] -> String
