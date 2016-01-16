@@ -55,4 +55,4 @@ extractSevLevelOver50 (LogMessage (Error x) _ _ ) = x > 50
 extractSevLevelOver50 whatDoYouMean = False
 
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong  = map extractSevMessage . filter extractSevLevelOver50
+whatWentWrong = map extractSevMessage . filter extractSevLevelOver50 . inOrder . build
