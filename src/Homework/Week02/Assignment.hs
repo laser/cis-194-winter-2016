@@ -11,7 +11,7 @@ module Homework.Week02.Assignment (
   TimeStamp
 ) where
 
-import Homework.Week02.Log
+import           Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage
