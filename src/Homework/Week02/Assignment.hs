@@ -57,6 +57,7 @@ timeStamp :: LogMessage -> TimeStamp
 timeStamp (LogMessage _ ts _) = ts
 timeStamp _ = 0
 
+
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
 insert lm@(LogMessage mt ts str) Leaf = Node Leaf lm Leaf
