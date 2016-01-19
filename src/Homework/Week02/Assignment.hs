@@ -16,12 +16,12 @@ import Debug.Trace
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage (s) =  trace ("s is %%%%%%%%" ++ s) (case words(s) of
-                                            ("E":xs) -> LogMessage (Error 2) 562 "help help"
-                                            ("I":xs) -> LogMessage Info 29 "la la la"
-                                            _ -> Unknown "This is not in the right format")
+parseMessage (s) =  (case words(s) of
+                        ("E" : code : time : xs) -> LogMessage (Error (read(code))) (read(time)) (unwords(xs))
+                        ("I" : time : xs) -> LogMessage Info (read(time)) (unwords(xs))
+                        xs -> Unknown (unwords xs))
 
-
+-- trace ("s is " ++ s)
 -- #1b
 parse :: String -> [LogMessage]
 parse = undefined
