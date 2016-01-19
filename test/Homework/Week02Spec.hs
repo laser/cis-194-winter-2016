@@ -53,6 +53,17 @@ spec = do
 
 
   describe "build" $ do
+    it "builds a MessageTree from a length 1 list of LogMessages" $ do
+      let foo = LogMessage Warning 10 "foo"
+
+      build ([foo]) `shouldBe` Node Leaf foo Leaf
+
+    it "builds a MessageTree from a length 2 list of LogMessages" $ do
+      let foo = LogMessage Warning 10 "foo"
+      let baz = LogMessage Warning 5 "baz"
+
+      build ([foo, baz]) `shouldBe` Node (Node Leaf baz Leaf) foo Leaf
+
     it "builds a MessageTree from a list of LogMessages" $ do
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
@@ -75,11 +86,6 @@ spec = do
 
   describe "whatWentWrong" $ do
     it "will return the messages from LogMessages with Errors whose severity is 50+ - sorted by timestamp" $ do
-<<<<<<< HEAD
-      let messages = [LogMessage (Error 49) 10 "alpha", LogMessage (Error 100) 9 "kappa", LogMessage (Error 51) 11 "beta", Unknown "foo", LogMessage Warning 100 "blar"]
-=======
-      pending
       let messages = [LogMessage (Error 49) 10 "alpha", LogMessage (Error 51) 11 "beta", LogMessage (Error 100) 9 "kappa", Unknown "foo", LogMessage Warning 100 "blar"]
->>>>>>> origin
 
       whatWentWrong messages `shouldBe` ["kappa", "beta"]

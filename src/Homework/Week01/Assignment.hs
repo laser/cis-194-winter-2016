@@ -38,11 +38,11 @@ validate :: Integer -> Bool
 validate n = (sumDigits . doubleEveryOther . toDigits) n `mod` 10 == 0
 
 -- #5
-type Peg = String
-type Move = (Peg, Peg)
-
-hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi = undefined
-
-hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
-hanoi4 = undefined
+-- type Peg = String
+-- type Move = (Peg, Peg)
+--
+-- hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+-- hanoi = undefined
+--
+-- hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
+-- hanoi4 = undefined
