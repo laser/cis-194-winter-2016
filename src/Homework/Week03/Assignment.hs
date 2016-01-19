@@ -6,8 +6,11 @@ module Homework.Week03.Assignment (
 
 -- #1
 skips :: [a] -> [[a]]
-skips []  = []
-skips xx@(_:xs) = xx : skips xs
+skips xss = takeWhile (\x -> case x of
+                        [] -> False
+                        _  -> True ) $ map (doSkip xss) [1..]
+            where doSkip xs n = map fst $ filter (\ (e,idx) -> idx `mod` n == 0 ) $ zip xs [1..]
+
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
