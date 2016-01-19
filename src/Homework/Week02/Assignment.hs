@@ -34,7 +34,7 @@ parseLines (x:xs) = parseMessage(x) : parseLines(xs)
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) currentTree = currentTree
 insert message Leaf = Node Leaf message Leaf
-insert newMessage@(LogMessage Warning newTime _) (Node leftTree message@(LogMessage Warning time _) rightTree)
+insert newMessage@(LogMessage _ newTime _) (Node leftTree message@(LogMessage _ time _) rightTree)
     | newTime > time =
         trace("decompose - right " ++ show newMessage ++ " : " ++ show message)
         Node leftTree message (insert newMessage rightTree)
