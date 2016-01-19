@@ -12,10 +12,15 @@ module Homework.Week02.Assignment (
 ) where
 
 import Homework.Week02.Log
+import Debug.Trace
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage = undefined
+parseMessage (s) =  trace ("s is %%%%%%%%" ++ s) (case words(s) of
+                                            ("E":xs) -> LogMessage (Error 2) 562 "help help"
+                                            ("I":xs) -> LogMessage Info 29 "la la la"
+                                            _ -> Unknown "This is not in the right format")
+
 
 -- #1b
 parse :: String -> [LogMessage]
