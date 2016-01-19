@@ -14,11 +14,11 @@ spec :: Spec
 spec = do
   describe "skips" $ do
     it "outputs the input list if empty" $ do
-      pending
+
       skips ([] :: [Int]) `shouldBe` []
 
     it "outputs in the nth list every nth element from the input list" $ do
-      pending
+      
       skips [1] `shouldBe` [[1]]
       skips [True, False] `shouldBe` [[True, False], [False]]
       skips "ABCD" `shouldBe` ["ABCD", "BD", "C", "D"]
