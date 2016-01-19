@@ -29,16 +29,17 @@ parse messageLog = map parseMessage (lines messageLog)
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree = tree
 insert message Leaf     = Node Leaf message Leaf
-insert message@(LogMessage mtype insertTime rest) tree@(Node left contents@(LogMessage _ treeTime _) right)
-  | insertTime <= treeTime  = Node (insert message left) contents right
-  | otherwise               = Node left contents (insert message right)
+insert message@(LogMessage _ newTime _) tree@(Node left oldMessage@(LogMessage _ oldTime _) right)
+  | newTime <= oldTime  = Node (insert message left) oldMessage right
+  | otherwise           = Node left oldMessage (insert message right)
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build messages = case messages of
-  [m]    -> insert m Leaf
-  (m:ms) -> insert m (build ms)
-  _      -> Leaf
+-- build messages = case messages of
+--   (m:[]) -> insert m Leaf
+--   (m:ms) -> insert m (build ms)
+--   _      -> Leaf
+build = foldl (flip insert) Leaf
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
