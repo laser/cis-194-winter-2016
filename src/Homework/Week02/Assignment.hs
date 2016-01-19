@@ -9,25 +9,24 @@ module Homework.Week02.Assignment (
   MessageTree(..),
   MessageType(..),
   TimeStamp
-) where
+  ) where
 
 import Homework.Week02.Log
 
 toTimeStamp :: String -> TimeStamp
 toTimeStamp  = read  
 
+toMsg        :: MessageType -> [String] -> LogMessage
+toMsg        msgType (time : xs)  = LogMessage msgType (toTimeStamp time) (unwords xs)
+
 parseInfo    ::  [String] -> LogMessage
-parseInfo (ts : rest ) =    LogMessage Info    (toTimeStamp ts)  (unwords rest)
+parseInfo    =  toMsg Info
 
 parseWarning :: [String] -> LogMessage
-parseWarning (ts : rest) =  LogMessage Warning (toTimeStamp ts)  (unwords rest)
-
+parseWarning  = toMsg Warning 
 
 parseError   :: [String] -> LogMessage
-parseError (error : ts : rest )   =
-   LogMessage (Error errCode)
-              (toTimeStamp ts)
-              (unwords rest)
+parseError (error : xxs  )   = toMsg(Error errCode) xxs
    where errCode = read error :: Int
 
 -- #1a
@@ -41,22 +40,21 @@ parseMessage line = case level of
                     
 -- #1b
 parse :: String -> [LogMessage]
-parse input = map parseMessage $ lines input
+parse = map parseMessage .lines 
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown s) tree  = tree
 insert logMsg      Leaf  = Node Leaf logMsg Leaf
-insert logMsg@(LogMessage _  ts  _ ) 
-       (Node leftSubTree visit@(LogMessage _ nTs _)  rightSubTree) 
-    |  ts < nTs          = Node (insert logMsg leftSubTree) visit rightSubTree
-    |  ts > nTs          = Node leftSubTree visit (insert logMsg rightSubTree)
-    |  otherwise         = Node leftSubTree logMsg rightSubTree
+insert logMsg@(LogMessage _ logTime _ )
+           tree@(Node left  visitedLogMsg@(LogMessage _ visitedTime _ ) right)
+       | logTime < visitedTime  = Node (insert logMsg left) visitedLogMsg  right
+       | logTime > visitedTime  = Node  left                visitedLogMsg (insert logMsg right)
+       | otherwise              = tree
 
-            
 -- #3
 build :: [LogMessage] -> MessageTree
-build = foldr insert Leaf  
+build  = foldl (flip insert) Leaf 
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
@@ -66,7 +64,7 @@ inOrder (Node leftSubTree visit rightSubTree) =
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = map (\ (LogMessage  _ msg ) -> msg ) .
+whatWentWrong = map (\ (LogMessage  _ _ msg ) -> msg ) .
                  filter (\ (LogMessage logMsg  _  _ ) -> 
                           case logMsg of
                             Error n -> n > 50
