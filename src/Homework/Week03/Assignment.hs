@@ -6,11 +6,16 @@ module Homework.Week03.Assignment (
 
 -- #1
 skips :: [a] -> [[a]]
-skips = undefined
+skips []  = []
+skips xx@(_:xs) = xx : skips xs
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
-localMaxima = undefined
+--localMaxima (a:b:c:xs)
+--  |   a < b < c    = b : localMaxima (c : xs)
+--  |   otherwise    = localMaxima (c : xs)                     
+localMaxima _      = []
+
 
 -- #3
 histogram :: [Integer] -> String
