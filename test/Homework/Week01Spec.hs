@@ -68,7 +68,6 @@ spec = do
       validate 4012888888881881 `shouldBe` True
 
     it "should return False for invalid card number" $ do
-      pending
       validate 4012888888881882 `shouldBe` False
 
   -- describe "hanoi" $ do
