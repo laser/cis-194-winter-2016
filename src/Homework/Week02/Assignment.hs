@@ -53,7 +53,9 @@ buildReverse (x:xs) = insert x (buildReverse xs)
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder Leaf = []
+inOrder (Node Leaf message rightTree) = message : (inOrder rightTree)
+inOrder (Node leftTree message rightTree) = (inOrder leftTree) ++ [message] ++ (inOrder rightTree)
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]

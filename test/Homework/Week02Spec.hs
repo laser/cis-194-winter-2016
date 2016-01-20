@@ -70,7 +70,7 @@ spec = do
 
   describe "inOrder" $ do
     it "will deconstruct the MessageTree into a list of LogMessages" $ do
-      pending
+--       pending
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"
