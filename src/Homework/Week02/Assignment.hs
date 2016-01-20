@@ -36,10 +36,8 @@ insert (Unknown _) currentTree = currentTree
 insert message Leaf = Node Leaf message Leaf
 insert newMessage@(LogMessage _ newTime _) (Node leftTree message@(LogMessage _ time _) rightTree)
     | newTime > time =
-        trace("decompose - right " ++ show newMessage ++ " : " ++ show message)
         Node leftTree message (insert newMessage rightTree)
     | otherwise =
-        trace("decompose - left " ++ show newMessage ++ " : " ++ show message)
         Node (insert newMessage leftTree) message rightTree
 
 -- #3
@@ -59,4 +57,12 @@ inOrder (Node leftTree message rightTree) = (inOrder leftTree) ++ [message] ++ (
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = undefined
+whatWentWrong = filterLog . inOrder . build
+
+filterLog :: [LogMessage] -> [String]
+filterLog [] = []
+filterLog (x@(LogMessage (Error severity) _ message):xs)
+    | severity > 49 = message : filterLog(xs)
+    | otherwise = filterLog(xs)
+filterLog (x:xs) = filterLog xs
+
