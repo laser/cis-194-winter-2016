@@ -26,7 +26,7 @@ spec = do
 
   describe "localMaxima" $ do
     it "returns all the local maxima in the input list, in order" $ do
-      pending
+      
       localMaxima [1, 2] `shouldBe` []
       localMaxima [1, 2, 3] `shouldBe` []
       localMaxima [2, 9, 5, 6, 1] `shouldBe` [9, 6]
@@ -37,7 +37,6 @@ spec = do
     it "takes as input a list of Integers between 0 and 9 (inclusive) and \
         \ outputs a vertical histogram showing how many of each number were in \
         \ the input list" $ do
-      pending
 
       let hs1 = "\
                  \ *        \n\
