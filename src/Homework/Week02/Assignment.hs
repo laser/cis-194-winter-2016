@@ -16,29 +16,24 @@ import Debug.Trace
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage (s) =  (case words(s) of
-                        ("E" : code : time : xs) -> LogMessage (Error (read code)) (read time) (unwords xs)
-                        ("I" : time : xs) -> LogMessage Info (read time) (unwords xs)
-                        xs -> Unknown (unwords xs))
+parseMessage s =  case words s of
+                        ("E" : code : t : xs) -> LogMessage (Error (read code)) (read t) (unwords xs)
+                        ("I" : t : xs) -> LogMessage Info (read t) (unwords xs)
+                        ("W" : t : xs) -> LogMessage Warning (read t) (unwords xs)
+                        _ -> Unknown s
 
 -- trace ("s is " ++ s)
 -- #1b
 parse :: String -> [LogMessage]
-parse = parseLines . lines
-
-parseLines :: [String] -> [LogMessage]
-parseLines (x:[]) = parseMessage(x) : []
-parseLines (x:xs) = parseMessage(x) : parseLines(xs)
+parse = map parseMessage . lines
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) currentTree = currentTree
 insert message Leaf = Node Leaf message Leaf
-insert newMessage@(LogMessage _ newTime _) (Node leftTree message@(LogMessage _ time _) rightTree)
-    | newTime > time =
-        Node leftTree message (insert newMessage rightTree)
-    | otherwise =
-        Node (insert newMessage leftTree) message rightTree
+insert newMsg@(LogMessage _ newTime _) (Node lTree msg@(LogMessage _ time _) rTree)
+    | newTime > time = Node lTree msg (insert newMsg rTree)
+    | otherwise = Node (insert newMsg lTree) msg rTree
 
 -- #3
 build :: [LogMessage] -> MessageTree
@@ -51,19 +46,12 @@ buildReverse (x:xs) = insert x (buildReverse xs)
 -- #4
 inOrder :: MessageTree -> [LogMessage]
 inOrder Leaf = []
-inOrder (Node Leaf message rightTree) = message : (inOrder rightTree)
-inOrder (Node leftTree message rightTree) = (inOrder leftTree) ++ [message] ++ (inOrder rightTree)
+inOrder (Node lTree msg rTree) = (inOrder lTree) ++ [msg] ++ (inOrder rTree)
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
 whatWentWrong = map toMessage . filter wrong . sort
-
-sort :: [LogMessage] -> [LogMessage]
-sort = inOrder . build
-
-wrong :: LogMessage -> Bool
-wrong (LogMessage (Error severity) _ _) = severity >= 50
-wrong _ = False
-
-toMessage :: LogMessage -> String
-toMessage (LogMessage _ _ message) = message
+    where   sort = inOrder . build
+            wrong (LogMessage (Error severity) _ _) = severity >= 50
+            wrong _ = False
+            toMessage (LogMessage _ _ message) = message
