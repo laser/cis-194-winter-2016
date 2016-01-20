@@ -15,11 +15,15 @@ import Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage = undefined
+parseMessage s = case words s of
+  "I" : timeStamp : message -> LogMessage Info (read $ timeStamp) (unwords $ message)
+  "W" : timeStamp : message -> LogMessage Warning (read $ timeStamp) (unwords $ message)
+  "E" : level : timeStamp : message -> LogMessage (Error (read $ level)) (read $ timeStamp) (unwords $ message)
+  _ -> Unknown s
 
 -- #1b
 parse :: String -> [LogMessage]
-parse = undefined
+parse lns = map parseMessage (lines(lns))
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
