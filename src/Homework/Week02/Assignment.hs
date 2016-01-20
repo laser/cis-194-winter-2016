@@ -46,7 +46,6 @@ build = buildReverse . reverse
 
 buildReverse :: [LogMessage] -> MessageTree
 buildReverse [] = Leaf
-buildReverse (x:[])= insert x Leaf
 buildReverse (x:xs) = insert x (buildReverse xs)
 
 -- #4
@@ -57,12 +56,14 @@ inOrder (Node leftTree message rightTree) = (inOrder leftTree) ++ [message] ++ (
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = filterLog . inOrder . build
+whatWentWrong = map toMessage . filter wrong . sort
 
-filterLog :: [LogMessage] -> [String]
-filterLog [] = []
-filterLog (x@(LogMessage (Error severity) _ message):xs)
-    | severity > 49 = message : filterLog(xs)
-    | otherwise = filterLog(xs)
-filterLog (x:xs) = filterLog xs
+sort :: [LogMessage] -> [LogMessage]
+sort = inOrder . build
 
+wrong :: LogMessage -> Bool
+wrong (LogMessage (Error severity) _ _) = severity >= 50
+wrong _ = False
+
+toMessage :: LogMessage -> String
+toMessage (LogMessage _ _ message) = message
