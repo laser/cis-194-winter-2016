@@ -31,37 +31,36 @@ spec = do
       let fakeLogFile = "E 2 562 help help \nI 2 hello ma"
       parse fakeLogFile `shouldBe` [LogMessage (Error 2) 562 "help help", LogMessage Info 2 "hello ma"]
 
-  describe "insert" $ do
-    it "no-ops given an Unknown LogMessage" $ do
---       pending
-      insert (Unknown "foo") Leaf `shouldBe` Leaf
-
-    it "returns a new tree with itself included, given a Leaf" $ do
---       pending
-      let a = Leaf
-      let b = LogMessage Warning 5 "baz"
-      let c = insert b a
-
-      c `shouldBe` Node Leaf b Leaf
-
-
-    it "maintains the sort order of messages in the tree" $ do
---       pending
-      let foo = LogMessage Warning 10 "foo"
-      let baz = LogMessage Warning 5 "baz"
-      let bif = LogMessage Warning 15 "bif"
-
-      let a = Node Leaf foo Leaf
-      let b = insert baz a
-      let c = insert bif b
-
-      b `shouldBe` Node (Node Leaf baz Leaf) foo Leaf
-      c `shouldBe` Node (Node Leaf baz Leaf) foo (Node Leaf bif Leaf)
-
+--   describe "insert" $ do
+--     it "no-ops given an Unknown LogMessage" $ do
+-- --       pending
+--       insert (Unknown "foo") Leaf `shouldBe` Leaf
+--
+--     it "returns a new tree with itself included, given a Leaf" $ do
+-- --       pending
+--       let a = Leaf
+--       let b = LogMessage Warning 5 "baz"
+--       let c = insert b a
+--
+--       c `shouldBe` Node Leaf b Leaf
+--
+--
+--     it "maintains the sort order of messages in the tree" $ do
+-- --       pending
+--       let foo = LogMessage Warning 10 "foo"
+--       let baz = LogMessage Warning 5 "baz"
+--       let bif = LogMessage Warning 15 "bif"
+--
+--       let a = Node Leaf foo Leaf
+--       let b = insert baz a
+--       let c = insert bif b
+--
+--       b `shouldBe` Node (Node Leaf baz Leaf) foo Leaf
+--       c `shouldBe` Node (Node Leaf baz Leaf) foo (Node Leaf bif Leaf)
 
   describe "build" $ do
     it "builds a MessageTree from a list of LogMessages" $ do
-      pending
+--       pending
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"

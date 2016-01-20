@@ -44,7 +44,12 @@ insert newMessage@(LogMessage _ newTime _) (Node leftTree message@(LogMessage _ 
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build = undefined
+build = buildReverse . reverse
+
+buildReverse :: [LogMessage] -> MessageTree
+buildReverse [] = Leaf
+buildReverse (x:[])= insert x Leaf
+buildReverse (x:xs) = insert x (buildReverse xs)
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
