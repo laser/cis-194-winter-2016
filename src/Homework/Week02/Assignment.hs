@@ -23,7 +23,7 @@ parseMessage s = case words s of
 
 -- #1b
 parse :: String -> [LogMessage]
-parse = (map parseMessage) . lines
+parse = map parseMessage . lines
 
 -- #2
 when :: LogMessage -> Int
