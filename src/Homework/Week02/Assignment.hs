@@ -15,7 +15,17 @@ import Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage = undefined
+parseMessage message = case messageType of
+    "E" ->  let (severity : timestamp : content) = remainingFields
+            in LogMessage (Error (parseInt severity)) (parseInt timestamp) (unwords content)
+    "W" ->  let (timestamp : content) = remainingFields
+            in LogMessage Warning (parseInt timestamp) (unwords content)
+    "I" ->  let (timestamp : content) = remainingFields
+            in LogMessage Info (parseInt timestamp) (unwords content)
+    _   ->  Unknown message
+    where
+        (messageType : remainingFields) = words message
+        parseInt string = read string :: Int
 
 -- #1b
 parse :: String -> [LogMessage]
