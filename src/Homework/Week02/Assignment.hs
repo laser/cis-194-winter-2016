@@ -14,31 +14,12 @@ module Homework.Week02.Assignment (
 import Homework.Week02.Log
 
 -- #1a
-errorMsg :: String -> LogMessage
-errorMsg s = LogMessage error ts msg
-    where tokens = words s
-          errCode = read(tokens !! 1)
-          error = Error errCode
-          ts = read(tokens !! 2)
-          msg = unwords $ drop 3 tokens
-
-makeMsg :: MessageType -> String -> LogMessage
-makeMsg t s = LogMessage t ts msg
-    where tokens = words s
-          ts = read(tokens !! 1)
-          msg = unwords $ drop 2 tokens
-
-infoMsg :: String -> LogMessage
-infoMsg = makeMsg Info
-
-warnMsg :: String -> LogMessage
-warnMsg = makeMsg Warning
-
 parseMessage :: String -> LogMessage
-parseMessage s@('W':' ':_) = warnMsg s
-parseMessage s@('E':' ':_) = errorMsg s
-parseMessage s@('I':' ':_) = infoMsg s
-parseMessage s = Unknown s
+parseMessage s = case words s of
+    ("W" : ts : msg)         -> LogMessage Warning (read ts) (unwords msg)
+    ("I" : ts : msg)         -> LogMessage Info (read ts) (unwords msg)
+    ("E" : error : ts : msg) -> LogMessage (Error (read error)) (read ts) (unwords msg)
+    otherwise                -> Unknown s
 
 -- #1b
 parse :: String -> [LogMessage]
@@ -58,7 +39,7 @@ insert newMsg (Node left msg right) =
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build = foldl (\ tree msg -> insert msg tree) Leaf 
+build = foldl (flip insert) Leaf 
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
