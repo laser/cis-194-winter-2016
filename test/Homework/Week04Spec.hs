@@ -2,7 +2,6 @@ module Homework.Week04Spec (
   main,
   spec
 ) where
-
 import Test.Hspec
 
 import Homework.Week04.Assignment
@@ -14,7 +13,7 @@ spec :: Spec
 spec = do
   describe "insertBST" $ do
     it "properly handles inserts into an empty tree" $ do
-      pending
+      
       let emptyTree = (Leaf :: BST Char)
       insertBST (\_ _ -> EQ) 'x' emptyTree `shouldBe` (Node Leaf 'x' Leaf)
 
