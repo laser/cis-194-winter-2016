@@ -29,7 +29,7 @@ parseMessage message = case messageType of
 
 -- #1b
 parse :: String -> [LogMessage]
-parse = undefined
+parse string = map parseMessage $ lines string
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
