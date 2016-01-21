@@ -28,11 +28,11 @@ import Data.Maybe
 
 -- #1
 ex1 :: a -> b -> b
-ex1 a b = b
+ex1 _ b = b
 
 -- #2
 ex2 :: a -> a -> a
-ex2 a b = a
+ex2 a _ = a
 
 -- #3
 ex3 :: Int -> a -> a
@@ -40,7 +40,7 @@ ex3 _ a = a
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 _ a b = a
+ex4 _ a _ = a
 
 -- #5
 ex5 :: Bool -> Bool
@@ -72,7 +72,7 @@ ex11 = Just
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 ma = ma
+ex12  = id
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
@@ -83,7 +83,6 @@ insertBST cmp el tree@(Node left visit right) =
      LT -> insertBST cmp el left
      GT -> insertBST cmp el right
     
-
 safeHead :: [a] -> Maybe a
 safeHead []     = Nothing
 safeHead (x: _) = Just x
