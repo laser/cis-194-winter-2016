@@ -76,7 +76,11 @@ ex12 = id
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST f a Leaf = (Node Leaf a Leaf)
+insertBST f a Leaf = Node Leaf a Leaf
+insertBST f a (Node left b right) = 
+    if f a b == LT 
+        then Node (insertBST f a left) b right
+        else Node left b (insertBST f a right)
 
 -- #14
 allCaps :: [String] -> Bool
