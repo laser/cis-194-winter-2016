@@ -57,7 +57,6 @@ spec = do
 
   describe "build" $ do
     it "builds a MessageTree from a list of LogMessages" $ do
-      pending
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"

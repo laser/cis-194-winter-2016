@@ -12,6 +12,7 @@ module Homework.Week02.Assignment (
 ) where
 
 import Homework.Week02.Log
+-- import Data.List (foldl')
 
 -- #1a
 parseMessage :: String -> LogMessage
@@ -42,7 +43,8 @@ insert newLogMessage@(LogMessage _ newTimeStamp _) (Node leftChild logMessage@(L
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build = undefined
+build logMessages = foldr insert Leaf $ reverse logMessages
+-- build = foldl' (flip insert) Leaf
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
