@@ -17,74 +17,93 @@ module Homework.Week04.Assignment (
   firstLetters,
   asList,
   BST(..)
+  ,safeHead
+  ,safeTail
 ) where
 
 import Homework.Week04.BST
+import Data.Char
+import Data.List
+import Data.Maybe
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 a b = b
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 a b = a
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ a = a
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 _ a b = a
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 = id 
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 f = error "impossible"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7  = id 
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 = id
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f = map f 
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10  = error "impossible"
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = Just 
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 ma = ma
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ el Leaf = Node Leaf el Leaf
+insertBST cmp el tree@(Node left visit right) = 
+  case (cmp el visit) of
+     EQ -> tree
+     LT -> insertBST cmp el left
+     GT -> insertBST cmp el right
+    
+
+safeHead :: [a] -> Maybe a
+safeHead []     = Nothing
+safeHead (x: _) = Just x
+
+safeTail :: [a] -> Maybe [a]
+safeTail [] = Nothing
+safeTail (_ : xs) = Just xs
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps xs = length xs == (length $ takeWhile (==True) $  catMaybes $  map (safeHead . map isUpper) xs)
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = reverse . dropWhile (== ' ' ) . reverse
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = catMaybes . map safeHead
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList xs = "[" ++ ( concat $ intersperse ", " xs ) ++ "]"
