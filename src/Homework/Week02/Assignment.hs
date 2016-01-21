@@ -36,9 +36,11 @@ insert (LogMessage newType newTs newText) (Node leftNode (LogMessage oldType old
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build messages = case reverse messages of
-  [ someMessage ]            -> insert someMessage Leaf
-  someMessage : moreMessages -> insert someMessage (build moreMessages)
+build messages = buildImpl (reverse messages)
+
+buildImpl :: [LogMessage] -> MessageTree
+buildImpl [ someMessage ] = insert someMessage Leaf
+buildImpl (someMessage : moreMessages) = insert someMessage (buildImpl moreMessages)
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
