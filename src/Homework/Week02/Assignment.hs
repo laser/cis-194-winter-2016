@@ -23,11 +23,8 @@ parseMessage :: String -> LogMessage
 parseMessage = parseMessageList . words
 
 -- #1b
-parseMessageListWithMultipleLines :: [String] -> [LogMessage]
-parseMessageListWithMultipleLines = map parseMessage
-
 parse :: String -> [LogMessage]
-parse = parseMessageListWithMultipleLines . lines
+parse = map parseMessage . lines
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
