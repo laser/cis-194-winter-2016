@@ -33,7 +33,12 @@ parse string = map parseMessage $ lines string
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
+insert (Unknown _) messageTree = messageTree
+insert newLogMessage Leaf = Node Leaf newLogMessage Leaf
+insert newLogMessage@(LogMessage _ newTimeStamp _) (Node leftChild logMessage@(LogMessage _ timeStamp _) rightChild)
+    | newTimeStamp < timeStamp  = Node (insert newLogMessage leftChild) logMessage rightChild
+    | otherwise                 = Node leftChild logMessage (insert newLogMessage rightChild)
+
 
 -- #3
 build :: [LogMessage] -> MessageTree

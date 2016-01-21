@@ -32,11 +32,9 @@ spec = do
 
   describe "insert" $ do
     it "no-ops given an Unknown LogMessage" $ do
-      pending
       insert (Unknown "foo") Leaf `shouldBe` Leaf
 
     it "returns a new tree with itself included, given a Leaf" $ do
-      pending
       let a = Leaf
       let b = LogMessage Warning 5 "baz"
       let c = insert b a
@@ -45,7 +43,6 @@ spec = do
 
 
     it "maintains the sort order of messages in the tree" $ do
-      pending
       let foo = LogMessage Warning 10 "foo"
       let baz = LogMessage Warning 5 "baz"
       let bif = LogMessage Warning 15 "bif"
