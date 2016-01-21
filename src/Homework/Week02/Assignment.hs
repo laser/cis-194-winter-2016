@@ -48,8 +48,15 @@ build logMessages = foldr insert Leaf $ reverse logMessages
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder Leaf = []
+inOrder (Node leftChild logMessage rightChild) = (inOrder leftChild) ++ [logMessage] ++ (inOrder rightChild)
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = undefined
+whatWentWrong []            = []
+whatWentWrong logMessages   = map toMessage $ filter isSevereError $ inOrder $ build logMessages
+    where
+        isSevereError (LogMessage (Error severity) _ _) = severity >= 50
+        isSevereError _                                 = False
+        toMessage (LogMessage _ _ message)              = message
+
