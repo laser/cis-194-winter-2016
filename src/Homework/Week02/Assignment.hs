@@ -27,16 +27,25 @@ parse lns = map parseMessage (lines(lns))
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
-insert = undefined
+insert (Unknown s) tree = tree
+insert newMsg Leaf = Node Leaf newMsg Leaf
+insert (LogMessage newType newTs newText) (Node leftNode (LogMessage oldType oldTs oldText) rightNode) =
+        if (newTs < oldTs)
+                then Node (insert (LogMessage newType newTs newText) leftNode) (LogMessage oldType oldTs oldText) rightNode
+                else Node leftNode (LogMessage oldType oldTs oldText) (insert (LogMessage newType newTs newText) rightNode)
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build = undefined
+build messages = case reverse messages of
+  [ someMessage ]            -> insert someMessage Leaf
+  someMessage : moreMessages -> insert someMessage (build moreMessages)
 
 -- #4
 inOrder :: MessageTree -> [LogMessage]
-inOrder = undefined
+inOrder messageTree = case messageTree of
+  Leaf -> []
+  Node leftNode message rightNode -> inOrder leftNode ++ [ message ] ++ inOrder rightNode
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong = undefined
+whatWentWrong messages = [text | LogMessage (Error level) ts text <- messages, level >= 50]
