@@ -17,15 +17,10 @@ import Homework.Week02.Log
 -- #1a
 parseMessage :: String -> LogMessage
 parseMessage line = case words line of
-    ("E" : severity : timeStamp : message) ->
-        LogMessage (Error (parseInt severity)) (parseInt timeStamp) (unwords message)
-    ("W" : timeStamp : message) ->
-        LogMessage Warning (parseInt timeStamp) (unwords message)
-    ("I" : timeStamp : message) ->
-        LogMessage Info (parseInt timeStamp) (unwords message)
-    _ -> Unknown line
-    where
-        parseInt string = read string :: Int
+    "E" : severity : timeStamp : message -> LogMessage (Error (read severity)) (read timeStamp) (unwords message)
+    "W" : timeStamp : message            -> LogMessage Warning (read timeStamp) (unwords message)
+    "I" : timeStamp : message            -> LogMessage Info (read timeStamp) (unwords message)
+    _                                    -> Unknown line
 
 -- #1b
 parse :: String -> [LogMessage]
@@ -35,9 +30,9 @@ parse = map parseMessage . lines
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) messageTree = messageTree
 insert newLogMessage Leaf      = Node Leaf newLogMessage Leaf
-insert newLogMessage@(LogMessage _ newTimeStamp _) (Node leftChild logMessage@(LogMessage _ timeStamp _) rightChild)
-    | newTimeStamp < timeStamp = Node (insert newLogMessage leftChild) logMessage rightChild
-    | otherwise                = Node leftChild logMessage (insert newLogMessage rightChild)
+insert newLogMessage@(LogMessage _ newTimeStamp _) (Node leftTree logMessage@(LogMessage _ timeStamp _) rightTree)
+    | newTimeStamp < timeStamp = Node (insert newLogMessage leftTree) logMessage rightTree
+    | otherwise                = Node leftTree logMessage (insert newLogMessage rightTree)
 
 
 -- #3
@@ -48,7 +43,7 @@ build = foldr insert Leaf . reverse
 -- #4
 inOrder :: MessageTree -> [LogMessage]
 inOrder Leaf = []
-inOrder (Node leftChild logMessage rightChild) = (inOrder leftChild) ++ [logMessage] ++ (inOrder rightChild)
+inOrder (Node leftTree logMessage rightTree) = (inOrder leftTree) ++ [logMessage] ++ (inOrder rightTree)
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
