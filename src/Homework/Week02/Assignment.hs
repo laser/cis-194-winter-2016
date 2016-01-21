@@ -16,34 +16,34 @@ import Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage message = case messageType of
-    "E" ->  let (severity : timestamp : content) = remainingFields
-            in LogMessage (Error (parseInt severity)) (parseInt timestamp) (unwords content)
-    "W" ->  let (timestamp : content) = remainingFields
-            in LogMessage Warning (parseInt timestamp) (unwords content)
-    "I" ->  let (timestamp : content) = remainingFields
-            in LogMessage Info (parseInt timestamp) (unwords content)
-    _   ->  Unknown message
+parseMessage line = case messageType of
+    "E" -> let (severity : timeStamp : message) = remainingTokens
+           in LogMessage (Error (parseInt severity)) (parseInt timeStamp) (unwords message)
+    "W" -> let (timeStamp : message) = remainingTokens
+           in LogMessage Warning (parseInt timeStamp) (unwords message)
+    "I" -> let (timeStamp : message) = remainingTokens
+           in LogMessage Info (parseInt timeStamp) (unwords message)
+    _   -> Unknown line
     where
-        (messageType : remainingFields) = words message
+        (messageType : remainingTokens) = words line
         parseInt string = read string :: Int
 
 -- #1b
 parse :: String -> [LogMessage]
-parse string = map parseMessage $ lines string
+parse = map parseMessage . lines
 
 -- #2
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) messageTree = messageTree
-insert newLogMessage Leaf = Node Leaf newLogMessage Leaf
+insert newLogMessage Leaf      = Node Leaf newLogMessage Leaf
 insert newLogMessage@(LogMessage _ newTimeStamp _) (Node leftChild logMessage@(LogMessage _ timeStamp _) rightChild)
-    | newTimeStamp < timeStamp  = Node (insert newLogMessage leftChild) logMessage rightChild
-    | otherwise                 = Node leftChild logMessage (insert newLogMessage rightChild)
+    | newTimeStamp < timeStamp = Node (insert newLogMessage leftChild) logMessage rightChild
+    | otherwise                = Node leftChild logMessage (insert newLogMessage rightChild)
 
 
 -- #3
 build :: [LogMessage] -> MessageTree
-build logMessages = foldr insert Leaf $ reverse logMessages
+build = foldr insert Leaf . reverse
 -- build = foldl' (flip insert) Leaf
 
 -- #4
@@ -53,8 +53,7 @@ inOrder (Node leftChild logMessage rightChild) = (inOrder leftChild) ++ [logMess
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong []            = []
-whatWentWrong logMessages   = map toMessage $ filter isSevereError $ inOrder $ build logMessages
+whatWentWrong = map toMessage . filter isSevereError . inOrder . build
     where
         isSevereError (LogMessage (Error severity) _ _) = severity >= 50
         isSevereError _                                 = False
