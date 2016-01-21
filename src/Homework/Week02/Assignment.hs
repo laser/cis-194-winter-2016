@@ -16,16 +16,15 @@ import Homework.Week02.Log
 
 -- #1a
 parseMessage :: String -> LogMessage
-parseMessage line = case messageType of
-    "E" -> let (severity : timeStamp : message) = remainingTokens
-           in LogMessage (Error (parseInt severity)) (parseInt timeStamp) (unwords message)
-    "W" -> let (timeStamp : message) = remainingTokens
-           in LogMessage Warning (parseInt timeStamp) (unwords message)
-    "I" -> let (timeStamp : message) = remainingTokens
-           in LogMessage Info (parseInt timeStamp) (unwords message)
-    _   -> Unknown line
+parseMessage line = case words line of
+    ("E" : severity : timeStamp : message) ->
+        LogMessage (Error (parseInt severity)) (parseInt timeStamp) (unwords message)
+    ("W" : timeStamp : message) ->
+        LogMessage Warning (parseInt timeStamp) (unwords message)
+    ("I" : timeStamp : message) ->
+        LogMessage Info (parseInt timeStamp) (unwords message)
+    _ -> Unknown line
     where
-        (messageType : remainingTokens) = words line
         parseInt string = read string :: Int
 
 -- #1b
