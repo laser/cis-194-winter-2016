@@ -4,13 +4,15 @@ module Homework.Week03.Assignment (
   histogram
 ) where
 
-getSingleWord :: [a] -> [Int] -> [a]
-getSingleWord list =  map (\x -> list !! x) -- OMG!! I don't have style
+getTheRightStringBaseOnTheStartingPoint :: [(a,Int)] -> Int -> [a]
+getTheRightStringBaseOnTheStartingPoint listWithIndices startingPoint
+  = map fst (filter (\x -> mod (snd x) startingPoint == 0) listWithIndices )
 
 -- #1
 skips :: [a] -> [[a]]
 skips [] = []
-skips list = foldr (\x y -> getSingleWord list ( takeWhile ( < length list ) $ foldr (:) [] (iterate (+(x+1)) x)) : y) [] [0 .. (length list - 1)]
+skips list
+  = map (getTheRightStringBaseOnTheStartingPoint (zip list [1..])) [1 .. (length list)]
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
