@@ -23,6 +23,7 @@ library
                      , Homework.Week04.BST
                      , Homework.Week05.Assignment
                      , Homework.Week05.ExprT
+                     , Homework.Week05.Parser
                      , Homework.Week06.Assignment
                      , Homework.Week07.Assignment
                      , Homework.Week09.Assignment
