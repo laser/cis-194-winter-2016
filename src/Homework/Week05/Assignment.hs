@@ -1,7 +1,8 @@
 module Homework.Week05.Assignment (
   eval,
   evalStr,
-  ExprT(..)
+  ExprT(..),
+  Expr(..)
 ) where
 
 import Homework.Week05.ExprT
@@ -21,13 +22,18 @@ evalStr s = case parseExp Lit Add Mul s of
     Nothing   -> Nothing
 
 -- #3
--- class Expr a where 
---   lit :: ???
---   add :: ???
---   mul :: ???
+class Expr a where 
+  lit :: Integer -> a
+  add :: a -> a -> a
+  mul :: a -> a -> a
+
+instance Expr ExprT where
+    lit n = Lit n
+    add e1 e2 = Add e1 e2
+    mul e1 e2 = Mul e1 e2
 
 -- #4
 -- instance Integer Expr where
---   lit = ???
---   add = ???
---   mul = ???
+   -- lit a = Lit a
+   --add = ???
+   --mul = ???

@@ -24,3 +24,7 @@ spec = do
       evalStr "(2+3)*4" `shouldBe` Just 20
       evalStr "2+3 *4" `shouldBe` Just 14
       evalStr "2+3*" `shouldBe` Nothing
+
+    it "should evaluate Expr to ExprT" $ do
+      (lit 2) `shouldBe` (Lit 2)
+      mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` (Mul (Add (Lit 2) (Lit 3)) (Lit 4))
