@@ -44,6 +44,7 @@ spec = do
       (add (lit 0) (lit 0)) `shouldBe` False
       (mul (lit 1) (lit 2)) `shouldBe` True
       (mul (lit 1) (lit 0)) `shouldBe` False
+      (add (add (lit 0)(lit 0))(mul (lit 1)(lit 2))) `shouldBe` True
 
     it "should treat MinMax as instances of Expr" $ do
       (lit 2) `shouldBe` MinMax 2
