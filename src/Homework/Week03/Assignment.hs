@@ -21,7 +21,8 @@ skipsEvery n (x:xs) = x : skipsEvery n (drop n xs)
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
-localMaxima = undefined
+localMaxima (a:b:c:xs) = (if (a < b && c < b) then [b] else []) ++ localMaxima (b:c:xs)
+localMaxima _ = []
 
 -- #3
 histogram :: [Integer] -> String
