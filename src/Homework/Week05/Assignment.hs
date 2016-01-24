@@ -30,33 +30,35 @@ class Expr a where
   mul :: a -> a -> a
 
 instance Expr ExprT where
-    lit n = Lit n
-    add e1 e2 = Add e1 e2
-    mul e1 e2 = Mul e1 e2
+    lit = Lit
+    add = Add
+    mul = Mul
 
 -- #4
 instance Expr Integer where
-   lit e = e
-   add e1 e2 = e1 + e2
-   mul e1 e2 = e1 * e2
+   lit = id
+   add = (+)
+   mul = (*) 
 
 instance Expr Bool where
-   lit n = if n <=0 then False else True
-   add e1 e2 = e1 || e2
-   mul e1 e2 = e1 && e2
+   lit = (> 0)
+   add = (||)
+   mul = (&&)
 
 newtype MinMax = MinMax Integer deriving (Eq,Ord,Show)
 
 instance Expr MinMax where
-   lit n = MinMax n
-   add e1 e2 = max e1 e2
-   mul e1 e2 = min e1 e2
+   lit = MinMax
+   add = max
+   mul = min
 
 newtype Mod7 = Mod7 Integer deriving (Eq,Show)
 
-instance Expr Mod7 where
-   lit n = Mod7 (mod n 7)
-   add (Mod7 n1) (Mod7 n2) = Mod7 (mod (n1 + n2) 7)
-   mul (Mod7 n1) (Mod7 n2) = Mod7 (mod (n1 * n2) 7)
+mod7 :: Integer -> Mod7
+mod7 n = Mod7 (mod n 7)
 
+instance Expr Mod7 where
+   lit = mod7
+   add (Mod7 n1) (Mod7 n2) = mod7 (n1 + n2)
+   mul (Mod7 n1) (Mod7 n2) = mod7 (n1 * n2)
 
