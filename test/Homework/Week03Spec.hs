@@ -53,3 +53,5 @@ spec = do
                  \0123456789\n"
 
       histogram [1, 4, 5, 4, 6, 6, 3, 4, 2, 4, 9] `shouldBe` hs2
+      
+      histogram [] `shouldBe` "==========\n0123456789\n"
