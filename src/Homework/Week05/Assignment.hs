@@ -22,7 +22,7 @@ evalStr = undefined
 --   mul :: ???
 
 -- #4
--- instance Integer Expr where
+-- instance Expr Integer where
 --   lit = ???
 --   add = ???
 --   mul = ???
