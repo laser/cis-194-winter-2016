@@ -71,7 +71,7 @@ ex12 = undefined
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ element Leaf = Node Leaf element Leaf
 
 -- #14
 allCaps :: [String] -> Bool
