@@ -32,7 +32,7 @@ group3 xs = map snd (map unzip (map (\(skipPosition,_) -> filter(\(p, e) -> (ski
 
 -- #3
 histogram :: [Integer] -> String
-histogram xs = printStr(printAll xs)
+histogram xs = printStr(printLine xs)
 
 --filterNum :: Integer -> Integer -> Bool
 --filterNum radix num = num == radix
@@ -48,8 +48,18 @@ printFor pos xs = map (\count -> case (count-pos > -1) of
                                 True -> "*"
                                 False -> " ") xs
 
-printAll :: [Integer] -> [[String]]
-printAll xs = map(\x -> printFor x (count0to9 xs))[9,8..1]
+printLine :: [Integer] -> [[String]]
+printLine xs = map(\x -> printFor x (count0to9 xs))[9,8..1]
+
+printLineString :: [[String]] -> [String]
+printLineString xs = cleanLineString ( map concat xs)
+
+cleanLineString :: [String] -> [String]
+cleanLineString xs = dropWhile (\x -> case (words x) of
+                                        [] -> True
+                                        xs -> False
+                               ) xs
 
 printStr :: [[String]] -> String
-printStr xs = unlines (map concat xs ++ ["=========="] ++ ["0123456789"])
+printStr xs = unlines ((printLineString xs) ++ [(replicate 10 '=')] ++ [concat $ map show [0..9]])
+
