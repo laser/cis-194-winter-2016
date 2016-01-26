@@ -5,6 +5,7 @@ module Homework.Week05.Assignment (
 ) where
 
 import Homework.Week05.ExprT
+import Homework.Week05.Parser
 
 -- #1
 eval :: ExprT -> Integer
@@ -21,7 +22,7 @@ evalStr = undefined
 --   mul :: ???
 
 -- #4
--- instance Integer Expr where
+-- instance Expr Integer where
 --   lit = ???
 --   add = ???
 --   mul = ???
