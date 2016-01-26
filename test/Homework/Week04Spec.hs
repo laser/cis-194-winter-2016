@@ -19,7 +19,6 @@ spec = do
 
   describe "allCaps" $ do
     it "checks to see if a list of strings contains only capitalized words" $ do
-      pending
       allCaps ["Hi", "There"] `shouldBe` True
       allCaps ["HI", "THERE"] `shouldBe` True
       allCaps [] `shouldBe` True
@@ -28,7 +27,6 @@ spec = do
 
   describe "dropTrailingWhitespace" $ do
     it "drops the trailing whitespace from a string" $ do
-      pending
       dropTrailingWhitespace "foo" `shouldBe` "foo"
       dropTrailingWhitespace "" `shouldBe` ""
       dropTrailingWhitespace "bar    " `shouldBe` "bar"
@@ -36,7 +34,6 @@ spec = do
 
   describe "firstLetters" $ do
     it "gets the first letter, if exits, from a list of strings" $ do
-      pending
       firstLetters ["foo", "bar"] `shouldBe` ['f', 'b']
       firstLetters ["alpha", ""] `shouldBe` ['a']
       firstLetters [] `shouldBe` []
@@ -44,7 +41,6 @@ spec = do
 
   describe "asList" $ do
     it "renders a bracketed list given a list of strings" $ do
-      pending
       asList ["alpha", "beta", "gamma"] `shouldBe` "[alpha, beta, gamma]"
       asList [] `shouldBe` "[]"
       asList ["lonely"] `shouldBe` "[lonely]"

@@ -75,16 +75,31 @@ insertBST _ element Leaf = Node Leaf element Leaf
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps [] = True
+allCaps ("" : xs) = False
+allCaps (x : xs) = let firstCharacter = head x
+                   in firstCharacter > 'A' &&
+                      firstCharacter < 'Z' &&
+                      allCaps xs
 
 -- #15
+killWhiteSpaces :: String -> String
+killWhiteSpaces (' ' : x) = killWhiteSpaces x
+killWhiteSpaces x = x
+
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace input = reverse $ killWhiteSpaces $ reverse input
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters [] = []
+firstLetters list = map head (filter (/= "") list)
 
 -- #17
+getListWithoutBrackets :: [String] -> String
+getListWithoutBrackets [x] = x
+getListWithoutBrackets (x:xs) = x ++ ", " ++ getListWithoutBrackets xs
+
 asList :: [String] -> String
-asList = undefined
+asList [] = "[]"
+asList list = "[" ++ getListWithoutBrackets list ++ "]"
