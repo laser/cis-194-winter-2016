@@ -32,4 +32,24 @@ group3 xs = map snd (map unzip (map (\(skipPosition,_) -> filter(\(p, e) -> (ski
 
 -- #3
 histogram :: [Integer] -> String
-histogram = undefined
+histogram xs = printStr(printAll xs)
+
+--filterNum :: Integer -> Integer -> Bool
+--filterNum radix num = num == radix
+
+countFor :: Integer -> [Integer] -> Int
+countFor r xs = length(filter (==r) xs)
+
+count0to9 :: [Integer] -> [Int]
+count0to9 xs = map (\x -> countFor x xs)[0..9]
+
+printFor :: Int -> [Int] -> [String]
+printFor pos xs = map (\count -> case (count-pos > -1) of
+                                True -> "*"
+                                False -> " ") xs
+
+printAll :: [Integer] -> [[String]]
+printAll xs = map(\x -> printFor x (count0to9 xs))[9,8..1]
+
+printStr :: [[String]] -> String
+printStr xs = unlines (map concat xs ++ ["=========="] ++ ["0123456789"])
