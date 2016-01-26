@@ -23,7 +23,16 @@ take1stAndEveryNth n (x : xs) = x : take1stAndEveryNth n ys
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
-localMaxima = undefined
+localMaxima []          = []
+localMaxima xs@(_ : ys) = case localMaximum . take 3 $ xs of
+    Just it -> it : localMaxima ys
+    Nothing -> localMaxima ys
+
+localMaximum :: [Integer] -> Maybe Integer
+localMaximum (x : y : [z])
+    | y > x && y > z = Just y
+    | otherwise      = Nothing
+localMaximum _       = Nothing
 
 -- #3
 histogram :: [Integer] -> String
