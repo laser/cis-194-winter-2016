@@ -62,5 +62,4 @@ getString :: LogMessage -> String
 getString p@(LogMessage _ _ returnString) = returnString
 
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong [] = []
 whatWentWrong messagesList = map getString (getOrderedImportantMessages messagesList)
