@@ -4,15 +4,14 @@ module Homework.Week03.Assignment (
   histogram
 ) where
 
+import Data.List (transpose)
+
 -- #1
 skips :: [a] -> [[a]]
-skips xs = map (\n -> skip n 0 xs) [0..length xs - 1]
-  where
-    skip _ _ [] = []
-    skip goal accum (y:ys)
-      | accum == goal = y : skip goal 0 ys
-      | accum < goal  = skip goal (accum + 1) ys
-      | otherwise = error "Bad arg value: 'accum' should never be greater than 'goal'"
+skips xs = let
+  skip [] _ _ = []
+  skip (y:ys) acc goal = if acc == goal then y : skip ys 0 goal else skip ys (succ acc) goal
+  in map (skip xs 0) [0..pred (length xs)]
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
@@ -23,8 +22,7 @@ localMaxima [] = []
 -- #3
 histogram :: [Integer] -> String
 histogram xs = let
-  increment y ys = take y ys ++ [ys !! y + 1] ++ drop (y + 1) ys
-  counts = foldr increment (replicate 10 0) (map fromIntegral xs)
-  rows = foldr1 max counts
-  mkRow row = map (\col -> if counts !! col >= row then '*' else ' ') [0..9] ++ "\n"
-  in concat (map mkRow [rows,rows-1..1]) ++ "==========\n0123456789\n"
+  freqs = map (\n -> foldr (\x acc -> if n == x then succ acc else acc) 0 xs) [0..9]
+  height = maximum freqs
+  cols = map (\n -> replicate (height - n) ' ' ++ replicate n '*') freqs
+  in concatMap (++ "\n")  (transpose cols) ++ "==========\n0123456789\n"
