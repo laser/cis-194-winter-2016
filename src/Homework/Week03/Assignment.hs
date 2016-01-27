@@ -8,7 +8,6 @@ module Homework.Week03.Assignment (
 ) where
 
 import           Data.List
-import           Debug.Trace
 
 -- #1
 takeEvery :: Int -> [a] -> [a]
