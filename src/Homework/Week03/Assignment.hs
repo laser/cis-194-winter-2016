@@ -48,9 +48,9 @@ plot frequencies = reverse $ binLabels : map ( `row` frequencies) [1..rowCount]
 
 row :: Integer -> [Integer] -> String
 row n frequencies = foldr step "\n" frequencies
-    where step count accu
-            | n <= count = '*' : accu
-            | otherwise  = ' ' : accu
+    where step frequency accu
+            | n <= frequency = '*' : accu
+            | otherwise      = ' ' : accu
 
 binLabels = "==========\n0123456789\n"
 
