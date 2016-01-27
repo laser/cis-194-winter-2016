@@ -7,7 +7,8 @@ module Homework.Week03.Assignment (
   histogram
 ) where
 
-import           Data.List
+import Data.List
+import Debug.Trace
 
 -- #1
 takeEvery :: Int -> [a] -> [a]
