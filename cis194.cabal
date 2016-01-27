@@ -40,6 +40,7 @@ library
                      , aeson
                      , bytestring
                      , text
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 test-suite cis194-test
