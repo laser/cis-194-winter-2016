@@ -8,6 +8,7 @@ module Homework.Week03.Assignment (
 ) where
 
 import Data.List
+import Debug.Trace
 
 -- #1
 takeEvery :: Int -> [a] -> [a]
@@ -35,9 +36,11 @@ addEmptyCols ns@(a:as) []       = replicate (length ns) []
 addEmptyCols (a:as)    l@(b:bs) = if a `elem` b
                                     then b   : addEmptyCols as bs
                                     else []  : addEmptyCols as l
-
-
 histogram :: [Integer] -> String
 histogram l =
-  let cols = addEmptyCols [0..9] (group (sort l))
-  in addBase (transpose cols)
+  let gsl  = addEmptyCols [0..9] (group (sort l))
+      ls   = map length gsl
+      top  = maximum ls
+      rows = map (\ x -> (replicate x "*") ++ (replicate (top - x) " ")) ls
+      cols = map concat (reverse (transpose rows))
+  in addBase cols
