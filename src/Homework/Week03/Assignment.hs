@@ -43,11 +43,11 @@ frequency xs = map count [0..9]
     where count n = toInteger . length . filter (n == ) $ xs
 
 plot :: [Integer] -> [String]
-plot frequencies = reverse $ binLabels : map ( `line` frequencies) [1..countOfLines]
-    where countOfLines = maximum frequencies
+plot frequencies = reverse $ binLabels : map ( `row` frequencies) [1..rowCount]
+    where rowCount = maximum frequencies
 
-line :: Integer -> [Integer] -> String
-line n frequencies = foldr step "\n" frequencies
+row :: Integer -> [Integer] -> String
+row n frequencies = foldr step "\n" frequencies
     where step count accu
             | n <= count = '*' : accu
             | otherwise  = ' ' : accu
