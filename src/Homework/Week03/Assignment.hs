@@ -8,7 +8,6 @@ import Data.List
 
 -- #1
 skips :: [a] -> [[a]]
-<<<<<<< HEAD
 skips xss = takeWhile (\x -> case x of
                         [] -> False
                         _  -> True ) $ map (doSkip xss) [1..]
@@ -20,17 +19,8 @@ localMaxima :: [Integer] -> [Integer]
 localMaxima (a:b:c:xs)
   | a < b && b > c = b : localMaxima (c : xs)
   | otherwise      = localMaxima (b : c : xs)                     
-=======
-skips []  = []
-skips xx@(_:xs) = xx : skips xs
-
--- #2
-localMaxima :: [Integer] -> [Integer]
---localMaxima (a:b:c:xs)
---  |   a < b < c    = b : localMaxima (c : xs)
---  |   otherwise    = localMaxima (c : xs)                     
->>>>>>> Assignment 2
 localMaxima _      = []
+
 
 
 -- #3
