@@ -19,7 +19,9 @@ skips xs = takeIt 1 xs (length xs)
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
-localMaxima = undefined
+localMaxima (a : (b : [ c ])) = if (b > a && b > c) then [ b ] else [ ]
+localMaxima (a : (b : c : (xs))) = if (b > a && b > c) then b : localMaxima (b : c : xs) else localMaxima (b : c : xs)
+localMaxima _  = [ ]
 
 -- #3
 histogram :: [Integer] -> String
