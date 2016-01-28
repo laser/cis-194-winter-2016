@@ -36,21 +36,20 @@ localMaximum _       = Nothing
 
 -- #3
 histogram :: [Integer] -> String
-histogram = concat . plot . frequency
+histogram = unlines . rows . frequencies
 
-frequency :: [Integer] -> [Integer]
-frequency xs = map count [0..9]
+frequencies :: [Integer] -> [Integer]
+frequencies xs = map count [0..9]
     where count n = toInteger . length . filter (n == ) $ xs
 
-plot :: [Integer] -> [String]
-plot frequencies = reverse $ binLabels : map ( `row` frequencies) [1..rowCount]
+rows :: [Integer] -> [String]
+rows frequencies = reverse $ binTags : map ( `row` frequencies) [1..rowCount]
     where rowCount = maximum frequencies
 
 row :: Integer -> [Integer] -> String
-row n frequencies = foldr step "\n" frequencies
+row n frequencies = foldr step "" frequencies
     where step frequency accu
             | n <= frequency = '*' : accu
             | otherwise      = ' ' : accu
 
-binLabels = "==========\n0123456789\n"
-
+binTags = "==========\n0123456789"
