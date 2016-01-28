@@ -6,6 +6,7 @@ module Homework.Week05.Assignment (
   Expr(..),
   MinMax(..),
   Mod7(..)
+ ,ExprT(..)
  ,Listable(..)
 ) where
 
@@ -41,11 +42,13 @@ instance (Listable a , Listable b) => Listable (a,b) where
 
 -- #1
 eval :: ExprT -> Integer
-eval = undefined
+eval (Lit a) =  a
+eval (Add a b) = (eval a)  + (eval b)
+eval (Mul a b) = (eval a)  * (eval b)
 
 -- #2
 evalStr :: String -> Maybe Integer
-evalStr = undefined
+evalStr s = undefined -- parseExp Lit Add Mul s
 
 -- #3
 -- class Expr a where
