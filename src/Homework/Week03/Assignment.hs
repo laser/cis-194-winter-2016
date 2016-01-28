@@ -38,7 +38,7 @@ localMaxima p@(x:y:xs)
 	| length xs == 0 = []
 	| y > x && y > (head xs) = [y] ++ localMaxima (xs)
 	| otherwise = localMaxima ([y] ++ xs)
-	--[1, 2, 3]
+
 -- #3
 histogram :: [Integer] -> String
-histogram = undefined
+histogram p = "==========\n0123456789\n"
