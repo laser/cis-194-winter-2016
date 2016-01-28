@@ -1,7 +1,11 @@
 module Homework.Week05.Assignment (
   eval,
   evalStr,
-  ExprT(..)
+  ExprT(..),
+  -- uncomment these once you've defined them:
+  -- Expr(..),
+  -- MinMax(..),
+  -- Mod7(..)
 ) where
 
 import Homework.Week05.ExprT
@@ -16,7 +20,7 @@ evalStr :: String -> Maybe Integer
 evalStr = undefined
 
 -- #3
--- class Expr a where 
+-- class Expr a where
 --   lit :: ???
 --   add :: ???
 --   mul :: ???
