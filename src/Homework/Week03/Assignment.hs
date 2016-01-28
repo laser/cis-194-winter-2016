@@ -31,8 +31,14 @@ skips p = buildList (zipFunctions (stripHead p))
 
 -- #2
 localMaxima :: [Integer] -> [Integer]
-localMaxima = undefined
-
+localMaxima (x:xs)
+	| length xs == 0 = []
+localMaxima p@(x:y:xs)
+	| length p == 1 = []
+	| length xs == 0 = []
+	| y > x && y > (head xs) = [y] ++ localMaxima (xs)
+	| otherwise = localMaxima ([y] ++ xs)
+	--[1, 2, 3]
 -- #3
 histogram :: [Integer] -> String
 histogram = undefined
