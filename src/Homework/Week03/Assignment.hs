@@ -22,16 +22,16 @@ localMaxima (a:b:c:xs)
 localMaxima _      = []
 
 
-
+limit = 10
 -- #3
 histogram :: [Integer] -> String
-histogram xs  =  lines ++ tallyLine ++ legend ++ ['\n']
-   where lines = foldr (++) "" $ reverse $ doRun $ group $ sort xs
-         tallyLine  = (take 10 $ repeat '=') ++ ['\n']
-         legend     = concat $ map show $ take 10 $ [0..]
+histogram xs  =  (lines xs) ++ tallyLine ++ legend ++ ['\n']
+   where lines      = foldr (++) "" . reverse . doRun . group . sort
+         tallyLine  = (take limit $ repeat '=') ++ ['\n']
+         legend     = concat $ map show $ take limit $ [0..]
 
 emptyLine :: String
-emptyLine = (take 10 $ repeat ' ') ++   ['\n']
+emptyLine = (take limit $ repeat ' ') ++   ['\n']
           
 doRun ::  [[Integer]] -> [String]
 doRun [] = []
