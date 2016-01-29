@@ -19,72 +19,99 @@ module Homework.Week04.Assignment (
   BST(..)
 ) where
 
-import Homework.Week04.BST
+import           Data.Char
+import           Data.List
+import           Data.String
+import           Homework.Week04.BST
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 = seq
+--because the types are totally vague, the only thing our fn(s) could decide is
+--which parameter to return. Because the result must be of the second parameter's
+--type, there is only one distinct function possible.
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 = const
+--this is a more permissive (in terms of the amount of distinct functions inhabiting
+-- the type) version of ex1. distinct functions can return either the first or second
+-- parameter, so there are two possible distinct functions.
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
-
+ex3 = seq
+--b/c the 2nd param could be anything, there's no way to use the Int to make a decision
+--about what to return. Therefore, there is only one possible distinct fn.
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 b a a' = if b then a else a'
+--4 distinct functions: b -> a, b -> a', not b -> a, not b -> a'
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 = not
+--2 distinct fns: not and id
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = error "impossible"
+--without a non-fn value to return, the fn can't return a value
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 fn = fn
+--simply applying the given fn to the 2nd param is the only thing that works for all types.
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 = reverse
+--infinite possible distinct fns? id, reverse, [first], [second], (etc), any variation on scrambling the list...
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 = map
+--infinite distinct fns? map, map reverse, replicate 2 map, replicate 3 map...
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = error "impossible"
+--any possible fn fails if Maybe is Nothing
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = Just
+--only one. anything that doesn't boil down to Just has the possibility of returning Nothing, which can't be of type a.
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 = id
+--only one. same reason.
+
+safeHead :: [a] -> Maybe a
+safeHead []     = Nothing
+safeHead (x:xs) = Just x
 
 -- #13
-insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST :: Ord a => (a -> a -> Ordering) -> a -> BST a -> BST a
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST cmp x tree@(Node lt bdy rt)
+  | order == LT || order == EQ   = Node (insertBST compare x lt) bdy rt
+  | order == GT                  = Node lt bdy (insertBST compare x rt)
+  where order = cmp x bdy
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = all $ maybe False isUpper . safeHead
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = reverse . dropWhile isSpace . reverse
 
 -- #16
-firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters :: [String] -> String
+firstLetters = concatMap (take 1)
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList x = "[" ++ intercalate ", " x ++ "]"
