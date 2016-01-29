@@ -4,7 +4,7 @@ module Homework.Week04.Assignment (
   ex3,
   ex4,
   ex5,
-  ex6,
+  -- ex6,
   ex7,
   ex8,
   ex9,
@@ -23,51 +23,57 @@ import Homework.Week04.BST
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 _ x = x
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 x _ = x
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ x = x
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 _ _ x = x
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 x = x && True
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = error "impossible"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 fun = fun
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 = take 3
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 = map
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = error "impossible"
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = Just
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 x = case x of
+          Just y -> Just y
+          Nothing -> Nothing
+
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x : _ ) = Just x
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
@@ -76,11 +82,9 @@ insertBST _ element Leaf = Node Leaf element Leaf
 -- #14
 allCaps :: [String] -> Bool
 allCaps [] = True
-allCaps ("" : xs) = False
-allCaps (x : xs) = let firstCharacter = head x
-                   in firstCharacter > 'A' &&
-                      firstCharacter < 'Z' &&
-                      allCaps xs
+allCaps (x : xs) = case safeHead x of
+                        Just a -> a > 'A' && a < 'Z' && allCaps xs
+                        Nothing -> False
 
 -- #15
 killWhiteSpaces :: String -> String
@@ -98,7 +102,7 @@ firstLetters list = map head (filter (/= "") list)
 -- #17
 getListWithoutBrackets :: [String] -> String
 getListWithoutBrackets [x] = x
-getListWithoutBrackets (x:xs) = x ++ ", " ++ getListWithoutBrackets xs
+getListWithoutBrackets (x:xs) = x ++ "," ++ getListWithoutBrackets xs
 
 asList :: [String] -> String
 asList [] = "[]"
