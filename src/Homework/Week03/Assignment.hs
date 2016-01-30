@@ -6,8 +6,7 @@ module Homework.Week03.Assignment (
 
 -- #1
 skips :: [a] -> [[a]]
-skips xs = map f [1..length xs]
-    where f n = every n xs
+skips xs = map ( `every` xs) [1..length xs]
 
 every n xs = case drop (n - 1) xs of
     y : ys -> y : every n ys
