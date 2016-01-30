@@ -24,6 +24,6 @@ localMaxima xs = case xs of
 histogram :: [Integer] -> String 
 histogram xs = unlines rows ++ "==========\n0123456789\n"
     where rows = zipWith histline (repeat freqs) (reverse [1..maxFreq])
-          histline freqs row = foldl (\ acc n -> acc ++ if lookup n freqs >= Just row then "*" else " ") "" [0..9]
-          freqs = map (\ xs -> (head xs, length xs)) (group $ sort xs)
+          histline freqs row = map (\ n -> if lookup n freqs >= Just row then '*' else ' ') [0..9]
+          freqs = map (\ ns -> (head ns, length ns)) (group $ sort xs)
           maxFreq = maximum (map snd freqs ++ [0])
