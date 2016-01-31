@@ -13,7 +13,7 @@ skips xs = skips' 0 xs
 
 skips' :: Int -> [a] -> [[a]]
 skips' _ [] = []
-skips' n xs = skipsEvery n xs : skips' (n + 1) (tail xs)
+skips' n (x:xs) = skipsEvery n (x:xs) : skips' (n + 1) xs
 
 skipsEvery :: Int -> [a] -> [a]
 skipsEvery _ [] = []
@@ -38,7 +38,7 @@ histogramCounts ints = map (\ i -> frequency i ints) [0..9]
 
 frequency :: Int -> [Int] -> Int
 frequency _ [] = 0
-frequency i ints = frequency i (tail ints) + if (i == (head ints)) then 1 else 0
+frequency i (x:xs) = frequency i xs + if (i == x) then 1 else 0
 
 histogramRows' :: Int -> [Int] -> [String]
 histogramRows' 0 _ = []
