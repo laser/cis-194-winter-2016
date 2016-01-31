@@ -32,20 +32,20 @@ fibs2 = fibo 0 1
 data Stream a = Cons a (Stream a)
 
 streamToList :: Stream a -> [a]
-streamToList (Cons a (s)) = a : streamToList s
+streamToList (Cons x xs) = x : streamToList xs
 
 instance Show a => Show (Stream a) where
   show = show . (take 20) . streamToList
 
 -- #4
 streamRepeat :: a -> Stream a
-streamRepeat a = Cons a (streamRepeat a)
+streamRepeat x = Cons x (streamRepeat x)
 
 streamMap :: (a -> b) -> Stream a -> Stream b
-streamMap f (Cons a s) = Cons (f a) (streamMap f s)
+streamMap f (Cons x xs) = Cons (f x) (streamMap f xs)
 
 streamFromSeed :: (a -> a) -> a -> Stream a
-streamFromSeed f a = Cons a (streamFromSeed f (f a))
+streamFromSeed f x = Cons x (streamFromSeed f (f x))
 
 -- #5
 nats :: Stream Integer
@@ -56,6 +56,6 @@ interleaveStreams (Cons x xs) ys = Cons x (interleaveStreams ys xs)
 
 ruler :: Stream Integer
 ruler = nestedInterleave 0
-    where nestedInterleave n = interleaveStreams (streamRepeat n) (nestedInterleave (n + 1))
+    where nestedInterleave x = interleaveStreams (streamRepeat x) (nestedInterleave (x + 1))
           
 
