@@ -51,4 +51,4 @@ spec = do
   describe "ruler" $ do
     it "should calc the largest power of 2 that evenly divides into each element (starting at 1)" $ do
       take 32 (streamToList ruler) `shouldBe` [0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,5]
-      
+
