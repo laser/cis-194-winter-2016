@@ -4,7 +4,7 @@ module Homework.Week04.Assignment (
   ex3,
   ex4,
   ex5,
-  -- ex6,
+  ex6,
   ex7,
   ex8,
   ex9,
@@ -78,6 +78,10 @@ safeHead (x : _ ) = Just x
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
 insertBST _ element Leaf = Node Leaf element Leaf
+insertBST orderFun element (Node left value right) = case orderFun element value of
+                                                      GT -> Node left value (insertBST orderFun element right)
+                                                      LT -> Node (insertBST orderFun element left) value right
+                                                      EQ -> Node left value right
 
 -- #14
 allCaps :: [String] -> Bool
