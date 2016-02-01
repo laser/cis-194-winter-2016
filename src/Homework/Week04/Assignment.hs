@@ -20,6 +20,13 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Char (isUpper)
+import Data.Maybe (catMaybes)
+import Data.List (intercalate)
+
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x:_) = Just x
 
 -- #1
 ex1 :: a -> b -> b
@@ -71,20 +78,24 @@ ex12 = undefined
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST cmp x (Node a y b) = case cmp x y of
+  LT -> Node (insertBST cmp x a) y b
+  EQ -> Node (insertBST cmp x a) y b
+  GT -> Node a y (insertBST cmp x b)
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = all (maybe False isUpper . safeHead)
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = reverse . dropWhile (== ' ') . reverse
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = catMaybes . map safeHead
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList xs = "[" ++ intercalate ", "xs ++ "]"
