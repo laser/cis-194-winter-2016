@@ -103,4 +103,4 @@ firstLetters (x:xs)
 
 -- #17
 asList :: [String] -> String
-asList (list) = "[" ++ (concat $ intersperse ", " list) ++ "]"
+asList (list) = "[" ++ (concat $ intersperse "," list) ++ "]"
