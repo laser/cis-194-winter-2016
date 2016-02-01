@@ -95,32 +95,30 @@ ex12 a = a
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
 insertBST _ a Leaf = Node Leaf a Leaf
-insertBST f a (Node left root right) = case f a root of
-  LT -> (Node (insertBST f a left) root right)
-  GT -> (Node left root (insertBST f a right))
-  EQ -> (Node left root right)
+insertBST f x (Node left y right) = case f x y of
+  LT -> Node (insertBST f x left) y right
+  GT -> Node left y (insertBST f x right)
+  EQ -> Node left y right
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps [] = True
 allCaps strings = all isWordUpper strings where
   isWordUpper [] = False
-  isWordUpper (s : _) = isUpper s
+  isWordUpper (s:_) = isUpper s
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace [] = []
-dropTrailingWhitespace s = reverse . dropLeadingWhitespace $ reverse s where
-  dropLeadingWhitespace [] = []
-  dropLeadingWhitespace (s:ss)
-    | isSpace s = dropLeadingWhitespace ss
-    | otherwise = (s:ss)
+dropTrailingWhitespace s = reverse . dropLeadingWhitespace $ reverse s
+  where dropLeadingWhitespace [] = []
+        dropLeadingWhitespace (s:ss)
+          | isSpace s = dropLeadingWhitespace ss
+          | otherwise = (s:ss)
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = map firstLetter . filterEmpty where
-  filterEmpty = filter (\ s -> length s > 0)
-  firstLetter (s:_) = s
+firstLetters = map firstLetter . filterEmpty
+  where filterEmpty = filter (\ s -> length s > 0)
+        firstLetter (s:_) = s
 
 -- #17
 asList :: [String] -> String
