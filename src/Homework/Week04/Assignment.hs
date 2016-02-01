@@ -103,21 +103,21 @@ insertBST f x (Node left y right) = case f x y of
 -- #14
 allCaps :: [String] -> Bool
 allCaps strings = all isWordUpper strings where
-  isWordUpper [] = False
+  isWordUpper "" = False
   isWordUpper (s:_) = isUpper s
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace s = reverse . dropLeadingWhitespace $ reverse s
-  where dropLeadingWhitespace [] = []
-        dropLeadingWhitespace (s:ss)
-          | isSpace s = dropLeadingWhitespace ss
-          | otherwise = (s:ss)
+dropTrailingWhitespace = reverse . dropLeadingWhitespace . reverse
+  where dropLeadingWhitespace "" = ""
+        dropLeadingWhitespace (x:xs)
+          | isSpace x = dropLeadingWhitespace xs
+          | otherwise = x:xs
 
 -- #16
 firstLetters :: [String] -> [Char]
 firstLetters = map firstLetter . filterEmpty
-  where filterEmpty = filter (\ s -> length s > 0)
+  where filterEmpty = filter $ not . null
         firstLetter (s:_) = s
 
 -- #17
