@@ -10,8 +10,7 @@ module Homework.Week02.Assignment (
   whatWentWrong,
   LogMessage(..),
   MessageTree(..),
-  MessageType(..),
-  errorValue, messages
+  MessageType(..)
 ) where
 
 import Homework.Week02.Log
@@ -82,10 +81,10 @@ errorValue (LogMessage (Error x) _ _)
    | otherwise = False
 errorValue _ = False
 
-messages :: LogMessage -> String
-messages (LogMessage _ _ msg) = msg
-messages _ = []
-
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong lstLms  = map messages $ filter errorValue lstLms
+--whatWentWrong lstLms  = map messs $ filter errorValue (inOrder  (build lstLms))
+whatWentWrong = map mess . filter errorValue . inOrder . build
+   where mess :: LogMessage -> String
+         mess (LogMessage _ _ msg) = msg
+         mess _ = []
