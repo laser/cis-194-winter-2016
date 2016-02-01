@@ -11,6 +11,7 @@ module Homework.Week04.Assignment (
   ex10,
   ex11,
   ex12,
+  safeHead,
   insertBST,
   allCaps,
   dropTrailingWhitespace,
@@ -20,71 +21,97 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Char
+import Data.List
+import Data.Maybe
+import Data.Function
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 = flip const
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 = const
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 x y = if ( x> 0) then y else y
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 p x y = if p then x else y
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 = not
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = fix
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 =($)
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 = reverse
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 = map
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = fromJust
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = return
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 = id
+
+
+-- cmp :: (Ord a) => a -> a -> Ordering
+-- cmp x y
+--   | x == y = EQ
+--   | x > y  = GT
+--   | x < y  = LT
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST fn x (Node lft v rt) = case (fn x v) of
+     EQ -> Node lft x rt
+     GT -> Node lft v (insertBST fn x rt)
+     LT -> Node (insertBST fn x lft) v rt
+
+
+
+safeHead :: [a] -> Maybe a
+safeHead xs = case xs of
+    [] -> Nothing
+    (x : _) -> Just x
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = all $ maybe False isUpper . safeHead
+-- allCaps = all isUpper . firstLetters
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = reverse . dropWhile (==' ') . reverse
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+--firstLetters strLst = filter (not . isSpace) $ (map $ maybe ' ' id . safeHead) strLst
+firstLetters = concatMap $ (take 1) . dropWhile isSpace
+
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList lst = "[" ++ intercalate aComma lst ++ "]"
+   where aComma = ", "
