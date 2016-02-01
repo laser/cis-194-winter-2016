@@ -108,7 +108,14 @@ allCaps strings = all isWordUpper strings where
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace [] = []
+dropTrailingWhitespace s = reverse . dropLeadingWhitespace $ reverse s
+
+dropLeadingWhitespace :: String -> String
+dropLeadingWhitespace [] = []
+dropLeadingWhitespace (s:ss)
+  | isSpace s = dropLeadingWhitespace ss
+  | otherwise = (s:ss)
 
 -- #16
 firstLetters :: [String] -> [Char]
