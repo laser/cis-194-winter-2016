@@ -22,6 +22,7 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 
 import Data.Char
+import Data.List
 
 -- #1
 -- Don't know how a and b interact
@@ -123,4 +124,4 @@ firstLetters = map firstLetter . filterEmpty where
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList xs = "[" ++ (concat $ intersperse "," xs) ++ "]"
