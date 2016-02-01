@@ -21,6 +21,8 @@ module Homework.Week04.Assignment (
 
 import Homework.Week04.BST
 
+import Data.Char
+
 -- #1
 -- Don't know how a and b interact
 ex1 :: a -> b -> b
@@ -99,7 +101,10 @@ insertBST f a (Node left root right) = case f a root of
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps [] = True
+allCaps strings = all isWordUpper strings where
+  isWordUpper [] = False
+  isWordUpper (s : _) = isUpper s
 
 -- #15
 dropTrailingWhitespace :: String -> String
