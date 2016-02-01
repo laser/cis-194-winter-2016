@@ -22,56 +22,80 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 
 -- #1
+-- Don't know how a and b interact
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 _ b = b
 
 -- #2
+-- Don't know how to operate on a.
+-- Only implentation is to return one of the arguments.
+-- In this case the first one.
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 a1 a2 = a1
 
 -- #3
+-- Don't know how Int and a interact.
+-- Can only produce a from a.
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ a = a
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 True a1 a2 = a1
+ex4 False a1 a2 = a2
 
 -- #5
+-- This implementation negates the argument.
+-- Could also return always True, always False, or the argument.
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 True = False
+ex5 False = True
 
 -- #6
+-- No input of type a provided, can't produce an a.
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = error "impossible"
 
 -- #7
+-- Only possible implementations are apply the provided function a number of
+-- times to input a to produce another a, including applying 0 times.
+-- This implementation applies it twice.
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 f a1 = f (f a1)
 
 -- #8
+-- We know how to operate on lists, so any operation on a list is valid here.
+-- For example, every other element in the list, safeHead, identity, etc.
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 as = as
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f as = map f as
 
 -- #10
+-- Don't know how to produce an a in case the argument is Nothing.
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = error "imposible"
 
 -- #11
+-- The input is always an a and we don't know how to operate a, so the possible
+-- implementations are always Just a or always Nothing.
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 a = Just a
 
 -- #12
+-- Identity or always Nothing
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 a = a
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ a Leaf = Node Leaf a Leaf
+insertBST f a (Node left root right) = case f a root of
+  LT -> (Node (insertBST f a left) root right)
+  GT -> (Node left root (insertBST f a right))
+  EQ -> (Node left root right)
 
 -- #14
 allCaps :: [String] -> Bool
