@@ -3,9 +3,9 @@ module Homework.Week04Spec (
   spec
 ) where
 
-import Test.Hspec
+import           Test.Hspec
 
-import Homework.Week04.Assignment
+import           Homework.Week04.Assignment
 
 main :: IO ()
 main = hspec spec
