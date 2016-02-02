@@ -23,6 +23,7 @@ import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
 import Data.List (intercalate, dropWhileEnd)
 import Data.Maybe (mapMaybe, listToMaybe)
+import Data.Function (fix)
 
 -- #1
 ex1 :: a -> b -> b
@@ -45,9 +46,8 @@ ex5 :: Bool -> Bool
 ex5 = id
 
 -- #6
--- impossible 
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = fix -- thanks jvargas, I never would have found this otherwise
 
 -- #7
 ex7 :: (a -> a) -> a -> a
@@ -64,7 +64,7 @@ ex9 f a = map f a
 -- #10
 ex10 :: Maybe a -> a
 ex10 (Just a) = a
-ex10 Nothing = error "sorry"
+ex10 Nothing = error "impossible because we can't return anything of type 'a'."
 
 -- #11
 ex11 :: a -> Maybe a
@@ -84,7 +84,8 @@ insertBST f a (Node left b right) =
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = all ((maybe False isUpper) . listToMaybe)
+allCaps = all isUpperCase  
+    where isUpperCase = maybe False isUpper . listToMaybe
 
 -- #15
 dropTrailingWhitespace :: String -> String
