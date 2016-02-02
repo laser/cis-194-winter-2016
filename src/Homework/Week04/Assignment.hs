@@ -20,7 +20,8 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
-import Data.Char (isUpper)
+import Data.Char (isUpper, isSpace)
+import Data.List (intercalate)
 
 -- #1
 ex1 :: a -> b -> b
@@ -115,14 +116,16 @@ thisCap _ = False
 
 allCaps :: [String] -> Bool
 allCaps xs = all thisCap xs
+
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace s = if (s == "") then s else if (isSpace(last(s))) then dropTrailingWhitespace (init s) else s
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters (x : ys) = if (x == "") then firstLetters ys else (head x) : firstLetters ys
+firstLetters [] = []
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList s = "[" ++ (intercalate "," s) ++ "]"
