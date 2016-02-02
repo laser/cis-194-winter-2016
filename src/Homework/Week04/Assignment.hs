@@ -96,8 +96,8 @@ safeHead (x:xs) = Just x
 insertBST :: Ord a => (a -> a -> Ordering) -> a -> BST a -> BST a
 insertBST _ x Leaf = Node Leaf x Leaf
 insertBST cmp x tree@(Node lt bdy rt)
-  | order == LT || order == EQ   = Node (insertBST compare x lt) bdy rt
-  | order == GT                  = Node lt bdy (insertBST compare x rt)
+  | order == LT || order == EQ   = Node (insertBST cmp x lt) bdy rt
+  | order == GT                  = Node lt bdy (insertBST cmp x rt)
   where order = cmp x bdy
 
 -- #14
