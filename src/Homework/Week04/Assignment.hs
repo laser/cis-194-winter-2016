@@ -48,7 +48,7 @@ ex5 = id
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 f = error "impossible"
+ex6 f = error "No You Can't!!!"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
@@ -64,7 +64,7 @@ ex9 f = map f
 
 -- #10
 ex10 :: Maybe a -> a
-ex10  = error "impossible"
+ex10  = error "unverfuegbar"
 
 -- #11
 ex11 :: a -> Maybe a
