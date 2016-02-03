@@ -25,7 +25,12 @@ import qualified Data.Text.IO as T
 
 -- #1
 ynToBool :: Value -> Value
-ynToBool = undefined
+ynToBool value = case value of
+    v@(String text) -> case T.unpack text of
+        "Y"       -> Bool True
+        "N"       -> Bool False
+        otherwise -> v
+    _ -> value
 
 -- #2
 parseData :: B.ByteString -> Either String Value
