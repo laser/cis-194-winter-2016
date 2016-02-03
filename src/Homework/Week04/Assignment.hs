@@ -21,7 +21,7 @@ module Homework.Week04.Assignment (
 
 import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
-import Data.List (dropWhileEnd)
+import Data.List (dropWhileEnd, intercalate)
 import Data.Maybe (listToMaybe, mapMaybe)
 
 -- #1
@@ -124,4 +124,4 @@ firstLetters = mapMaybe listToMaybe
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList ss = "[" ++ intercalate "," ss ++ "]"
