@@ -20,7 +20,8 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
-import Data.Char (isUpper)
+import Data.Char (isUpper, isSpace)
+import Data.List (dropWhileEnd)
 
 -- #1
 ex1 :: a -> b -> b
@@ -114,7 +115,7 @@ allCaps = all $ maybe False isUpper . safeHead
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]

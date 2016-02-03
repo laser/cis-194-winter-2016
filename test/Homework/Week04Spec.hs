@@ -27,7 +27,6 @@ spec = do
 
   describe "dropTrailingWhitespace" $ do
     it "drops the trailing whitespace from a string" $ do
-      pending
       dropTrailingWhitespace "foo" `shouldBe` "foo"
       dropTrailingWhitespace "" `shouldBe` ""
       dropTrailingWhitespace "bar    " `shouldBe` "bar"
