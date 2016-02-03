@@ -20,6 +20,8 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Function (fix)
+import Data.Maybe (fromJust) -- bad
 import Data.Char (isUpper)
 import Data.Maybe (catMaybes)
 import Data.List (intercalate)
@@ -30,51 +32,51 @@ safeHead (x:_) = Just x
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 _ = id
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 a _ = a
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ a = a
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 cond a b = if cond then a else b
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 = not
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 y = y (fix y)
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 f = f
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 _ = []
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f = map f
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = fromJust -- bad
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = Just
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 _ = Nothing
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
