@@ -23,51 +23,82 @@ import Homework.Week04.BST
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 _ x = x
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+-- ex2 x _ = x
+-- or
+ex2 _ x = x
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ x = x
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+-- There are 4 distinct implementations:
+-- ex4 _ x _ = x
+-- OR
+-- ex4 _ _ x = x
+-- OR
+-- ex4 True _ x = x
+-- ex4 False x _ = x
+-- OR
+ex4 True x _ = x
+ex4 False _ x = x
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+-- There are 4 distinct implementations:
+-- ex5 _ = True
+-- OR
+-- ex5 - = False
+-- OR
+-- ex5 True = True
+-- ex5 False = False
+-- OR
+ex5 True = False
+ex5 False = True
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+-- No input.
+ex6 = error "impossible"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+-- ex7 _ x = x
+-- OR
+ex7 f = f
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+-- List transformations (for example, `map`, `foldl/r`, `reverse`, `take`, `drop`, and so on) can be applied to the input.
+-- OR
+ex8 xs = xs
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f = map f
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+-- I cannot give you an `a` if you give me `Nothing`.
+ex10 = error "impossible"
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+-- ex11 _ = Nothing
+-- OR
+ex11 x = Just x
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+-- ex12 _ = Nothing
+-- OR
+ex12 (Just x) = Just x
+ex12 _ = Nothing
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
