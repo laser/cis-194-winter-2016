@@ -34,7 +34,6 @@ spec = do
 
   describe "firstLetters" $ do
     it "gets the first letter, if exits, from a list of strings" $ do
-      pending
       firstLetters ["foo", "bar"] `shouldBe` ['f', 'b']
       firstLetters ["alpha", ""] `shouldBe` ['a']
       firstLetters [] `shouldBe` []

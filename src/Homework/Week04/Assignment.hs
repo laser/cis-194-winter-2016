@@ -22,7 +22,7 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
 import Data.List (dropWhileEnd)
-import Data.Maybe (listToMaybe)
+import Data.Maybe (listToMaybe, mapMaybe)
 
 -- #1
 ex1 :: a -> b -> b
@@ -120,7 +120,7 @@ dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = mapMaybe listToMaybe
 
 -- #17
 asList :: [String] -> String
