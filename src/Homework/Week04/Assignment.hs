@@ -22,6 +22,7 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 import Data.Char (isUpper, isSpace)
 import Data.List (dropWhileEnd)
+import Data.Maybe (listToMaybe)
 
 -- #1
 ex1 :: a -> b -> b
@@ -111,7 +112,7 @@ insertBST cmp x (Node leftTree y rightTree) = insertBST cmp x $ case cmp x y of
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = all $ maybe False isUpper . safeHead
+allCaps = all $ maybe False isUpper . listToMaybe
 
 -- #15
 dropTrailingWhitespace :: String -> String
@@ -124,8 +125,3 @@ firstLetters = undefined
 -- #17
 asList :: [String] -> String
 asList = undefined
-
--- helper functions
-safeHead :: [a] -> Maybe a
-safeHead []      = Nothing
-safeHead (x : _) = Just x
