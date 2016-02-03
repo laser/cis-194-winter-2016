@@ -47,7 +47,7 @@ rows frequencies = binTags : map ( `row` frequencies) [1..rowCount]
     where rowCount = maximum frequencies
 
 row :: Integer -> [Integer] -> String
-row n frequencies = map plot frequencies
+row n = map plot
     where plot frequency = if n <= frequency then '*' else ' '
 
 binTags = "==========\n0123456789"
