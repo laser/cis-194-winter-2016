@@ -14,7 +14,7 @@ main = hspec spec
 spec :: Spec
 spec = do
   describe "week 5 specs" $
-    it "are commented out below" pending
+    it "are commented out below"
   describe "eval" $ do
     it "evaluates Lit expressions as plain integers" $ do
       property $ \x -> eval (Lit x) `shouldBe` x
