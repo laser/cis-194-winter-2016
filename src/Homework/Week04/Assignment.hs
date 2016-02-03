@@ -20,6 +20,7 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Char (isUpper)
 
 -- #1
 ex1 :: a -> b -> b
@@ -102,11 +103,14 @@ ex12 _ = Nothing
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST cmp x (Node leftTree y rightTree) = insertBST cmp x $ case cmp x y of
+    LT -> leftTree
+    _  -> rightTree
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = all $ maybe False isUpper . safeHead
 
 -- #15
 dropTrailingWhitespace :: String -> String
@@ -119,3 +123,8 @@ firstLetters = undefined
 -- #17
 asList :: [String] -> String
 asList = undefined
+
+-- helper functions
+safeHead :: [a] -> Maybe a
+safeHead []      = Nothing
+safeHead (x : _) = Just x
