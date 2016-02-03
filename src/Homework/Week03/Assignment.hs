@@ -1,11 +1,13 @@
 module Homework.Week03.Assignment (
   skips,
   localMaxima,
-  histogram
+  histogram,
+  skips'
 ) where
 
 import Data.List
-
+import qualified Data.Map as Map
+import Data.Maybe
 -- #1
 skips :: [a] -> [[a]]
 skips xss = takeWhile (\x -> case x of
@@ -14,41 +16,36 @@ skips xss = takeWhile (\x -> case x of
             where doSkip xs n = map fst $ filter (\ (e,idx) -> idx `mod` n == 0 ) $ zip xs [1..]
 
 
--- #2
+skips' :: [a] -> [[a]]
+skips' xs  = map (\ x-> case length x of 
+                           2 -> [head x]
+                           3 -> [head x, last x]
+                           _ -> x ) $ go xs 
+go :: [a] -> [[a]]
+go [] = []
+go xs = xs : ( go $ tail xs)
+
+-- #2 
 localMaxima :: [Integer] -> [Integer]
 localMaxima (a:b:c:xs)
   | a < b && b > c = b : localMaxima (c : xs)
   | otherwise      = localMaxima (b : c : xs)                     
 localMaxima _      = []
 
+scale :: Int
+scale = 10
 
-limit = 10
--- #3
-histogram :: [Integer] -> String
-histogram xs  =  (lines xs) ++ tallyLine ++ legend ++ ['\n']
-   where lines      = foldr (++) "" . reverse . doRun . group . sort
-         tallyLine  = (take limit $ repeat '=') ++ ['\n']
-         legend     = concat $ map show $ take limit $ [0..]
+indices :: [Int]
+indices   = [0..(scale - 1)]  
 
-emptyLine :: String
-emptyLine = (take limit $ repeat ' ') ++   ['\n']
-          
-doRun ::  [[Integer]] -> [String]
-doRun [] = []
-doRun xsxs =  currLine : (doRun next)
-    where (curr,next) = scrapeTheTop xsxs
-          currLine    = insertSequence emptyLine curr
+histogram :: [Int] -> String
+histogram xs = makeLines ++ legend 
+               where makeLines  = loop "" $ theMap xs      
+                     theMap     = Map.fromList . map (\x -> (head x, length x) ) . group . sort
+                     legend     = (replicate scale '=') ++ "\n" ++ (concatMap show indices) ++ "\n" 
 
-scrapeTheTop :: Eq t => [[t]] -> ([t], [[t]])
-scrapeTheTop xsxs = (concat curr, filter (/= []) next)
-             where (curr,next) =  juxt (take 1) (drop 1) xsxs
-                   
-insertSequence :: Foldable t => String ->  t Integer -> String
-insertSequence line = foldl insertInLine line
-
-insertInLine :: String -> Integer -> String
-insertInLine line idx = front ++ ['*'] ++ (drop 1 back)
-  where (front,back) = splitAt (fromIntegral idx)  line
-
-juxt :: (a -> b) -> (a -> b1) -> [a]-> ([b], [b1])           
-juxt f1 f2 xs = (map f1 xs,map f2 xs)
+loop :: String -> Map.Map Int Int -> String 
+loop theLines theMap = if (length theMap) == 0 then  theLines else loop (line ++ "\n" ++ theLines) restMxs
+               where line     = map starOrSpace $ map(\x -> Map.lookup x theMap) indices
+                     restMxs  =  Map.filter(>0) $ Map.map pred theMap
+                     starOrSpace x = if (isJust x) then '*' else ' '  
