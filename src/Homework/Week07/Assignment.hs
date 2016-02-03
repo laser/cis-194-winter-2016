@@ -8,6 +8,7 @@ module Homework.Week07.Assignment (
   search,
   firstFound,
   lastFound,
+  allFound,
   numberFound,
   orderedNtoS,
   Market(..),
@@ -32,10 +33,10 @@ parseData :: B.ByteString -> Either String Value
 parseData = undefined
 
 -- #3
-data Market = Market { marketname :: String
+data Market = Market { marketname :: T.Text
                      , x :: Double
                      , y :: Double
-                     , state :: String } deriving (Show, Generic)
+                     , state :: T.Text } deriving (Eq, Show, Generic)
 
 instance FromJSON Market
 
@@ -49,8 +50,9 @@ loadData = undefined
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
---instance Ord a => Monoid (OrdList a) where
---  compare = ???
+instance Ord a => Monoid (OrdList a) where
+  -- mempty = ???
+  -- mappend = ???
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
