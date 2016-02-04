@@ -49,6 +49,7 @@ ex5 = id
 -- #6
 ex6 :: (a -> a) -> a
 ex6 = F.fix
+--ex6 = error "With one weird trick you can get the above"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
