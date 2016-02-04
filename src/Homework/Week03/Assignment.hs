@@ -44,8 +44,7 @@ format xs =
            (map (\(x,y) -> ((show x) ++ "=" ++ (replicate (fromIntegral(y)) '*') ++ (replicate (fromIntegral(size) - (fromIntegral(y))) ' '))) xs) ++
            (replicate (fromIntegral size) "\n")
 
-
-histogram = concat . transpose . format . filler . frequency . sort
 -}
+
 histogram :: [Integer] -> String
 histogram = undefined
