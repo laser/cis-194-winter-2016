@@ -65,8 +65,7 @@ ex9 = map
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 (Just a) = a
-ex10 Nothing  = error "unverfuegbar"
+ex10  = error "unverfuegbar"
 
 -- #11
 ex11 :: a -> Maybe a
