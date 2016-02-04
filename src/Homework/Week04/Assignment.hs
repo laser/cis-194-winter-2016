@@ -104,4 +104,4 @@ firstLetters = catMaybes . map listToMaybe
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList xs = "[" ++ intercalate ", " xs ++ "]"
