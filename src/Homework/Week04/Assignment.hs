@@ -22,6 +22,7 @@ module Homework.Week04.Assignment (
 import Homework.Week04.BST
 import Data.Char
 import Data.List
+import Data.Maybe
 
 -- #1
 ex1 :: a -> b -> b
@@ -89,17 +90,17 @@ allCaps strings = case find (==False) (map isCapitalized strings) of
                     Just _ -> False
     where
         isCapitalized [] = False
-        isCapitalized (x:xs) = isUpper x
+        isCapitalized (x:_) = isUpper x
 
 
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = catMaybes . map listToMaybe
 
 -- #17
 asList :: [String] -> String
