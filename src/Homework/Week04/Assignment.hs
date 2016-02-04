@@ -25,7 +25,7 @@ import Homework.Week04.BST
 import Data.Char
 import Data.List
 import Data.Maybe
-
+import qualified Data.Function as F
 -- #1
 ex1 :: a -> b -> b
 ex1 _ b = b
@@ -48,7 +48,7 @@ ex5 = id
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 f = error "No You Can't!!!"
+ex6 = F.fix
 
 -- #7
 ex7 :: (a -> a) -> a -> a
@@ -64,7 +64,8 @@ ex9 = map
 
 -- #10
 ex10 :: Maybe a -> a
-ex10  = error "unverfuegbar"
+ex10 (Just a) = a
+ex10 Nothing  = error "unverfuegbar"
 
 -- #11
 ex11 :: a -> Maybe a
@@ -90,7 +91,6 @@ safeHead (x: _) = Just x
 safeTail :: [a] -> Maybe [a]
 safeTail [] = Nothing
 safeTail (_ : xs) = Just xs
-
 
 
 -- #14
