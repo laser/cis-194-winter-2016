@@ -114,6 +114,9 @@ allCaps3 xs = notElem "" xs && all (all isUpper) ( map (take 1) xs)
 dropTrailingWhitespace :: String -> String
 dropTrailingWhitespace = reverse . dropWhile (== ' ' ) . reverse
 
+dropTrailingWhitespace' :: String -> String
+dropTrailingWhitespace' = dropWhileEnd isSpace
+
 -- #16
 firstLetters :: [String] -> String
 firstLetters = mapMaybe safeHead
