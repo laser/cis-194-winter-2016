@@ -56,13 +56,11 @@ ex5 :: Bool -> Bool
 -- There are 4 distinct implementations:
 -- ex5 _ = True
 -- OR
--- ex5 - = False
+-- ex5 _ = False
 -- OR
--- ex5 True = True
--- ex5 False = False
+-- ex5 = id
 -- OR
-ex5 True = False
-ex5 False = True
+ex5 = not
 
 -- #6
 ex6 :: (a -> a) -> a
@@ -79,7 +77,7 @@ ex7 f = f
 ex8 :: [a] -> [a]
 -- List transformations (for example, `map`, `foldl/r`, `reverse`, `take`, `drop`, and so on) can be applied to the input.
 -- OR
-ex8 xs = xs
+ex8 = id
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
