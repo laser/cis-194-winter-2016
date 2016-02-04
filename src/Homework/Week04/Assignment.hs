@@ -81,7 +81,7 @@ ex8 = id
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 f = map f
+ex9 = map
 
 -- #10
 ex10 :: Maybe a -> a
