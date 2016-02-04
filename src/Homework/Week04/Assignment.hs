@@ -106,9 +106,10 @@ ex12 _ = Nothing
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
 insertBST _ x Leaf = Node Leaf x Leaf
-insertBST cmp x (Node leftTree y rightTree) = case cmp x y of
+insertBST cmp x tree@(Node leftTree y rightTree) = case cmp x y of
+    EQ -> tree
     LT -> Node (insertBST cmp x leftTree) y rightTree
-    _  -> Node leftTree y (insertBST cmp x rightTree)
+    GT -> Node leftTree y (insertBST cmp x rightTree)
 
 -- #14
 allCaps :: [String] -> Bool
