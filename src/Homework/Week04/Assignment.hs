@@ -87,7 +87,7 @@ insertBST orderFun element (Node left value right) = case orderFun element value
 allCaps :: [String] -> Bool
 allCaps [] = True
 allCaps (x : xs) = case safeHead x of
-                        Just a -> a > 'A' && a < 'Z' && allCaps xs
+                        Just a -> a >= 'A' && a <= 'Z' && allCaps xs
                         Nothing -> False
 
 -- #15
