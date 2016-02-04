@@ -83,8 +83,7 @@ errorValue _ = False
 
 -- #5
 whatWentWrong :: [LogMessage] -> [String]
---whatWentWrong lstLms  = map messs $ filter errorValue (inOrder  (build lstLms))
-whatWentWrong = map mess . filter errorValue . inOrder . build
+whatWentWrong  = map mess . filter errorValue . inOrder . build
    where mess :: LogMessage -> String
          mess (LogMessage _ _ msg) = msg
          mess _ = []
