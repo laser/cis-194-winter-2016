@@ -54,5 +54,5 @@ instance Expr MinMax where
 
 instance Expr Mod7 where
   lit x = Mod7 (mod x 7)
-  add (Mod7 x) (Mod7 y) = Mod7 ((x + y) `mod` 7)
-  mul (Mod7 x) (Mod7 y) = Mod7 ((x * y) `mod` 7)
+  add (Mod7 x) (Mod7 y) = Mod7 (mod (x + y) 7)
+  mul (Mod7 x) (Mod7 y) = Mod7 (mod (x * y) 7)
