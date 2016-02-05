@@ -26,24 +26,24 @@ import Data.Maybe (listToMaybe, mapMaybe)
 
 -- #1
 ex1 :: a -> b -> b
-ex1 _ x = x
+ex1 _ = id
 
 -- #2
 ex2 :: a -> a -> a
 -- ex2 x _ = x
 -- or
-ex2 _ x = x
+ex2 _ = id
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 _ x = x
+ex3 _ = id
 
 -- #4
 ex4 :: Bool -> a -> a -> a
 -- There are 4 distinct implementations:
 -- ex4 _ x _ = x
 -- OR
--- ex4 _ _ x = x
+-- ex4 _ _ = id
 -- OR
 -- ex4 True _ x = x
 -- ex4 False x _ = x
@@ -69,7 +69,7 @@ ex6 = error "impossible"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
--- ex7 _ x = x
+-- ex7 _ = id
 -- OR
 ex7 f = f
 
@@ -92,14 +92,13 @@ ex10 = error "impossible"
 ex11 :: a -> Maybe a
 -- ex11 _ = Nothing
 -- OR
-ex11 x = Just x
+ex11 = Just
 
 -- #12
 ex12 :: Maybe a -> Maybe a
 -- ex12 _ = Nothing
 -- OR
-ex12 (Just x) = Just x
-ex12 _ = Nothing
+ex12 = id
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
