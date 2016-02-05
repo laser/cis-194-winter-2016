@@ -45,7 +45,7 @@ spec = do
     it "produces expression ASTs" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe`
         Mul (Add (Lit 2) (Lit 3)) (Lit 4)
-{-
+
   describe "Expr Integer" $ do
     it "evaluates arithmetic expressions to integers" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` (20 :: Integer)
@@ -70,6 +70,7 @@ spec = do
       mul (lit 0) (lit 0) `shouldBe` False
       mul (lit 1) (lit 0) `shouldBe` False
       mul (lit 0) (lit 1) `shouldBe` False
+
       mul (lit 1) (lit 1) `shouldBe` True
 
     it "evaluates arithmetic expressions as logical operations" $ do
@@ -101,4 +102,3 @@ spec = do
 
     it "evaluates arithmetic expressions to integers mod 7" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` Mod7 6
--}

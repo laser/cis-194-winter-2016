@@ -4,8 +4,9 @@ module Homework.Week05.Assignment (
   ExprT(..),
   -- uncomment these once you've defined them:
   Expr(..),
-  -- MinMax(..),
-  -- Mod7(..)
+  MinMax(..),
+  Mod7(..),
+  mod7
 ) where
 
 import Homework.Week05.ExprT
@@ -32,12 +33,34 @@ class Expr a where
 
 
 instance Expr ExprT where
-  lit x   = Lit x
-  add x y = Add x y
-  mul x y = Mul x y
+  lit = Lit
+  add = Add
+  mul = Mul
 
 -- #4
--- instance Expr Integer where
---   lit x = x
---   add x y = Add x y
---   mul x y = Add x y 
+instance Expr Integer where
+  lit x   = x
+  add x y = x + y
+  mul x y = x * y
+
+instance Expr Bool where
+  lit  = (> 0)
+  add x y = x || y
+  mul x y = x && y
+
+newtype MinMax = MinMax Integer deriving (Eq, Show)
+
+instance Expr MinMax where
+    lit  = MinMax
+    add (MinMax x) (MinMax y)  = MinMax $ max x y
+    mul (MinMax x) (MinMax y)  = MinMax $ min x y
+
+newtype Mod7 = Mod7 Integer deriving (Eq, Show)
+
+mod7 :: Integer -> Integer
+mod7 x = x `mod` 7
+
+instance Expr Mod7 where
+    lit x  = Mod7 $ mod7 x
+    add (Mod7 x) (Mod7 y)  = Mod7 $ mod7 (x + y)
+    mul (Mod7 x) (Mod7 y)  = Mod7 $ mod7 (x * y)
