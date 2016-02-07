@@ -24,6 +24,8 @@ import Data.Char (isUpper, isSpace)
 import Data.List (dropWhileEnd, intercalate)
 import Data.Maybe (listToMaybe, mapMaybe)
 
+headMaybe = listToMaybe
+
 -- #1
 ex1 :: a -> b -> b
 ex1 _ = id
@@ -110,7 +112,7 @@ insertBST cmp x tree@(Node leftTree y rightTree) = case cmp x y of
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = all $ maybe False isUpper . listToMaybe
+allCaps = all $ maybe False isUpper . headMaybe
 
 -- #15
 dropTrailingWhitespace :: String -> String
