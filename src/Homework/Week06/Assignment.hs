@@ -13,37 +13,42 @@ module Homework.Week06.Assignment (
 
 -- #1a
 fib :: Integer -> Integer
-fib = undefined
+fib 0 = 0
+fib 1 = 1
+fib x = fib (x-2) + fib (x-1)
 
 fibs1 :: [Integer]
-fibs1 = undefined
+fibs1 = [ fib x | x <- [0..]]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = undefined
+fibs2 = [ fib x | x <- [0..]] -- come back to it
 
 -- #3
-data Stream a = Stream a -- replace this with your own definition; this one is wrong
+data Stream a = Cons a (Stream a)
 
 streamToList :: Stream a -> [a]
-streamToList = undefined
+streamToList (x `Cons` xs) = x : (streamToList xs)
 
--- instance Show a => Show (Stream a) where
---   show = ???
+instance Show a => Show (Stream a) where
+  show st = (show (take 20 (streamToList st)))
 
 -- #4
 streamRepeat :: a -> Stream a
-streamRepeat = undefined
+streamRepeat x = x `Cons` streamRepeat x
 
 streamMap :: (a -> b) -> Stream a -> Stream b
-streamMap = undefined
+streamMap f (x `Cons` xs) =  (f x) `Cons` (streamMap f xs)
 
 streamFromSeed :: (a -> a) -> a -> Stream a
-streamFromSeed = undefined
+streamFromSeed f x = x `Cons` (streamFromSeed f (f x))
 
 -- #5
 nats :: Stream Integer
-nats = undefined
+nats =  streamFromSeed (+1) 0
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (x `Cons` xs) y = x `Cons` (interleaveStreams y xs)
 
 ruler :: Stream Integer
-ruler = undefined
+ruler = interleaveStreams (streamRepeat 0) (streamMap (+1) ruler)
