@@ -40,6 +40,7 @@ library
                      , aeson
                      , bytestring
                      , text
+                     , unordered-containers
   default-language:    Haskell2010
 
 test-suite cis194-test
@@ -51,6 +52,7 @@ test-suite cis194-test
                      , hspec
                      , unordered-containers
                      , time
+                     , bytestring
                      , text
                      , aeson
                      , QuickCheck

@@ -7,6 +7,8 @@ import Test.Hspec
 
 import Homework.Week07.Assignment
 import qualified Data.Text as T
+import qualified Data.ByteString.Lazy.Char8 as B
+import Data.HashMap.Strict as H
 import Data.Aeson
 
 main :: IO ()
@@ -21,10 +23,33 @@ spec = do
     it "should convert 'N' to False" $ do
       ynToBool (String $ T.pack "N") `shouldBe`  Bool False
 
-    it "should leave all other values unchanged" $ do
+    it "should leave all other Strings unchanged" $ do
       let no = (String $ T.pack "No")
-      let yo = (String $ T.pack "Yo")
       ynToBool no `shouldBe`  no
-      ynToBool yo `shouldBe`  yo
 
-      ynToBool Null `shouldBe` Null
+    it "change all instances of Y/N to Bool in an Object" $ do
+      let foo = T.pack "foo"
+      let bar = T.pack "bar"
+      let baz = T.pack "baz"
+
+      let obj = fromList [(foo, (String $ T.pack "Y"))
+                         ,(bar, (String $ T.pack "N"))
+                         ,(baz, Number 1)]
+
+      let expected = fromList [(foo, Bool True)
+                              ,(bar, Bool False)
+                              ,(baz, Number 1)]
+
+      ynToBool (Object obj) `shouldBe` Object expected
+
+  describe "parseData" $ do
+    it "should parse a JSON bytestring" $ do
+      let foo = parseData $ B.pack "{ \"foo\":1,\"bar\":\"Y\"}"
+      foo `shouldBe` Right (Object (fromList [(T.pack "foo", Number 1)
+                                             ,(T.pack "bar", Bool True)]))
+
+    it "should return an error if parsing fails" $ do
+      let foo = parseData $ B.pack "{ xxx }"
+      foo `shouldBe` Left ("Failed reading: satisfy") -- whatever that means
+
+

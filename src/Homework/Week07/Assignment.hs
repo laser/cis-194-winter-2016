@@ -26,7 +26,8 @@ import qualified Data.Text.IO as T
 -- #1
 ynToBool :: Value -> Value
 ynToBool value = case value of
-    v@(String text) -> case T.unpack text of
+    (Object hashMap) -> Object $ fmap ynToBool hashMap
+    v@(String text)  -> case T.unpack text of
         "Y"       -> Bool True
         "N"       -> Bool False
         otherwise -> v
@@ -34,7 +35,9 @@ ynToBool value = case value of
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData = undefined
+parseData s = case eitherDecode s of
+    (Right obj) -> Right $ ynToBool obj
+    left -> left
 
 -- #3
 data Market = Market { marketname :: String
