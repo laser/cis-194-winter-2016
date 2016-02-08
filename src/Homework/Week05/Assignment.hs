@@ -87,7 +87,7 @@ instance Expr MinMax where
   mul (MinMax a) (MinMax b) = MinMax $ min a b
 
 instance Expr Mod7 where
-  lit = Mod7
+  lit a = Mod7 $ mod a 7
   add (Mod7 a) (Mod7 b) = Mod7 $ mod ( a + b ) 7
   mul (Mod7 a) (Mod7 b) = Mod7 $ mod ( a * b ) 7
 

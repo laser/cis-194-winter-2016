@@ -123,4 +123,4 @@ firstLetters = mapMaybe safeHead
 
 -- #17
 asList :: [String] -> String
-asList xs = "[" ++ intercalate ", " xs  ++ "]"
+asList xs = "[" ++ intercalate "," xs  ++ "]"

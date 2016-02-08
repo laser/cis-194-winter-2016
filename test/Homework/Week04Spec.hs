@@ -13,7 +13,7 @@ spec :: Spec
 spec = do
   describe "insertBST" $ do
     it "properly handles inserts into an empty tree" $ do
-      
+
       let emptyTree = (Leaf :: BST Char)
       insertBST (\_ _ -> EQ) 'x' emptyTree `shouldBe` (Node Leaf 'x' Leaf)
 
@@ -44,7 +44,7 @@ spec = do
 
   describe "asList" $ do
     it "renders a bracketed list given a list of strings" $ do
-      pending
+
       asList ["alpha", "beta", "gamma"] `shouldBe` "[alpha,beta,gamma]"
       asList [] `shouldBe` "[]"
       asList ["lonely"] `shouldBe` "[lonely]"
