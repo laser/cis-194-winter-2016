@@ -76,5 +76,4 @@ spec = do
   describe "whatWentWrong" $ do
     it "will return the messages from LogMessages with Errors whose severity is 50+ - sorted by timestamp" $ do
       let messages = [LogMessage (Error 49) 10 "alpha", LogMessage (Error 100) 9 "kappa", LogMessage (Error 51) 11 "beta", Unknown "foo", LogMessage Warning 100 "blar"]
-
       whatWentWrong messages `shouldBe` ["kappa", "beta"]

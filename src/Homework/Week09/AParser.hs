@@ -1,12 +1,10 @@
 module Homework.Week09.AParser (
-  Parser, 
-  runParser, 
-  satisfy, 
-  char, 
+  Parser(..),
+  satisfy,
+  char,
   posInt
 ) where
 
-import Control.Applicative
 import Data.Char
 
 newtype Parser a = Parser { runParser :: String -> Maybe (a, String) }

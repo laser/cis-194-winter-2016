@@ -4,20 +4,20 @@ Click [here](http://coursework-progress.herokuapp.com/) to chart your progress t
 
 ## Schedule
 
-Week | Lecture                                                | Assignment              | Due     |
----- | ------------------------------------------------------ | ----------------------- | ------- |
-1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 14 |
-2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 21 |
-3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 28 |
-4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 4  |
-5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 11 |
-6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 |
-7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 |
-8    | [Functors][8]                                          | n/a                     | n/a     |
-9    | [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 3  |
-10   | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 |
-11   | [Monads][11]                                           | [risk][30]              | Mar. 17 |
-12   | [QuickCheck][12]                                       | [rings][31]             | Mar. 24 |
+Week | Lecture                                                | Assignment Due          | Due     | Presenter                  | 
+---- | ------------------------------------------------------ | ----------------------- | ------- | -------------------------- |
+1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 14 |                            |
+2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 21 |                            |
+3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 28 |                            |
+4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 4  | Sean Shubin (Type Classes) |
+5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 11 | Mary Flagstad (Streams)    |
+6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 | Greg Wiley (Monoids)       |  
+7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 | Joe Vargas (Functor)       |
+8    | [Functors][8] [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 3  | Hal Arnold (Applicative Functors) |
+9    | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 |                            |
+10   | [Monads][11]                                           | [risk][30]              | Mar. 17 | ???                        |
+11   | TBD                                                    | TBD                     | Mar. 24 | ???                        |
+12   | TBD                                                    | TBD                     | Mar. 31 | ???                        |
 
   [1]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week01L-intro.pdf
   [2]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week02L-ADTs.pdf
@@ -30,7 +30,6 @@ Week | Lecture                                                | Assignment      
   [9]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week09L-applicative.pdf
   [10]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week10L-applicative-cont.pdf
   [11]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week11L-monads.pdf
-  [12]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week12L-quickcheck.pdf
 
   [21]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week01A-intro.pdf
   [22]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week02A-ADTs.pdf
@@ -42,7 +41,6 @@ Week | Lecture                                                | Assignment      
   [28]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week09A-applicative.pdf
   [29]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week10A-applicative-cont.pdf
   [30]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week11A-monads.pdf
-  [31]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week12A-quickcheck.pdf
 
 ## Getting Started
 
