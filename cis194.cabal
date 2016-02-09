@@ -42,6 +42,7 @@ library
                      , text
                      , sqlite-simple
                      , transformers
+                     , containers
   default-language:    Haskell2010
 
 test-suite cis194-test
