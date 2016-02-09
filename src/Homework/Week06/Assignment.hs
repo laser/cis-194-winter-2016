@@ -11,16 +11,29 @@ module Homework.Week06.Assignment (
   Stream(..)
 ) where
 
+
+import Data.List
+
 -- #1a
 fib :: Integer -> Integer
-fib = undefined
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n - 1) + fib (n - 2)
+
+fibMemory :: Integer -> [Integer] -> Integer
+fibMemory 0 _ = 0
+fibMemory 1 _ = 1
+fibMemory n mem = head mem
 
 fibs1 :: [Integer]
-fibs1 = undefined
+fibs1 = map fib [0 .. ]
+
+fibInf :: [Integer] -> [Integer]
+fibInf (x : y : z) = x : fibInf [y , x + y]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = undefined
+fibs2 = fibInf [0,1]
 
 -- #3
 data Stream a = Stream a -- replace this with your own definition; this one is wrong
