@@ -22,7 +22,7 @@ fibs1 = fmap fib [0..]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = undefined
+fibs2 = erro "undefined"
 
 -- #3
 data Stream a = Stream a -- replace this with your own definition; this one is wrong
