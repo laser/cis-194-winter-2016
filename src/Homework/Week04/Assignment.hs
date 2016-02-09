@@ -19,72 +19,91 @@ module Homework.Week04.Assignment (
   BST(..)
 ) where
 
-import Homework.Week04.BST
+import           Data.Char           (isUpper)
+import           Data.Maybe          (catMaybes)
+import           Homework.Week04.BST
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 x y = y
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 x _ = x
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ x = x
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 b x1 x2 = x1
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 = not
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = error "wat"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 f x = f x
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 = id
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f (x:xs) = f x : ex9 f xs
 
 -- #10
 ex10 :: Maybe a -> a
-ex10 = undefined
+ex10 = error "wat"
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 = Just
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 = id
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST f x (Node t1 y t2) = case f x y of
+  GT -> Node t1 y (insertBST f x t2)
+  _ -> Node (insertBST f x t1) y t2
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps = foldl go True
+  where
+    go acc (c:cs) = acc && isUpper c
+    go acc _ = False
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = snd . foldr go (True, "")
+  where
+    go ' ' (True, cs)  = (True, cs)
+    go ' ' (False, cs) = (False, ' ':cs)
+    go c   (_, cs)     = (False, c:cs)
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = catMaybes . map go
+  where
+    go (c:cs) = Just c
+    go _ = Nothing
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList [] = show ([] :: [String])
+asList ss = foldr go "" (show ss)
+  where
+    go '"' cs = cs
+    go c cs = c:cs
