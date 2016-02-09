@@ -1,4 +1,5 @@
 {-# LANGUAGE FlexibleInstances #-}
+
 module Homework.Week05.Assignment (
   eval,
   evalStr,
@@ -6,9 +7,7 @@ module Homework.Week05.Assignment (
   Expr(..),
   MinMax(..),
   Mod7(..)
- ,ExprT(..)
  ,Listable(..)
- ,Expr(..)
  ,reify
  ,testInteger,testBool,testMM,testSat
 ) where
@@ -100,4 +99,7 @@ testInteger = testExp :: Maybe Integer
 testBool = testExp :: Maybe Bool
 testMM = testExp :: Maybe MinMax
 testSat = testExp :: Maybe Mod7
+
+-- # Exercise 5
+
 

@@ -1,9 +1,12 @@
+{-# LANGUAGE TypeSynonymInstances #-}
+
 module Homework.Week05.StackVM (
-  StackVal(..), 
-  StackExp(..), 
-  Stack, 
-  Program, 
-  stackVM
+  StackVal(..),
+  StackExp(..),
+  Stack,
+  Program,
+  stackVM,
+  test
 ) where
 
 -- Values that may appear in the stack. Such a value will also be
@@ -21,6 +24,7 @@ data StackExp = PushI Integer
 
 type Stack   = [StackVal]
 type Program = [StackExp]
+
 
 -- Execute the given program. Returns either an error message or the
 -- value on top of the stack after execution.
