@@ -77,13 +77,21 @@ instance Expr Bool where
   add = (||)
   mul = (&&)
 
-newtype MinMax = MinMax Integer deriving (Eq,Show)
+newtype MinMax = MinMax Integer deriving (Eq,Show,Ord)
 newtype Mod7   = Mod7 Integer deriving (Eq,Show)
 
+
+-- Without Ord in MinMax
+-- instance Expr MinMax where
+--   lit = MinMax
+--   add (MinMax a) (MinMax b) = MinMax $ max a b
+--   mul (MinMax a) (MinMax b) = MinMax $ min a b
+
+-- 'cheating' :) with Ord
 instance Expr MinMax where
   lit = MinMax
-  add (MinMax a) (MinMax b) = MinMax $ max a b
-  mul (MinMax a) (MinMax b) = MinMax $ min a b
+  add = max
+  mul = min
 
 instance Expr Mod7 where
   lit a = Mod7 $ mod a 7
