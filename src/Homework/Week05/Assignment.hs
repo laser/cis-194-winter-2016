@@ -33,7 +33,7 @@ instance Expr ExprT where
   mul x y = Mul x y
 
 -- #4
--- instance Expr Integer where
---   lit = ???
---   add = ???
---   mul = ???
+instance Expr Integer where
+  lit     = id
+  add x y = x + y
+  mul x y = x * y

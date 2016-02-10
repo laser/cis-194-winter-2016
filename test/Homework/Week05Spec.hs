@@ -42,11 +42,11 @@ spec = do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe`
         Mul (Add (Lit 2) (Lit 3)) (Lit 4)
 
-{-
   describe "Expr Integer" $ do
     it "evaluates arithmetic expressions to integers" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` (20 :: Integer)
 
+{-
   describe "Expr Bool" $ do
     it "interprets negative values as False" $ do
       property $ \(Positive x) -> lit (-x) `shouldBe` False
