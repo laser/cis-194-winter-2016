@@ -43,12 +43,12 @@ instance Expr Bool where
   mul = (&&)
 
 newtype MinMax = MinMax Integer
-  deriving (Eq, Show)
+  deriving (Eq, Show, Ord)
 
 instance Expr MinMax where
   lit = MinMax
-  add (MinMax x) (MinMax y) = MinMax $ max x y
-  mul (MinMax x) (MinMax y) = MinMax $ min x y
+  add = max
+  mul = min
 
 newtype Mod7 = Mod7 Integer
   deriving (Eq, Show)
