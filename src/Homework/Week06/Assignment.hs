@@ -21,7 +21,7 @@ fibs1 :: [Integer]
 fibs1 = fmap fib [0..]
 --
 -- try this one with iterate
--- ooooo
+--
 
 -- #2
 fibs2 :: [Integer]
