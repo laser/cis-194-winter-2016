@@ -37,12 +37,12 @@ spec = do
       evalStr "(2+3)*4" `shouldBe` Just 20
       evalStr "2+3*4" `shouldBe` Just 14
 
-{-
   describe "Expr ExprT" $ do
     it "produces expression ASTs" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe`
         Mul (Add (Lit 2) (Lit 3)) (Lit 4)
 
+{-
   describe "Expr Integer" $ do
     it "evaluates arithmetic expressions to integers" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` (20 :: Integer)
