@@ -19,7 +19,7 @@ eval (Mul x y) = eval x * eval y
 
 -- #2
 evalStr :: String -> Maybe Integer
-evalStr = undefined
+evalStr = maybe Nothing (Just . eval) . parseExp Lit Add Mul
 
 -- #3
 -- class Expr a where
