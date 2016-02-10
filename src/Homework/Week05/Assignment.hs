@@ -3,8 +3,8 @@ module Homework.Week05.Assignment (
   evalStr,
   ExprT(..),
   Expr(..),
+  MinMax(..),
   -- uncomment these once you've defined them:
-  -- MinMax(..),
   -- Mod7(..)
 ) where
 
@@ -42,3 +42,11 @@ instance Expr Bool where
   lit x   = x > 0
   add x y = x || y
   mul x y = x && y
+
+newtype MinMax = MinMax Integer
+  deriving (Eq, Show)
+
+instance Expr MinMax where
+  lit = MinMax
+  add (MinMax x) (MinMax y) = MinMax $ max x y
+  mul (MinMax x) (MinMax y) = MinMax $ min x y
