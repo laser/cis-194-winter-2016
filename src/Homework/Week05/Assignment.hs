@@ -27,20 +27,20 @@ class Expr a where
   mul :: a -> a -> a
 
 instance Expr ExprT where
-  lit x   = Lit x
-  add x y = Add x y
-  mul x y = Mul x y
+  lit = Lit
+  add = Add
+  mul = Mul
 
 -- #4
 instance Expr Integer where
-  lit     = id
-  add x y = x + y
-  mul x y = x * y
+  lit = id
+  add = (+)
+  mul = (*)
 
 instance Expr Bool where
-  lit x   = x > 0
-  add x y = x || y
-  mul x y = x && y
+  lit = ( > 0)
+  add = (||)
+  mul = (&&)
 
 newtype MinMax = MinMax Integer
   deriving (Eq, Show)
