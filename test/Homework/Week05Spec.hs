@@ -46,7 +46,6 @@ spec = do
     it "evaluates arithmetic expressions to integers" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` (20 :: Integer)
 
-{-
   describe "Expr Bool" $ do
     it "interprets negative values as False" $ do
       property $ \(Positive x) -> lit (-x) `shouldBe` False
@@ -73,6 +72,7 @@ spec = do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` True
       mul (add (lit 2) (lit 3)) (lit 0) `shouldBe` False
 
+{-
   describe "Expr MinMax" $ do
     it "wraps literals in the MinMax newtype" $ do
       property $ \x -> lit x `shouldBe` MinMax x
