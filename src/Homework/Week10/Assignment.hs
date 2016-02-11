@@ -1,42 +1,44 @@
-module Homework.Week10.Assignment (
-  zeroOrMore,
-  oneOrMore,
-  spaces,
-  ident,
-  parseSExpr,
-  Ident(..),
-  Atom(..),
-  SExpr(..)
-) where
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
-import Control.Applicative
+module Homework.Week10.Assignment where
 
-import Homework.Week10.AParser
+import Control.Monad.Random
 
--- #1
-zeroOrMore :: Parser a -> Parser [a]
-zeroOrMore p = undefined
+------------------------------------------------------------
+-- Die values
 
-oneOrMore :: Parser a -> Parser [a]
-oneOrMore p = undefined
+newtype DieValue = DV { unDV :: Int } 
+  deriving (Eq, Ord, Show, Num)
 
--- #2
-spaces :: Parser String
-spaces = undefined
+first :: (a -> b) -> (a, c) -> (b, c)
+first f (a, c) = (f a, c)
 
-ident :: Parser String
-ident = undefined
+instance Random DieValue where
+  random           = first DV . randomR (1, 6)
+  randomR (low,hi) = first DV . randomR (max 1 (unDV low), min 6 (unDV hi))
+
+die :: Rand StdGen DieValue
+die = getRandom
+
+------------------------------------------------------------
+-- Risk
+
+type Army = Int
+
+data Battlefield = Battlefield { attackers :: Army, defenders :: Army }
+
+-- #2 (there is no assignment #1, really)
+battle :: Battlefield -> Rand StdGen Battlefield
+battle = undefined
 
 -- #3
-type Ident = String
+invade :: Battlefield -> Rand StdGen Battlefield
+invade = undefined
 
-data Atom = N Integer 
-          | I Ident
-  deriving Show
+-- #4
+successProb :: Battlefield -> Rand StdGen Double
+successProb = undefined
 
-data SExpr = A Atom 
-           | Comb [SExpr]
-  deriving Show
-
-parseSExpr :: Parser SExpr
-parseSExpr = undefined
+-- #5
+exactSuccessProb :: Battlefield -> Double
+exactSuccessProb = undefined
