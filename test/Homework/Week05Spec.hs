@@ -74,7 +74,7 @@ spec = do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` True
       mul (add (lit 2) (lit 3)) (lit 0) `shouldBe` False
 
-{-
+
   describe "Expr MinMax" $ do
     it "wraps literals in the MinMax newtype" $ do
       property $ \x -> lit x `shouldBe` MinMax x
@@ -100,4 +100,4 @@ spec = do
 
     it "evaluates arithmetic expressions to integers mod 7" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` Mod7 6
--}
+
