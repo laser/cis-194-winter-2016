@@ -28,7 +28,7 @@ spec = do
 
     it "evaluates nested arithmetic expression ASTs" $ do
       eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) `shouldBe` 20
-{-
+
   describe "evalStr" $ do
     it "evaluates invalid arithmetic expression strings to Nothing" $ do
       evalStr "2+3*" `shouldBe` Nothing
@@ -36,7 +36,7 @@ spec = do
     it "evaluates valid arithmetic expression strings to integers" $ do
       evalStr "(2+3)*4" `shouldBe` Just 20
       evalStr "2+3*4" `shouldBe` Just 14
-
+{-
   describe "Expr ExprT" $ do
     it "produces expression ASTs" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe`
