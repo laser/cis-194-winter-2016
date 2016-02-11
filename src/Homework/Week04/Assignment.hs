@@ -120,8 +120,7 @@ dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = mapMaybe listToMaybe
-
+firstLetters = mapMaybe headMaybe
 -- #17
 asList :: [String] -> String
 asList ss = "[" ++ intercalate "," ss ++ "]"
