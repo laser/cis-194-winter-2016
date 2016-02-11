@@ -42,4 +42,7 @@ instance Expr Integer where
    add a b = a + b
    mul a b = a * b
 
-
+instance Expr Bool where
+    lit x = x > 0
+    add a b = a || b
+    mul a b = a && b
