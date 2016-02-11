@@ -20,42 +20,48 @@ module Homework.Week04.Assignment (
 ) where
 
 import Homework.Week04.BST
+import Data.Char
+import Data.List
+import Data.Maybe
 
 -- #1
 ex1 :: a -> b -> b
-ex1 = undefined
+ex1 _ x = x
 
 -- #2
 ex2 :: a -> a -> a
-ex2 = undefined
+ex2 _ x = x
 
 -- #3
 ex3 :: Int -> a -> a
-ex3 = undefined
+ex3 _ x = x
 
 -- #4
 ex4 :: Bool -> a -> a -> a
-ex4 = undefined
+ex4 _ _ x = x
+ex4 _ x _ = x
 
 -- #5
 ex5 :: Bool -> Bool
-ex5 = undefined
+ex5 x = x
+ex5 x = True
+ex5 x = False
 
 -- #6
 ex6 :: (a -> a) -> a
-ex6 = undefined
+ex6 = error "impossible"
 
 -- #7
 ex7 :: (a -> a) -> a -> a
-ex7 = undefined
+ex7 f x = f $ x
 
 -- #8
 ex8 :: [a] -> [a]
-ex8 = undefined
+ex8 x = x
 
 -- #9
 ex9 :: (a -> b) -> [a] -> [b]
-ex9 = undefined
+ex9 f x = map f x
 
 -- #10
 ex10 :: Maybe a -> a
@@ -63,28 +69,39 @@ ex10 = undefined
 
 -- #11
 ex11 :: a -> Maybe a
-ex11 = undefined
+ex11 x = Just x
 
 -- #12
 ex12 :: Maybe a -> Maybe a
-ex12 = undefined
+ex12 x = x
 
 -- #13
 insertBST :: (a -> a -> Ordering) -> a -> BST a -> BST a
-insertBST = undefined
+insertBST _ x Leaf = Node Leaf x Leaf
+insertBST comparator x (Node l e r) = case comparator x e of
+                                        GT -> Node l e ( insertBST comparator x r )
+                                        _  -> Node (insertBST comparator x l) e r
 
 -- #14
 allCaps :: [String] -> Bool
-allCaps = undefined
+allCaps [] = True
+allCaps strings = case find (==False) (map isCapitalized strings) of
+                    Nothing -> True
+                    Just _ -> False
+    where
+        isCapitalized [] = False
+        isCapitalized (x:_) = isUpper x
+
+
 
 -- #15
 dropTrailingWhitespace :: String -> String
-dropTrailingWhitespace = undefined
+dropTrailingWhitespace = dropWhileEnd isSpace
 
 -- #16
 firstLetters :: [String] -> [Char]
-firstLetters = undefined
+firstLetters = catMaybes . map listToMaybe
 
 -- #17
 asList :: [String] -> String
-asList = undefined
+asList xs = "[" ++ intercalate ", " xs ++ "]"
