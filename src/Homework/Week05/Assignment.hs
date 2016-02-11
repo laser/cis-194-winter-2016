@@ -3,18 +3,17 @@ module Homework.Week05.Assignment (
   evalStr,
   ExprT(..),
   -- uncomment these once you've defined them:
-  -- Expr(..),
+  Expr(..),
   -- MinMax(..),
   -- Mod7(..)
 ) where
+import Homework.Week05.ExprT
+import Homework.Week05.Parser
 
 --data ExprT = Lit Integer
 --           | Add ExprT ExprT
 --           | Mul ExprT ExprT
 --  deriving (Show, Eq)
-
-import Homework.Week05.ExprT
-import Homework.Week05.Parser
 
 -- #1
 eval :: ExprT -> Integer
@@ -27,13 +26,20 @@ evalStr :: String -> Maybe Integer
 evalStr s = maybe Nothing (Just . eval) (parseExp Lit Add Mul s)
 
 -- #3
--- class Expr a where
---   lit :: ???
---   add :: ???
---   mul :: ???
+class Expr a where
+   lit :: Integer -> a
+   add :: a -> a -> a
+   mul :: a -> a -> a
+
+instance Expr ExprT where
+   lit = Lit
+   add = Add
+   mul = Mul
 
 -- #4
--- instance Expr Integer where
---   lit = ???
---   add = ???
---   mul = ???
+instance Expr Integer where
+   lit a = a
+   add a b = a + b
+   mul a b = a * b
+
+

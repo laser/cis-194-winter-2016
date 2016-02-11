@@ -7,6 +7,7 @@ import Test.Hspec
 import Test.QuickCheck
 
 import Homework.Week05.Assignment
+--import Homework.Week05.Assignment (mul add lit)
 
 main :: IO ()
 main = hspec spec
@@ -36,11 +37,12 @@ spec = do
     it "evaluates valid arithmetic expression strings to integers" $ do
       evalStr "(2+3)*4" `shouldBe` Just 20
       evalStr "2+3*4" `shouldBe` Just 14
-{-
+
   describe "Expr ExprT" $ do
     it "produces expression ASTs" $ do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe`
         Mul (Add (Lit 2) (Lit 3)) (Lit 4)
+
 
   describe "Expr Integer" $ do
     it "evaluates arithmetic expressions to integers" $ do
@@ -72,6 +74,7 @@ spec = do
       mul (add (lit 2) (lit 3)) (lit 4) `shouldBe` True
       mul (add (lit 2) (lit 3)) (lit 0) `shouldBe` False
 
+{-
   describe "Expr MinMax" $ do
     it "wraps literals in the MinMax newtype" $ do
       property $ \x -> lit x `shouldBe` MinMax x
