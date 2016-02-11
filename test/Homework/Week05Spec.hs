@@ -13,9 +13,9 @@ main = hspec spec
 
 spec :: Spec
 spec = do
-  describe "week 5 specs" $
-    it "are commented out below" pending
-{-
+--  describe "week 5 specs" $
+--    it "are commented out below" pending
+
   describe "eval" $ do
     it "evaluates Lit expressions as plain integers" $ do
       property $ \x -> eval (Lit x) `shouldBe` x
@@ -28,7 +28,7 @@ spec = do
 
     it "evaluates nested arithmetic expression ASTs" $ do
       eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) `shouldBe` 20
-
+{-
   describe "evalStr" $ do
     it "evaluates invalid arithmetic expression strings to Nothing" $ do
       evalStr "2+3*" `shouldBe` Nothing

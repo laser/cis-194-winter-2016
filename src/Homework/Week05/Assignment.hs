@@ -8,12 +8,19 @@ module Homework.Week05.Assignment (
   -- Mod7(..)
 ) where
 
+--data ExprT = Lit Integer
+--           | Add ExprT ExprT
+--           | Mul ExprT ExprT
+--  deriving (Show, Eq)
+
 import Homework.Week05.ExprT
 import Homework.Week05.Parser
 
 -- #1
 eval :: ExprT -> Integer
-eval = undefined
+eval (Lit x) = x
+eval (Add e1 e2) = eval e1 + eval e2
+eval (Mul e1 e2) = eval e1 * eval e2
 
 -- #2
 evalStr :: String -> Maybe Integer
