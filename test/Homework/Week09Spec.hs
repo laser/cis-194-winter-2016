@@ -12,6 +12,6 @@ main = hspec spec
 
 spec :: Spec
 spec = do
-  describe "week 9" $ do
+  describe "week 09" $ do
     it "needs some tests!" $ do
       pending

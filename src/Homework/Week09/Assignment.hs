@@ -1,33 +1,42 @@
 module Homework.Week09.Assignment (
-  first,
-  abParser,
-  abParser_,
-  intOrUppercase
+  zeroOrMore,
+  oneOrMore,
+  spaces,
+  ident,
+  parseSExpr,
+  Ident(..),
+  Atom(..),
+  SExpr(..)
 ) where
+
+import Control.Applicative
 
 import Homework.Week09.AParser
 
 -- #1
-first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+zeroOrMore :: Parser a -> Parser [a]
+zeroOrMore p = undefined
+
+oneOrMore :: Parser a -> Parser [a]
+oneOrMore p = undefined
 
 -- #2
---instance Applicative Parser where
---  pure = ???
---  _ <*> _ = ???
+spaces :: Parser String
+spaces = undefined
+
+ident :: Parser String
+ident = undefined
 
 -- #3
-abParser :: Parser (Char, Char)
-abParser = undefined
+type Ident = String
 
-abParser_ :: Parser ()
-abParser_ = undefined
+data Atom = N Integer 
+          | I Ident
+  deriving Show
 
--- #4
---instance Alternative Parser where
---  empty = ???
---  _ <|> _ = ???
+data SExpr = A Atom 
+           | Comb [SExpr]
+  deriving Show
 
--- #5
-intOrUppercase :: Parser ()
-intOrUppercase = undefined
+parseSExpr :: Parser SExpr
+parseSExpr = undefined
