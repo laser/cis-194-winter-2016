@@ -1,13 +1,6 @@
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-
 module Homework.Week09.Assignment (
   Atom(..),
   SExpr(..),
-  first,
-  abParser,
-  abParser_,
-  intPair,
-  intOrUppercase,
   zeroOrMore,
   oneOrMore,
   spaces,
@@ -15,64 +8,27 @@ module Homework.Week09.Assignment (
   parseSExpr
 ) where
 
+
 import Homework.Week09.AParser
 
-import qualified Control.Arrow       as Arr (first)
-import           Control.Applicative
-import           Control.Monad              (void)
-import           Data.Char                  (isAlpha, isAlphaNum, isSpace, isUpper)
+import Control.Applicative
+import Data.Char           (isAlpha, isAlphaNum, isSpace)
 
--- #1A
-first :: (a -> b) -> (a, c) -> (b, c)
-first = Arr.first
-
-instance Functor Parser where
-  fmap f (Parser g) = Parser $ fmap (first f) . g
-
--- #2A
-instance Applicative Parser where
-  pure a = Parser $ \s -> Just (a, s)
-
-  (Parser a) <*> (Parser b) = Parser $ \str -> do
-    (f, remainingA) <- a str
-    (x, remainingB) <- b remainingA
-    return (f x, remainingB)
-
--- #3A
-abParser :: Parser (Char, Char)
-abParser = (,) <$> char 'a' <*> char 'b'
-
-abParser_ :: Parser ()
-abParser_ = void abParser
-
-intPair :: Parser [Integer]
-intPair = collect <$> posInt <* char ' ' <*> posInt
-  where collect a b = [a, b]
-
--- #4A
-instance Alternative Parser where
-  empty = Parser $ const Nothing
-  (Parser a) <|> (Parser b) = Parser $ \str -> a str <|> b str
-
--- #5A
-intOrUppercase :: Parser ()
-intOrUppercase = void posInt <|> void (satisfy isUpper)
-
--- #1B
+-- #1
 zeroOrMore :: Parser a -> Parser [a]
 zeroOrMore p = oneOrMore p <|> pure []
 
 oneOrMore :: Parser a -> Parser [a]
 oneOrMore p = (:) <$> p <*> zeroOrMore p
 
--- #2B
+-- #2
 spaces :: Parser String
 spaces = zeroOrMore $ satisfy isSpace
 
 ident :: Parser Ident
 ident = (:) <$> satisfy isAlpha <*> zeroOrMore (satisfy isAlphaNum)
 
--- #3B
+-- #3
 type Ident = String
 
 data Atom = N Integer | I Ident
