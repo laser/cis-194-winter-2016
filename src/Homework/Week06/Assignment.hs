@@ -26,7 +26,7 @@ fibMemory 1 _ = 1
 fibMemory n mem = head mem
 
 fibs1 :: [Integer]
-fibs1 = map fib [0 .. ]
+fibs1 = fmap fib [0 .. ]
 
 fibInf :: [Integer] -> [Integer]
 fibInf (x : y : z) = x : fibInf [y , x + y]
@@ -36,27 +36,33 @@ fibs2 :: [Integer]
 fibs2 = fibInf [0,1]
 
 -- #3
-data Stream a = Stream a -- replace this with your own definition; this one is wrong
+data Stream a = Cons a (Stream a)
 
 streamToList :: Stream a -> [a]
-streamToList = undefined
+streamToList (Cons item tailStream) = item : streamToList tailStream
 
--- instance Show a => Show (Stream a) where
---   show = ???
+instance Show a => Show (Stream a) where
+  show (Cons item tailStream) = show item
 
 -- #4
 streamRepeat :: a -> Stream a
-streamRepeat = undefined
+streamRepeat x = Cons x (streamRepeat x)
 
 streamMap :: (a -> b) -> Stream a -> Stream b
-streamMap = undefined
+streamMap fun (Cons item streamTail) = Cons (fun item) (streamMap fun streamTail)
 
 streamFromSeed :: (a -> a) -> a -> Stream a
-streamFromSeed = undefined
+streamFromSeed fun input = Cons input (streamFromSeed fun (fun input))
 
 -- #5
 nats :: Stream Integer
-nats = undefined
+nats = streamFromSeed (+1) 0
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (Cons x firstTail) ~(Cons y secondTail) = Cons x (Cons y (interleaveStreams firstTail secondTail))
+
+rulerStartFromZero :: Integer -> Stream Integer
+rulerStartFromZero n = interleaveStreams (streamRepeat n) (rulerStartFromZero (n+1))
 
 ruler :: Stream Integer
-ruler = undefined
+ruler = rulerStartFromZero 0
