@@ -39,13 +39,13 @@ instance Expr ExprT where
 -- #4
 instance Expr Integer where
    lit a = a
-   add a b = a + b
-   mul a b = a * b
+   add = (+)
+   mul = (*)
 
 instance Expr Bool where
-    lit x = x > 0
-    add a b = a || b
-    mul a b = a && b
+    lit = (> 0)
+    add = (||)
+    mul = (&&)
 
 newtype MinMax = MinMax Integer deriving (Eq, Show)
 
@@ -53,9 +53,9 @@ instance Ord MinMax where
     (<=) (MinMax x) (MinMax y) = x <= y
 
 instance Expr MinMax where
-    lit x = MinMax x
-    add a b = max a b
-    mul a b = min a b
+    lit = MinMax
+    add = max
+    mul = min
 
 newtype Mod7 = Mod7 Integer deriving (Eq, Show)
 
