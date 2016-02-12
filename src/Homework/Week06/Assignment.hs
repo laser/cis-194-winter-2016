@@ -9,7 +9,11 @@ module Homework.Week06.Assignment (
   nats,
   ruler,
   Stream(..)
+  , rubegoldfibz
+  , poorslidinfibz
 ) where
+
+--import Data.Map
 
 -- #1a
 fib :: Integer -> Integer
@@ -25,7 +29,7 @@ fibs1 = fmap fib [0..]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = error "undefined"
+fibs2 = poorslidinfibz
 
 -- to be O(n) we have to retain previous calculations
 -- so recursion passing a map or container is what we need to do
@@ -35,7 +39,20 @@ fibs2 = error "undefined"
 --                   if found in priors then done
 --                   otherwise compute fib for n-2 and then n-1  storing both in priors container
 
---
+
+-- poppin fibz the hard way... oh yeah!
+rubegoldfibz :: Int -> [Integer]
+rubegoldfibz n = fmap snd $ reverse $ last $ take n $ iterate fibberator [(0,0)]
+                 where fibberator xs@((0,0) :[])           = (1,1) : xs
+                       fibberator xs@((a,b):(c,d) :_)      = (succ a, b + d ) : xs
+
+-- popz teh fibz with a poor man's slider
+poorslidinfibz :: [Integer]
+poorslidinfibz = fmap snd $ go [(0,0),(1,1)]
+                where go all@(x : xs) = x : ( go $ last xs :  nextFibs last2 )
+                                        where last2 = take 2 $ drop (length all - 2)  all
+                                              nextFibs [(a,b),(c,d)]= [(succ c, b + d)]
+
 -- given n and map
 -- lookup n in map
 -- if found use n

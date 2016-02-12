@@ -29,7 +29,6 @@ spec = do
 
   describe "fibs2" $ do
     it "is a list of the fibonacci numbers" $ do
-      pending
       take 8 fibs2 `shouldBe` [0, 1, 1, 2, 3, 5, 8, 13]
 
   describe "streamRepeat" $ do
