@@ -30,13 +30,13 @@ ident = undefined
 -- #3
 type Ident = String
 
-data Atom = N Integer 
+data Atom = N Integer
           | I Ident
-  deriving Show
+  deriving (Eq, Show)
 
-data SExpr = A Atom 
+data SExpr = A Atom
            | Comb [SExpr]
-  deriving Show
+  deriving (Eq, Show)
 
 parseSExpr :: Parser SExpr
 parseSExpr = undefined
