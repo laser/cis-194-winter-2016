@@ -8,8 +8,7 @@ module Homework.Week06.Assignment (
   streamFromSeed,
   nats,
   ruler,
-  Stream(..),
-  interleave
+  Stream(..)
 ) where
 
 -- #1a
@@ -36,8 +35,7 @@ fibs2  = let xs   = fibs2
          in 0:1: zipWith (+) xs xs'
 
 -- #3
-data Stream a =  Stream a (Stream a) -- like List, but w/o the empty constructor
--- doesnt work: (;) for list only: data Stream a = a : (Stream a)
+data Stream a =  Stream a (Stream a) -- l
 
 streamToList :: Stream a -> [a]
 streamToList (Stream a as) = a : streamToList as
@@ -57,22 +55,29 @@ streamMap f (Stream x xs) = Stream (f x) (streamMap f xs)
 streamFromSeed :: (a -> a) -> a -> Stream a
 streamFromSeed f x = Stream x (streamFromSeed f $ f x)
 
- -- streamFromSeed f x = let newVal  = f x
- --                      in Stream x (streamFromSeed f newVal)
-
 -- #5
 nats :: Stream Integer
 nats = streamFromSeed (+1) (0 :: Integer)
 
+--list version:
+-- interleave :: [a] -> [a] -> [a]
+-- interleave (x : xs) ys = x :interleave ys xs
+
 interleaveStreams :: Stream a -> Stream a -> Stream a
-interleaveStreams (Stream x  xs) (Stream _ ys) = undefined
---  Stream x  (Stream (interleave ys xs))
+interleaveStreams (Stream x  xs) (Stream y ys) =
+   Stream x (Stream y (interleaveStreams xs ys))
 
-
-
-interleave :: [a] -> [a] -> [a]
-interleave (x : xs) ys = x :interleave ys xs
+-- divTot :: Integer -> Integer -> Integer
+-- divTot n cnt
+--     | n `mod` 2 == 0   = divTot (n `div` 2) (cnt + 1)
+--     | otherwise        = cnt
+--
+-- flipDiv :: Integer -> Integer
+-- flipDiv = flip divTot 0
+--
+-- divAll :: Stream Integer -> Stream Integer
+-- divAll = undefined --fmap (flip divTot 0)
 
 
 ruler :: Stream Integer
-ruler = undefined -- take 20 $ zip nats streamRepeat 0
+ruler = undefined --streamFromSeed (flipDiv) (0::Integer)

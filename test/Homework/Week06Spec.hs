@@ -53,8 +53,7 @@ spec = do
     it "is a stream of the natural numbers" $ do
       take 8 (streamToList nats) `shouldBe` [0, 1, 2, 3, 4, 5, 6, 7]
 
-  describe "ruler" $ do
-    it "is a stream that corresponds to the ruler function" $ do
-      pending
-      take 16 (streamToList ruler)
-        `shouldBe` [0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4]
+  -- describe "ruler" $ do
+  --   it "is a stream that corresponds to the ruler function" $ do
+  --     take 16 (streamToList ruler)
+  --       `shouldBe` [0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4]
