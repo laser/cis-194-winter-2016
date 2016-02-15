@@ -8,6 +8,7 @@ module Homework.Week06.Assignment (
   streamFromSeed,
   nats,
   ruler,
+  ruler2,
   Stream(..)
   , rubegoldfibz
   , poorslidinfibz
@@ -38,8 +39,8 @@ rubegoldfibz n = fmap snd $ reverse $ last $ take n $ iterate fibberator [(0,0)]
 -- popz teh fibz with a poor man's slider
 poorslidinfibz :: [Integer]
 poorslidinfibz = fmap snd $ go [(0,0),(1,1)]
-                where go all@(x : xs) = x : ( go $ last xs :  nextFibs last2 )
-                                        where last2 = take 2 $ drop (length all - 2)  all
+                where go all@(x : xs) = x : ( go $ last xs :  nextFibs lastTwo )
+                                        where lastTwo = take 2 $ drop (length all - 2)  all
                                               nextFibs [(a,b),(c,d)]= [(succ c, b + d)]
 
 --
@@ -68,10 +69,24 @@ nats :: Stream Integer
 nats = streamFromSeed (+1) 0
 
 ruler :: Stream Integer
-ruler = undefined -- streamMap (\ x->
+ruler = streamMap highestPowerOfTwo $ streamMap succ nats
+        where highestPowerOfTwo n = toInteger  $ pred $ length $ takeWhile (==0) $ streamToList  $ streamMap (mod n) $ streamMap (2^) nats
 
+-- #5a interleave....
 interleaveStreams :: Stream a -> Stream a -> Stream a
-interleaveStreams  a b = undefined
-                        --where go (Cons e1 s1) (Cons e2 s2) = Cons e1
+interleaveStreams (Cons a as) (Cons b bs) = Cons a $ Cons b $ interleaveStreams as bs
+
+-- for all odd numbers, for any power of 2 the gcd will be 1
+--   so why bother computing them?
+--   just get the gcd between 2 and any of the evens
+
+ruler2 :: Stream Integer
+ruler2 = interleaveStreams streamRepresentingOdds streamRepresentingEvens
+        where streamRepresentingOdds     = streamRepeat 0
+              streamRepresentingEvens    = streamFromSeed (+2) 2
+
+-- use gcd to get highest power of two :)
+
+-- take #1  bah! didnt need interleave
 
 

@@ -54,6 +54,5 @@ spec = do
 
   describe "ruler" $ do
     it "is a stream that corresponds to the ruler function" $ do
-      pending
       take 16 (streamToList ruler)
         `shouldBe` [0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4]
