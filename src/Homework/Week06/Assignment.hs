@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Homework.Week06.Assignment (
   fib,
   fibs1,
