@@ -26,14 +26,11 @@ library
                      , Homework.Week05.Parser
                      , Homework.Week06.Assignment
                      , Homework.Week07.Assignment
+                     , Homework.Week08.Assignment
+                     , Homework.Week08.AParser
                      , Homework.Week09.Assignment
                      , Homework.Week09.AParser
                      , Homework.Week10.Assignment
-                     , Homework.Week10.AParser
-                     , Homework.Week11.Assignment
-                     , Homework.Week12.Assignment
-                     , Homework.Week12.BST
-                     , Homework.Week12.Ring
   build-depends:       base >= 4.7 && < 5
                      , MonadRandom
                      , QuickCheck
