@@ -1,8 +1,8 @@
 module Homework.Week05.StackVM (
-  StackVal(..), 
-  StackExp(..), 
-  Stack, 
-  Program, 
+  StackVal(..),
+  StackExp(..),
+  Stack,
+  Program,
   stackVM
 ) where
 
