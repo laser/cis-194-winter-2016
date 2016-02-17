@@ -14,7 +14,7 @@ spec :: Spec
 spec = do
   describe "fib" $ do
     it "returns fibonacci numbers" $ do
-      pending
+      --pending
       fib 0 `shouldBe` 0
       fib 1 `shouldBe` 1
       fib 2 `shouldBe` 1
@@ -26,17 +26,17 @@ spec = do
 
   describe "fibs1" $ do
     it "is a list of the fibonacci numbers" $ do
-      pending
+--      pending
       take 8 fibs1 `shouldBe` [0, 1, 1, 2, 3, 5, 8, 13]
 
   describe "fibs2" $ do
     it "is a list of the fibonacci numbers" $ do
-      pending
+--       pending
       take 8 fibs2 `shouldBe` [0, 1, 1, 2, 3, 5, 8, 13]
 
   describe "streamRepeat" $ do
     it "creates a stream containing only the provided element" $ do
-      pending
+--       pending
       take 8 (streamToList $ streamRepeat 5)
         `shouldBe` ([5, 5, 5, 5, 5, 5, 5, 5] :: [Integer])
 
