@@ -14,7 +14,6 @@ spec :: Spec
 spec = do
   describe "fib" $ do
     it "returns fibonacci numbers" $ do
-      pending
       fib 0 `shouldBe` 0
       fib 1 `shouldBe` 1
       fib 2 `shouldBe` 1
