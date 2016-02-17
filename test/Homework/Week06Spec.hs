@@ -42,13 +42,13 @@ spec = do
 
   describe "streamMap" $ do
     it "produces a new stream of the applied function's results" $ do
-      pending
-      take 8 (streamToList $ streamMap (+1) (streamRepeat 5))
+--       pending
+      take 8  (streamToList $ streamMap (+1) (streamRepeat 5))
         `shouldBe` ([6, 6, 6, 6, 6, 6, 6, 6] :: [Integer])
 
   describe "streamFromSeed" $ do
     it "produces a stream by unfolding the seed with the given function" $ do
-      pending
+--       pending
       take 8 (streamToList $ streamFromSeed (+1) 0)
         `shouldBe` ([0, 1, 2, 3, 4, 5, 6, 7] :: [Integer])
       take 8 (streamToList $ streamFromSeed (++ "~") "")
