@@ -22,7 +22,8 @@ fibs1 = [ fib x | x <- [0..]]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = [ fib x | x <- [0..]] -- come back to it
+fibs2 = [round (goldenRatio ** fromIntegral x / sqrt 5) | x <- [0..]]
+  where goldenRatio = (1 + sqrt 5) / 2
 
 -- #3
 data Stream a = Cons a (Stream a)
