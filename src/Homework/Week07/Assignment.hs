@@ -25,12 +25,34 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
 -- #1
-ynToBool :: Value -> Value
-ynToBool = undefined
 
+-- Object !Object
+-- Array !Array
+-- String !Text
+-- Number !Scientific
+-- Bool !Bool
+-- Null
+
+ynToBool :: Value -> Value
+ynToBool (String "Y")  = toJSON True
+ynToBool (String "N")  = toJSON False
+ynToBool (String x)    = toJSON x
+ynToBool (Object value) = Object $ fmap ynToBool value
+ynToBool (Array value ) = Array $ fmap ynToBool value
+ynToBool (Number x)     = toJSON  x
+ynToBool (Bool True)    = toJSON True
+ynToBool (Bool False)   = toJSON False
+ynToBool _              = toJSON False
+
+
+-- instance Functor (Either a) where
+--     fmap f (Right x) = Right (f x)
+--     fmap f (Left x) = Left x
 -- #2
 parseData :: B.ByteString -> Either String Value
 parseData = undefined
+--  fmap (Right ynToBool bstr ) = Right $ f bstr
+-- fmap _        (Left str)    = Left $ str
 
 -- #3
 data Market = Market { marketname :: T.Text
