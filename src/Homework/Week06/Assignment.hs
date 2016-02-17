@@ -50,7 +50,8 @@ nats :: Stream Int
 nats = streamFromSeed (+1) 0
 
 interleaveStreams :: Stream a -> Stream a -> Stream a
-interleaveStreams ~(Conz x xs) ~(Conz y ys) = Conz x $ Conz y $ interleaveStreams xs ys
+-- interleaveStreams ~(Conz x xs) ~(Conz y ys) = Conz x $ Conz y $ interleaveStreams xs ys
+interleaveStreams (Conz x xs) ys = Conz x $ interleaveStreams ys xs
 --tildes force lazy pattern matching. Without them, ruler never terminates
 
 rulerBuilder :: Int -> Stream Int
