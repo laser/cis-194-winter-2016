@@ -25,7 +25,6 @@ spec = do
 
   describe "fibs1" $ do
     it "is a list of the fibonacci numbers" $ do
-      pending
       take 8 fibs1 `shouldBe` [0, 1, 1, 2, 3, 5, 8, 13]
 
   describe "fibs2" $ do
