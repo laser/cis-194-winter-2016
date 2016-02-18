@@ -25,27 +25,30 @@ fibs2 :: [Integer]
 fibs2 = undefined
 
 -- #3
-data Stream a = Stream a -- replace this with your own definition; this one is wrong
+data Stream a = Cons a (Stream a)
 
 streamToList :: Stream a -> [a]
-streamToList = undefined
+streamToList (Cons a ss) = a : streamToList ss
 
--- instance Show a => Show (Stream a) where
---   show = ???
+instance Show a => Show (Stream a) where
+    show = show . (take 20) . streamToList
 
 -- #4
 streamRepeat :: a -> Stream a
-streamRepeat = undefined
+streamRepeat x = Cons x (streamRepeat x)
 
 streamMap :: (a -> b) -> Stream a -> Stream b
-streamMap = undefined
+streamMap f (Cons x ss) = Cons (f x) (streamMap f ss)
 
 streamFromSeed :: (a -> a) -> a -> Stream a
-streamFromSeed = undefined
+streamFromSeed f x = Cons x (streamFromSeed f (f x))
 
 -- #5
 nats :: Stream Integer
-nats = undefined
+nats = streamFromSeed ( + 1) 0
 
 ruler :: Stream Integer
-ruler = undefined
+ruler = foldr1 interleaveStreams (map streamRepeat [0..])
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (Cons x xs) ys = Cons x (interleaveStreams ys xs)
