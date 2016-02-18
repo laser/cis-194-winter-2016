@@ -11,6 +11,8 @@ module Homework.Week06.Assignment (
   Stream(..)
 ) where
 
+import Debug.Trace
+
 -- #1a
 fib :: Integer -> Integer
 fib 0 = 0
@@ -32,8 +34,8 @@ data Stream a = Cons a (Stream a)
 streamToList :: Stream a -> [a]
 streamToList (Cons x xs)= x: streamToList xs
 
--- instance Show a => Show (Stream a) where
---   show =
+instance Show a => Show (Stream a) where
+   show = show . take 10 . streamToList
 
 -- #4
 streamRepeat :: a -> Stream a
@@ -47,7 +49,17 @@ streamFromSeed f x = Cons x (streamFromSeed f (f x))
 
 -- #5
 nats :: Stream Integer
-nats = undefined
+nats = streamFromSeed (+1) 0
 
 ruler :: Stream Integer
-ruler = undefined
+ruler = streamMap f (streamFromSeed (+1) 1)
+  where
+      f x = if((x `mod` 2) /= 0) then 0 else (by2 x 1)
+
+by2 :: Integer -> Integer -> Integer
+by2 x accu = --trace("x:" ++ show x ++ " accu:" ++ show accu ++ " result: " ++ show(x `mod` power2 accu))
+             (if(x `mod` power2 accu /= 0) then (accu-1) else by2 x (accu+1))
+
+power2 :: Integer -> Integer
+power2 0 = 1
+power2 x = 2 * power2 (x-1)
