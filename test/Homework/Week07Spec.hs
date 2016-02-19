@@ -57,7 +57,7 @@ spec = do
       ynToBool (toJSON ["A", "B", "C"]) `shouldBe` toJSON ["A", "B", "C"]
 
     it "handles deeply nested objects" $ do
-      
+
       {- Sorry for the mess: Haskell has no heredocs!
          The input JSON looks like this:
 
@@ -77,7 +77,7 @@ spec = do
 
   describe "parseData" $ do
     it "returns an error for malformed JSON" $ do
-      pending
+
       parseData (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings, replacing Y/N with booleans" $ do

@@ -13,6 +13,7 @@ module Homework.Week07.Assignment (
   orderedNtoS,
   Market(..),
   OrdList(..),
+  myEitherConv,
   Searcher(..)
 ) where
 
@@ -26,6 +27,10 @@ import qualified Data.Text.IO as T
 
 -- #1
 
+-- Value -> Value. It's not creating Values, it's just
+-- converting one Value to another
+
+-- This data type does conversions to
 -- Object !Object
 -- Array !Array
 -- String !Text
@@ -38,21 +43,19 @@ ynToBool (String "Y")  = toJSON True
 ynToBool (String "N")  = toJSON False
 ynToBool (String x)    = toJSON x
 ynToBool (Object value) = Object $ fmap ynToBool value
-ynToBool (Array value ) = Array $ fmap ynToBool value
+ynToBool (Array value ) = Array  $ fmap ynToBool value
 ynToBool (Number x)     = toJSON  x
 ynToBool (Bool True)    = toJSON True
 ynToBool (Bool False)   = toJSON False
 ynToBool _              = toJSON False
 
 
--- instance Functor (Either a) where
---     fmap f (Right x) = Right (f x)
---     fmap f (Left x) = Left x
+myEitherConv :: Either String Value -> Either String Value
+myEitherConv (Right esv) = Right $ ynToBool esv
+myEitherConv (Left str)  = Left str
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData = undefined
---  fmap (Right ynToBool bstr ) = Right $ f bstr
--- fmap _        (Left str)    = Left $ str
+parseData bstr = myEitherConv (eitherDecode bstr :: Either String Value)
 
 -- #3
 data Market = Market { marketname :: T.Text
