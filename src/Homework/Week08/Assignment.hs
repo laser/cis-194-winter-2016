@@ -8,34 +8,38 @@ module Homework.Week08.Assignment (
 
 import Homework.Week08.AParser
 import Control.Applicative
+import Data.Functor
+import Data.Char
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+first f (a,c) =  (f a, c)
 
 instance Functor Parser where
-  fmap = undefined
+  fmap f (Parser g) = Parser $ \s -> fmap (first f) (g s)
 
 -- #2
 instance Applicative Parser where
-  pure = undefined
-  _ <*> _ = undefined
+  pure a = Parser $ \s -> Just (a, s)
+  (Parser f) <*> (Parser g) = Parser $ \s -> do
+    (f', s') <- f s
+    fmap (first f') (g s')
 
 -- #3
 abParser :: Parser (Char, Char)
-abParser = undefined
+abParser = (,) <$> char 'a' <*> char 'b'
 
 abParser_ :: Parser ()
-abParser_ = undefined
+abParser_ = void abParser
 
 intPair :: Parser [Integer]
-intPair = undefined
+intPair = fmap (\p -> [fst p, snd p]) $ (,) <$> posInt <*> (char ' ' *> posInt)
 
 -- #4
 instance Alternative Parser where
-  empty = undefined
-  _ <|> _ = undefined
+  empty = Parser $ const Nothing
+  (Parser f) <|> (Parser g) = Parser $ \s -> f s <|> g s
 
 -- #5
 intOrUppercase :: Parser ()
-intOrUppercase = undefined
+intOrUppercase = void posInt <|> void (satisfy isUpper)
