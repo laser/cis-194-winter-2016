@@ -22,7 +22,7 @@ fibs1 = map fib [0..]
 
 -- #2
 fibs2 :: [Integer]
-fibs2 = undefined
+fibs2 = map fst $ iterate (\ (a, b) -> (b, a + b)) (0, 1)
 
 -- #3
 data Stream a = Cons a (Stream a)
