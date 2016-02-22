@@ -37,24 +37,19 @@ spec :: Spec
 spec = do
   describe "ynToBool" $ do
     it "converts Y strings to True" $ do
-      pending
       ynToBool (toJSON "Y") `shouldBe` toJSON True
 
     it "converts N strings to False" $ do
-      pending
       ynToBool (toJSON "N") `shouldBe` toJSON False
 
     it "converts values nested within Arrays" $ do
-      pending
       ynToBool (toJSON ["Y", "N"]) `shouldBe` toJSON [True, False]
 
     it "converts values nested within Objects" $ do
-      pending
       ynToBool (toJSON [("a", "Y"), ("b", "N")])
         `shouldBe` toJSON [("a", True), ("b", False)]
 
     it "lets other values pass through" $ do
-      pending
       ynToBool (toJSON "something") `shouldBe` toJSON "something"
       ynToBool (toJSON True) `shouldBe` toJSON True
       ynToBool (toJSON False) `shouldBe` toJSON False
@@ -62,7 +57,6 @@ spec = do
       ynToBool (toJSON ["A", "B", "C"]) `shouldBe` toJSON ["A", "B", "C"]
 
     it "handles deeply nested objects" $ do
-      pending
       {- Sorry for the mess: Haskell has no heredocs!
          The input JSON looks like this:
 
@@ -82,11 +76,9 @@ spec = do
 
   describe "parseData" $ do
     it "returns an error for malformed JSON" $ do
-      pending
       parseData (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings, replacing Y/N with booleans" $ do
-      pending
       parseData (B.pack "\"Y\"") `shouldBe` Right (toJSON True)
       parseData (B.pack "\"N\"") `shouldBe` Right (toJSON False)
       parseData (B.pack "[1, 2, 3]")
@@ -96,11 +88,9 @@ spec = do
 
   describe "parseMarkets" $ do
     it "returns an error for malformed JSON" $ do
-      pending
       parseMarkets (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings to Markets" $ do
-      pending
       let markets = parseMarkets $ marketsJSON [("A", "B", 1, 2)]
       length markets `shouldBe` 1
       let (Right [market]) = markets
@@ -110,7 +100,6 @@ spec = do
       y market `shouldBe` 2
 
     it "produces one market per element in the JSON" $ do
-      pending
       let (Right markets) = parseMarkets $ marketsJSON [ ("A", "B", 1, 2)
                                                        , ("C", "D", 3, 4) ]
       length markets `shouldBe` 2

@@ -26,11 +26,17 @@ import qualified Data.Text.IO as T
 
 -- #1
 ynToBool :: Value -> Value
-ynToBool = undefined
+ynToBool (String x)
+  | (x == "Y") = toJSON True
+  | (x == "N") = toJSON False
+  | otherwise = toJSON x
+ynToBool (Array x) = toJSON $ fmap ynToBool x
+ynToBool (Object x) = toJSON $ fmap ynToBool x
+ynToBool x = toJSON x
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData = undefined
+parseData = fmap ynToBool . eitherDecode
 
 -- #3
 data Market = Market { marketname :: T.Text
@@ -41,7 +47,10 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+parseMarkets = extractFromJSON . fmap fromJSON . parseData
+  where extractFromJSON (Left err) = Left err
+        extractFromJSON (Right (Error err)) = Left err
+        extractFromJSON (Right (Success a)) = Right a
 
 -- #4
 loadData :: IO [Market]
