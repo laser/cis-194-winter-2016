@@ -13,13 +13,13 @@ module Homework.Week07.Assignment (
   orderedNtoS,
   Market(..),
   OrdList(..),
-  myEitherConv,
   Searcher(..)
 ) where
 
 import Data.Aeson
 import Data.Monoid
 import GHC.Generics
+import Data.List (sort)
 
 import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
@@ -39,23 +39,19 @@ import qualified Data.Text.IO as T
 -- Null
 
 ynToBool :: Value -> Value
-ynToBool (String "Y")  = toJSON True
-ynToBool (String "N")  = toJSON False
-ynToBool (String x)    = toJSON x
+ynToBool (String "Y")  = Bool True
+ynToBool (String "N")  = Bool False
 ynToBool (Object value) = Object $ fmap ynToBool value
 ynToBool (Array value ) = Array  $ fmap ynToBool value
-ynToBool (Number x)     = toJSON  x
-ynToBool (Bool True)    = toJSON True
-ynToBool (Bool False)   = toJSON False
-ynToBool _              = toJSON False
+ynToBool val            = val
 
 
-myEitherConv :: Either String Value -> Either String Value
-myEitherConv (Right esv) = Right $ ynToBool esv
-myEitherConv (Left str)  = Left str
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData bstr = myEitherConv (eitherDecode bstr :: Either String Value)
+parseData bstr = conv (eitherDecode bstr :: Either String Value) where
+  conv :: Either String Value -> Either String Value
+  conv (Right esv) = Right $ ynToBool esv
+  conv (Left str)  = Left str
 
 -- #3
 data Market = Market { marketname :: T.Text
@@ -66,24 +62,31 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+parseMarkets bstr = (eitherDecode bstr :: Either String [Market]) --where
+  -- conv :: Either String [Market] -> Either String [Market]
+  -- conv (Right eslm) = Right eslm
+  -- conv (Left str)   = Left str
 
 -- #4
+-- readFile :: IO B.ByteString
 loadData :: IO [Market]
-loadData = undefined
+loadData = do
+  filedata <- B.readFile "/Users/harnold/haskell/cis-194-winter-2016/src/Homework/Week07/markets.json"
+  let (Right [market]) = parseMarkets filedata
+      (Left x)         = fail "blah blah"
+  return [market]
 
--- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
-  -- mappend = ???
+    mempty = OrdList []
+    mappend (OrdList xs) (OrdList ys) = OrdList (sort $ xs ++ ys)
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = undefined
+search f = undefined
 
 -- #7
 firstFound :: Searcher (Maybe Market)
