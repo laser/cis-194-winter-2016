@@ -13,7 +13,7 @@ module Homework.Week07.Assignment (
   orderedNtoS,
   Market(..),
   OrdList(..),
-  Searcher(..)
+
 ) where
 
 import Data.Aeson
@@ -24,9 +24,14 @@ import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
+
 -- #1
 ynToBool :: Value -> Value
-ynToBool = undefined
+ynToBool (String "Y") =  Bool True
+ynToBool (String "N") = Bool False
+ynToBool (Array array) = Array (fmap ynToBool array)
+ynToBool (Object object) = Object (fmap ynToBool object)
+ynToBool other = other
 
 -- #2
 parseData :: B.ByteString -> Either String Value
