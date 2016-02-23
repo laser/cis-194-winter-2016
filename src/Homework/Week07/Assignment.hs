@@ -67,7 +67,6 @@ data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
   mempty = OrdList []
-  mappend (OrdList []  )   (OrdList [] )    = mempty
   mappend (OrdList left) (OrdList right) =
     OrdList $ go left right
               where go [] []                 = []
