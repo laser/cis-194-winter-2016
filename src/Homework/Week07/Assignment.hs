@@ -14,6 +14,7 @@ module Homework.Week07.Assignment (
   Market(..),
   OrdList(..),
   Searcher(..)
+  ,modifyJson
 ) where
 
 import Data.Aeson
@@ -23,6 +24,9 @@ import GHC.Generics
 import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
+import GHC.Exts
+import qualified Data.HashMap.Strict as HM
+import Data.Either
 
 -- #1
 ynToBool :: Value -> Value
@@ -43,22 +47,35 @@ data Market = Market { marketname :: T.Text
                      , y :: Double
                      , state :: T.Text } deriving (Eq, Show, Generic)
 
-instance FromJSON Market where
+instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+--parseMarkets  = fmap fromJSON . parseData
+parseMarkets = eitherDecode
+
 
 -- #4
 loadData :: IO [Market]
-loadData = undefined
+loadData = do
+              filedata <- B.readFile "markets.json"
+              return $ case parseMarkets filedata of
+                     Right markets -> markets
+                     Left  error   -> fail error
 
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
-  -- mappend = ???
-
+  mempty = OrdList []
+  mappend (OrdList []  )   (OrdList [] )    = mempty
+  mappend (OrdList left) (OrdList right) =
+    OrdList $ go left right
+              where go [] []                 = []
+                    go left@(x : _) []       = left
+                    go [] right@(x : _)      = right
+                    go left right
+                       | left < right        = head left  : go (tail left) right
+                       | otherwise           = head right : go left (tail right)
 -- #6
 type Searcher m = T.Text -> [Market] -> m
 
@@ -84,3 +101,14 @@ numberFound = undefined
 -- #11
 orderedNtoS :: Searcher [Market]
 orderedNtoS = undefined
+
+-- extras
+
+modifyJson :: Value -> Value
+modifyJson (String x) = String $ T.reverse x
+modifyJson (Array  x) = Array  $ fmap modifyJson x
+modifyJson (Number x) = Number $ x * 2
+modifyJson (Object x) = let revPair (k, v) = (T.reverse k, modifyJson v)
+                         in Object . fromList . map revPair . HM.toList $  x
+modifyJson other      = other
+

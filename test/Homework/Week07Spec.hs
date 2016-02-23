@@ -86,11 +86,9 @@ spec = do
 
   describe "parseMarkets" $ do
     it "returns an error for malformed JSON" $ do
-      pending
       parseMarkets (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings to Markets" $ do
-      pending
       let markets = parseMarkets $ marketsJSON [("A", "B", 1, 2)]
       length markets `shouldBe` 1
       let (Right [market]) = markets
@@ -100,7 +98,6 @@ spec = do
       y market `shouldBe` 2
 
     it "produces one market per element in the JSON" $ do
-      pending
       let (Right markets) = parseMarkets $ marketsJSON [ ("A", "B", 1, 2)
                                                        , ("C", "D", 3, 4) ]
       length markets `shouldBe` 2
@@ -108,12 +105,10 @@ spec = do
   describe "Monoid OrdList" $ do
     describe "mempty" $ do
       it "is the empty list" $ do
-        pending
         mempty `shouldBe` OrdList ([] :: [Integer])
 
     describe "mappend" $ do
       it "preserves order in the result" $ do
-        pending
         (OrdList [1, 2, 3] `mappend` OrdList [4, 5, 6])
           `shouldBe` OrdList ([1, 2, 3, 4, 5, 6] :: [Integer])
         (OrdList [4, 5, 6] `mappend` OrdList [1, 2, 3])
