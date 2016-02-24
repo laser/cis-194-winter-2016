@@ -79,7 +79,8 @@ instance Ord a => Monoid (OrdList a) where
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = undefined
+search mf txt mkts =  foldr(<>) mempty $ fmap mf $ filter(\ mkt -> T.isInfixOf txt (marketname  mkt) ) mkts --undefined
+
 
 -- #7
 firstFound :: Searcher (Maybe Market)

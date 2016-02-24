@@ -128,7 +128,7 @@ spec = do
 
   describe "search" $ do
     it "returns the found markets compounded in the given monoid" $ do
-      pending
+
       let productFound txt = getProduct . search (Product . const 2) txt
       let (Right markets) = parseMarkets searchableJSON
       productFound (T.pack "oo") markets `shouldBe` (4 :: Integer)
