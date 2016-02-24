@@ -87,18 +87,14 @@ firstFound txt markets = case (search (\m -> [m]) txt markets) of
                         (market : _ ) -> Just market
                         _             -> Nothing
 
-
-
 -- #8
 lastFound :: Searcher (Maybe Market)
 lastFound txt markets = case (search (\m ->[m]) txt (reverse markets)) of
                           (market : _ ) -> Just market
                           _             -> Nothing
-
 -- #9
 allFound :: Searcher [Market]
 allFound txt markets = search (\m ->[m]) txt markets
-
 
 -- #10
 numberFound :: Searcher Int
