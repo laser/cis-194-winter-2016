@@ -35,7 +35,7 @@ ynToBool other = other
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData = undefined
+parseData string = ynToBool <$> eitherDecode string
 
 -- #3
 data Market = Market { marketname :: T.Text
@@ -46,7 +46,7 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+parseMarkets marketString = eitherDecode marketString
 
 -- #4
 loadData :: IO [Market]
