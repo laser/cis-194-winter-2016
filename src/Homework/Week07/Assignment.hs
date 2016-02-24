@@ -46,11 +46,16 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets marketString = eitherDecode marketString
+parseMarkets marketString = (getResult . fromJSON) <$> parseData marketString
+
+getResult :: Result[Market] -> [Market]
+getResult (Success result) = result
 
 -- #4
 loadData :: IO [Market]
-loadData = undefined
+loadData = do
+  filedata <- B.readFile "markets.json"
+  return (either fail id (parseMarkets filedata))
 
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
