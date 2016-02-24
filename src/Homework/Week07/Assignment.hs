@@ -81,22 +81,28 @@ type Searcher m = T.Text -> [Market] -> m
 search :: Monoid m => (Market -> m) -> Searcher m
 search mf txt = foldr(<>) mempty . fmap mf . filter(\mkt -> txt `T.isInfixOf` (marketname  mkt))
 
-
 -- #7
 firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+firstFound txt markets = case (search (\m -> [m]) txt markets) of
+                        (market : _ ) -> Just market
+                        _             -> Nothing
+
+
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound txt markets = case (search (\m ->[m]) txt (reverse markets)) of
+                          (market : _ ) -> Just market
+                          _             -> Nothing
 
 -- #9
 allFound :: Searcher [Market]
-allFound = undefined
+allFound txt markets = search (\m ->[m]) txt markets
+
 
 -- #10
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound txt markets =  length $ allFound txt markets
 
 -- #11
 orderedNtoS :: Searcher [Market]
