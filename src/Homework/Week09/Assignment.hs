@@ -1,73 +1,41 @@
 module Homework.Week09.Assignment (
-  Atom(..),
-  SExpr(..),
-  first,
-  abParser,
-  abParser_,
-  intPair,
-  intOrUppercase,
   zeroOrMore,
   oneOrMore,
   spaces,
   ident,
-  parseSExpr
+  parseSExpr,
+  Ident(..),
+  Atom(..),
+  SExpr(..)
 ) where
 
-import Homework.Week09.AParser
 import Control.Applicative
 
--- #1A
-first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+import Homework.Week09.AParser
 
-instance Functor Parser where
-  fmap = undefined
-
--- #2A
-instance Applicative Parser where
-  pure = undefined
-  _ <*> _ = undefined
-
--- #3A
-abParser :: Parser (Char, Char)
-abParser = undefined
-
-abParser_ :: Parser ()
-abParser_ = undefined
-
-intPair :: Parser [Integer]
-intPair = undefined
-
--- #4A
-instance Alternative Parser where
-  empty = undefined
-  _ <|> _ = undefined
-
--- #5A
-intOrUppercase :: Parser ()
-intOrUppercase = undefined
-
--- #1B
+-- #1
 zeroOrMore :: Parser a -> Parser [a]
-zeroOrMore = undefined
+zeroOrMore p = undefined
 
 oneOrMore :: Parser a -> Parser [a]
-oneOrMore = undefined
+oneOrMore p = undefined
 
--- #2B
+-- #2
 spaces :: Parser String
 spaces = undefined
 
-ident :: Parser Ident
+ident :: Parser String
 ident = undefined
 
--- #3B
+-- #3
 type Ident = String
 
-data Atom = N Integer | I Ident
+data Atom = N Integer
+          | I Ident
   deriving (Eq, Show)
 
-data SExpr = A Atom | Comb [SExpr]
+data SExpr = A Atom
+           | Comb [SExpr]
   deriving (Eq, Show)
 
 parseSExpr :: Parser SExpr
