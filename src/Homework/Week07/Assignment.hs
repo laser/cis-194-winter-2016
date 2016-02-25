@@ -77,7 +77,6 @@ search func text marketList = doSearch marketList
                                         | T.isInfixOf text name = func first <> doSearch rest
                                         | otherwise = doSearch rest
 
-
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x : _ ) = Just x
