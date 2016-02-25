@@ -1,3 +1,4 @@
+
 {-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
 
 module Homework.Week07.Assignment (
@@ -19,6 +20,7 @@ module Homework.Week07.Assignment (
 import Data.Aeson
 import Data.Monoid
 import GHC.Generics
+import Data.List
 
 import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
@@ -61,31 +63,48 @@ loadData = do
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
-  -- mappend = ???
+  mempty = OrdList []
+  mappend list1 list2 = OrdList (sort(getOrdList list1 `mappend` getOrdList list2))
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = undefined
+-- search :: Monoid m => (Market -> m) -> T.Text -> [Market] -> m
+search func text marketList = doSearch marketList
+                                where doSearch [] = mempty
+                                      doSearch (first @ (Market { marketname = name }) : rest)
+                                        | T.isInfixOf text name = func first <> doSearch rest
+                                        | otherwise = doSearch rest
 
--- #7
+
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x : _ ) = Just x
+
+-- -- #7
 firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+firstFound text marketList = safeHead $ allFound text marketList
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound text marketList = safeHead(reverse(allFound text marketList))
 
 -- #9
 allFound :: Searcher [Market]
-allFound = undefined
+allFound = search (:[])
+
+instance Monoid Int where
+  mempty = 0
+  mappend = (+)
 
 -- #10
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound = search (const 1)
+
+instance Ord Market where
+  (Market _ _ y_1 _ ) `compare` (Market _ _ y_2 _) = y_1 `compare` y_2
 
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS text marketList = sort(allFound text marketList)
