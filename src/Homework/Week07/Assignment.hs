@@ -48,10 +48,11 @@ ynToBool val            = val
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData bstr = conv (eitherDecode bstr :: Either String Value) where
-  conv :: Either String Value -> Either String Value
-  conv (Right esv) = Right $ ynToBool esv
-  conv (Left str)  = Left str
+parseData = fmap ynToBool . eitherDecode
+  -- parseData conv (eitherDecode bstr :: Either String Value) where
+  --   conv :: Either String Value -> Either String Value
+  --   conv (Right esv) = Right $ ynToBool esv
+  --   conv (Left str)  = Left str
 
 -- #3
 data Market = Market { marketname :: T.Text
@@ -62,10 +63,23 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets bstr = (eitherDecode bstr :: Either String [Market]) --where
+--parseMarkets bstr = (eitherDecode bstr :: Either String [Market]) --where
   -- conv :: Either String [Market] -> Either String [Market]
   -- conv (Right eslm) = Right eslm
   -- conv (Left str)   = Left str
+
+parseMarkets bst  = let
+  eVals = parseData bst
+  in case eVals of
+    Left x       -> Left x
+    Right aValue -> case fromJSON aValue of
+      Success markets -> Right markets
+      Error       str -> Left str
+
+
+
+   -- case (fmap fromJSON $ parseData :: Either String (Result [Market]))
+
 
 -- #4
 -- readFile :: IO B.ByteString
@@ -73,7 +87,7 @@ loadData :: IO [Market]
 loadData = do
   filedata <- B.readFile "/Users/harnold/haskell/cis-194-winter-2016/src/Homework/Week07/markets.json"
   let (Right [market]) = parseMarkets filedata
-      (Left x)         = fail "blah blah"
+      (Left x)         = fail x
   return [market]
 
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
