@@ -92,11 +92,10 @@ numberFound :: Searcher Int
 numberFound = compose2 length allFound
 
 -- #11
-data MarketNtoS = MarketNtoS {getMarket :: Market}
-  deriving (Eq)
+data MarketNtoS = MarketNtoS {market :: Market} deriving (Eq)
 
 instance Ord MarketNtoS where
   (<=) (MarketNtoS m1) (MarketNtoS m2) = (y m1) <= (y m2)
 
 orderedNtoS :: Searcher [Market]
-orderedNtoS = compose2 ((map getMarket) . sort . (map MarketNtoS)) allFound
+orderedNtoS = compose2 ((map market) . sort . (map MarketNtoS)) allFound
