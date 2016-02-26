@@ -17,7 +17,9 @@ module Homework.Week07.Assignment (
 ) where
 
 import Data.Aeson
+import Data.Maybe
 import Data.Monoid
+import Data.List
 import GHC.Generics
 
 import qualified Data.ByteString.Lazy.Char8 as B
@@ -60,31 +62,41 @@ loadData = undefined
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
-  -- mappend = ???
+  mempty = OrdList []
+  mappend (OrdList x) (OrdList y) = OrdList $ sort $ x ++ y
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = undefined
+search f text markets = mconcat $ map f $ filter (matchName text) markets where
+  matchName text market = T.isInfixOf text $ marketname market
 
 -- #7
+compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
+compose2 = (.) . (.)
+
 firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+firstFound = compose2 listToMaybe allFound
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound = compose2 (listToMaybe . reverse) allFound
 
 -- #9
 allFound :: Searcher [Market]
-allFound = undefined
+allFound = search (:[])
 
 -- #10
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound = compose2 length allFound
 
 -- #11
+data MarketNtoS = MarketNtoS {getMarket :: Market}
+  deriving (Eq)
+
+instance Ord MarketNtoS where
+  (<=) (MarketNtoS m1) (MarketNtoS m2) = (y m1) <= (y m2)
+
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS = compose2 ((map getMarket) . sort . (map MarketNtoS)) allFound
