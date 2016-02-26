@@ -27,6 +27,7 @@ import qualified Data.Text.IO as T
 import GHC.Exts
 import qualified Data.HashMap.Strict as HM
 import Data.Either
+import qualified Data.List as L
 
 -- #1
 ynToBool :: Value -> Value
@@ -100,9 +101,18 @@ allFound txt markets = search (\m ->[m]) txt markets
 numberFound :: Searcher Int
 numberFound txt markets =  length $ allFound txt markets
 
+-- order Markets by the y axis
+instance Ord Market where
+  (Market { y = leftY }) `compare` (Market { y = rightY }) = leftY `compare` rightY
+
+--instance Ord Edge where
+--    (Edge s1 _) `compare` (Edge s2 _) = s1 `compare` s2
+--    Each type class defines a certain set of methods which need to be implemented;
+--    Eq requires == or /=, and
+--    Ord requires <= or compare. (To find out which functions are required and which are optional, you can check the docs.)
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS = undefined --L.sort . allFound
 
 -- extras
 
