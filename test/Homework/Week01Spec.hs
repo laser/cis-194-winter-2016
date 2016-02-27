@@ -80,4 +80,3 @@ spec = do
 
     it "should have the correct number of moves for 6 discs" $ do
       (length $ hanoi 6 "a" "b" "c") `shouldBe` 63
-
