@@ -169,7 +169,7 @@ spec = do
 
   describe "orderedNtoS" $ do
     it "returns the markets found, sorted from north to south" $ do
-      pending
+
       let (Right markets) = parseMarkets searchableJSON
 
       let [a, b] = orderedNtoS (T.pack "oo") markets

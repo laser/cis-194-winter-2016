@@ -110,9 +110,10 @@ instance Ord Market where
 --    Each type class defines a certain set of methods which need to be implemented;
 --    Eq requires == or /=, and
 --    Ord requires <= or compare. (To find out which functions are required and which are optional, you can check the docs.)
+
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined --L.sort . allFound
+orderedNtoS txt markets = L.sort $ allFound txt markets -- undefined --L.sort . allFound
 
 -- extras
 
