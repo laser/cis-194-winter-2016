@@ -6,15 +6,19 @@ module Homework.Week08.Assignment (
   intOrUppercase
 ) where
 
+import Data.Maybe
 import Homework.Week08.AParser
 import Control.Applicative
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+first f (a,c) = (f a,c)
 
 instance Functor Parser where
-  fmap = undefined
+  fmap fn (Parser {runParser = run})  = Parser f
+    where
+      f = fmap (first fn) . run
+
 
 -- #2
 instance Applicative Parser where
