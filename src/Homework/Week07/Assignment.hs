@@ -63,11 +63,6 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
---parseMarkets bstr = (eitherDecode bstr :: Either String [Market]) --where
-  -- conv :: Either String [Market] -> Either String [Market]
-  -- conv (Right eslm) = Right eslm
-  -- conv (Left str)   = Left str
-
 parseMarkets bst  = let
   eVals = parseData bst
   in case eVals of
@@ -77,18 +72,16 @@ parseMarkets bst  = let
       Error       str -> Left str
 
 
-
-   -- case (fmap fromJSON $ parseData :: Either String (Result [Market]))
-
-
 -- #4
 -- readFile :: IO B.ByteString
 loadData :: IO [Market]
 loadData = do
-  filedata <- B.readFile "/Users/harnold/haskell/cis-194-winter-2016/src/Homework/Week07/markets.json"
-  let (Right [market]) = parseMarkets filedata
-      (Left x)         = fail x
-  return [market]
+  filedata <- B.readFile "/Users/harnold/code/haskell/cis-194-winter-2016/src/Homework/Week07/markets.json"
+  return $ either fail id $ parseMarkets filedata
+
+  -- let (Right [market]) = parseMarkets filedata
+  --     (Left x)         = fail x
+  -- return [market]
 
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
@@ -97,27 +90,57 @@ instance Ord a => Monoid (OrdList a) where
     mappend (OrdList xs) (OrdList ys) = OrdList (sort $ xs ++ ys)
 
 -- #6
+-- returns a Monoid that knows how to monoidal thingies
 type Searcher m = T.Text -> [Market] -> m
 
+-- Market {}
+--search :: Monoid m => (Market -> m) -> T.Text -> [Market] -> m
+-- Data.Text.isInfixOf ??
+
+-- mktToBool :: T.Text -> Market -> Bool
+-- mktToBool text mkt = text `T.isInfixOf` marketname mkt
+
 search :: Monoid m => (Market -> m) -> Searcher m
-search f = undefined
+search mkf text ms = mconcat $ search' text ms
+  where search' _ [] = mempty
+        search' text (m : ms)
+          | text `T.isInfixOf` marketname m = mkf m : search' text ms
+          | otherwise = search' text ms
+
+compose2 :: (b -> c) -> (a -> a1 -> b) -> a -> a1 -> c
+compose2 = (.) . (.)
 
 -- #7
-firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+-- type Searcher m = T.Text -> [Market] -> m
+firstFound :: T.Text -> [Market] -> (Maybe Market)
+--firstFound  = compose2 getFirst $ search (First . Just)
+-- firstFound = compose2 getFirst (search (\m -> First (Just m)))
+firstFound  = compose2 getFirst $ search (First . Just)
+
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound = compose2 getLast $ search (Last . Just)
 
--- #9
+-- #9 this is actually 'allThatMeetTheCriteria' and not
+-- the all from Bool. So just build a list
 allFound :: Searcher [Market]
-allFound = undefined
+allFound = search (:[])
 
 -- #10
+-- type Searcher m = T.Text -> [Market] -> m
+-- this is a sum of ints. Since we can't use length,
+-- we have to use a Sum type: Sum {setSum :: Int}
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound = compose2 getSum (search (\m -> Sum 1 ))
 
--- #11
+-- 'y' is the north/south latitude, so (y market) give the latitude for
+-- each market value
+instance Ord Market where
+    compare a b = compare (y a) (y b)
+
+-- compiler told me that I needed an instance of Ord for Market, and it
+-- can only have one function called 'compare', so..
+-- -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS = getOrdList `compose2` search (\m -> OrdList [m])
