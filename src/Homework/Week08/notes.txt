@@ -1,0 +1,78 @@
+Applicative
+
+a Functor of functions
+applied to a Functor of arguments
+
+
+Functors
+
+fmap for (->) is (.)
+fmap can be composed with fmap to "dig-into" nested Functors
+
+i.e. 
+given [Just 1, Just 2, Nothing]
+and fn (+1)
+
+(fmap . fmap) (+1) [Just 1, Just 2, Nothing, Just -1]
+
+[Just 2, Just 3, Nothing, Just 0]
+
+and so on ... how many "levels" of Functor you want to go down (how many fmaps to compose) , is related to how nested the target data is inside other Functors.
+
+Functors apply the function to the Right hand side for 
+  Two-Tuples, Eithers and Applicative?
+
+doing an info on (,) reveals
+
+instance Functor ((,) a)
+instance Monoid a => Applicative ((,) a)
+instance Functor (Either a)
+
+The a monoid is needed for all of the data (a and b).
+a <> a' and then (a->b) a''
+
+"For the Applicative instance of two-tuple, >>>>we don’t need a Monoid
+for the b<<<< (!!!) because we’re using function application to produce the b.
+  
+However, for the >>first value in the tuple, we still need the Monoid<<
+  because we have two values and need to somehow turn that into one
+  value of the same type"
+
+So Applicatives ->
+  Tuples First val Monoid Second could be anything.
+  
+  Eithers Left vals ... doesnt matter - short circuits on LHS if Left
+          Right vals doesnt matter could be anything 
+  Just    doesn't matter could be anything.
+
+  (->) ....?
+  other Functors inside an Applicative.? ^^^^ thats what we are talking about here.
+
+so applicative relate to Functors that fmap onto values of Functors.
+applicatives relates to Monoids in that they combine/apply functions from the same type of container onto data in the same type of Functor
+
+"smash and apply a Functor of Functions onto a Functor of arguments"
+sorta ... kinda...
+
+Tuple (Monoid,Function) <*> (Monoid, Value)
+List [fn, fn , fn ,...] <*>  [value, value ,value,....]
+Functor a's smashed (a->b) applied
+
+hmmm All type ... interesting
+
+get info vs type correct and browse I seem to be stumbling a bit here.
+
+:info -> type contructors, data constructors, type classes, functions,
+:browse -> show all of the names for a module 
+:type show type of (instances of things, expressions, values)
+:kind show kind of.. (typeclasses, type constructors) 
+
+wow... tuple 2 is a monoid too ... didnt know that.
+
+
+for Applicative of (,) its <> on the Left apply on the Right
+there is an Applicative for (->)
+
+liftA2 is like partially appliy then applicate!
+
+
