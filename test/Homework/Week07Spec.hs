@@ -37,24 +37,24 @@ spec :: Spec
 spec = do
   describe "ynToBool" $ do
     it "converts Y strings to True" $ do
-      pending
+--       pending
       ynToBool (toJSON "Y") `shouldBe` toJSON True
 
     it "converts N strings to False" $ do
-      pending
+--       pending
       ynToBool (toJSON "N") `shouldBe` toJSON False
 
     it "converts values nested within Arrays" $ do
-      pending
+      --pending
       ynToBool (toJSON ["Y", "N"]) `shouldBe` toJSON [True, False]
 
     it "converts values nested within Objects" $ do
-      pending
+--       pending
       ynToBool (toJSON [("a", "Y"), ("b", "N")])
         `shouldBe` toJSON [("a", True), ("b", False)]
 
     it "lets other values pass through" $ do
-      pending
+--       pending
       ynToBool (toJSON "something") `shouldBe` toJSON "something"
       ynToBool (toJSON True) `shouldBe` toJSON True
       ynToBool (toJSON False) `shouldBe` toJSON False
@@ -62,7 +62,7 @@ spec = do
       ynToBool (toJSON ["A", "B", "C"]) `shouldBe` toJSON ["A", "B", "C"]
 
     it "handles deeply nested objects" $ do
-      pending
+--       pending
       {- Sorry for the mess: Haskell has no heredocs!
          The input JSON looks like this:
 
