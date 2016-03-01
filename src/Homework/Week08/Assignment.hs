@@ -21,9 +21,11 @@ instance Functor Parser where
 
 
 -- #2
-instance Applicative Parser where
-  pure = undefined
-  _ <*> _ = undefined
+instance Applicative Parser  where
+  pure a = Parser $ \s -> Just (a,s)
+  (Parser fab )  <*> (Parser fa) = undefined -- Parser $ fab .  fa
+
+    -- f (a -> b) -> f a -> f b
 
 -- #3
 abParser :: Parser (Char, Char)
