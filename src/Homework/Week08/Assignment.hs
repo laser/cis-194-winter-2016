@@ -15,17 +15,16 @@ first :: (a -> b) -> (a,c) -> (b,c)
 first f (a,c) = (f a,c)
 
 instance Functor Parser where
-  fmap fn (Parser {runParser = run})  = Parser f
+  fmap fn (Parser run)  = Parser f
     where
       f = fmap (first fn) . run
-
 
 -- #2
 instance Applicative Parser  where
   pure a = Parser $ \s -> Just (a,s)
-  (Parser fab )  <*> (Parser fa) = undefined -- Parser $ fab .  fa
-
-    -- f (a -> b) -> f a -> f b
+  (Parser fab )  <*> (Parser fa) = Parser $ (\ s -> apply $ fa s  )
+       where apply (Just (a,rest)) = fmap (\ (fn,r) -> (fn a, r)) $ fab rest
+             apply _  = Nothing
 
 -- #3
 abParser :: Parser (Char, Char)
