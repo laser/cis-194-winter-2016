@@ -18,6 +18,7 @@ module Homework.Week07.Assignment (
 
 import Data.Aeson
 import Data.Monoid
+import Data.List
 import GHC.Generics
 
 import qualified Data.ByteString.Lazy.Char8 as B
@@ -62,8 +63,8 @@ loadData = do
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
-  -- mappend = ???
+  mempty = OrdList []
+  mappend (OrdList a) (OrdList b) = OrdList (sort (a ++ b))
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m

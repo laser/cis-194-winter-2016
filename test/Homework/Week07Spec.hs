@@ -118,12 +118,12 @@ spec = do
   describe "Monoid OrdList" $ do
     describe "mempty" $ do
       it "is the empty list" $ do
-        pending
+--         pending
         mempty `shouldBe` OrdList ([] :: [Integer])
 
     describe "mappend" $ do
       it "preserves order in the result" $ do
-        pending
+--         pending
         (OrdList [1, 2, 3] `mappend` OrdList [4, 5, 6])
           `shouldBe` OrdList ([1, 2, 3, 4, 5, 6] :: [Integer])
         (OrdList [4, 5, 6] `mappend` OrdList [1, 2, 3])
