@@ -43,7 +43,6 @@ spec = do
       ynToBool (toJSON "N") `shouldBe` toJSON False
 
     it "converts values nested within Arrays" $ do
-      pending
       ynToBool (toJSON ["Y", "N"]) `shouldBe` toJSON [True, False]
 
     it "converts values nested within Objects" $ do
