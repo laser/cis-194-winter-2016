@@ -29,6 +29,8 @@ ynToBool :: Value -> Value
 ynToBool (String "Y") = Bool True
 ynToBool (String "N") = Bool False
 ynToBool (Array xs)   = Array (fmap ynToBool xs)
+ynToBool (Object xs)  = Object (fmap ynToBool xs)
+ynToBool x            = x
 
 -- #2
 parseData :: B.ByteString -> Either String Value
