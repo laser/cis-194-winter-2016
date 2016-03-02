@@ -26,7 +26,7 @@ import qualified Data.Text.IO as T
 
 -- #1
 ynToBool :: Value -> Value
-ynToBool = undefined
+ynToBool (String "Y") = Bool True
 
 -- #2
 parseData :: B.ByteString -> Either String Value

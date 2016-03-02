@@ -37,7 +37,6 @@ spec :: Spec
 spec = do
   describe "ynToBool" $ do
     it "converts Y strings to True" $ do
-      pending
       ynToBool (toJSON "Y") `shouldBe` toJSON True
 
     it "converts N strings to False" $ do
