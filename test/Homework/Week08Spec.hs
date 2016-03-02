@@ -40,21 +40,21 @@ spec = do
 
   describe "abParser" $ do
     it "parses the characters 'a' and 'b' as a pair" $ do
-      pending
+
       runParser abParser "abcdef" `shouldBe` Just (('a', 'b'), "cdef")
       runParser abParser "bcdefa" `shouldBe` Nothing
       runParser abParser "aecdbf" `shouldBe` Nothing
 
   describe "abParser_" $ do
     it "parses the characters 'a' and 'b' but returns nothing" $ do
-      pending
+
       runParser abParser_ "abcdef" `shouldBe` Just ((), "cdef")
       runParser abParser_ "bcdefa" `shouldBe` Nothing
       runParser abParser_ "aecdbf" `shouldBe` Nothing
 
   describe "intPair" $ do
     it "parses two integer values separated by a space" $ do
-      pending
+
       runParser intPair "12 34" `shouldBe` Just ([12, 34], "")
 
   describe "Alternative Parser" $ do
