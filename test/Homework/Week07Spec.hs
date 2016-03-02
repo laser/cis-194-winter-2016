@@ -88,7 +88,6 @@ spec = do
 
   describe "parseMarkets" $ do
     it "returns an error for malformed JSON" $ do
-      pending
       parseMarkets (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings to Markets" $ do

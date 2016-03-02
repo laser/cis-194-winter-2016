@@ -37,15 +37,17 @@ parseData :: B.ByteString -> Either String Value
 parseData x = fmap ynToBool (eitherDecode x)
 
 -- #3
-data Market = Market { marketname :: T.Text
-                     , x :: Double
-                     , y :: Double
-                     , state :: T.Text } deriving (Eq, Show, Generic)
+data Market = Market {
+    marketname :: T.Text,
+    x :: Double,
+    y :: Double,
+    state :: T.Text
+} deriving (Eq, Show, Generic)
 
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+parseMarkets = eitherDecode
 
 -- #4
 loadData :: IO [Market]
