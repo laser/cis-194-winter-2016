@@ -76,7 +76,6 @@ spec = do
 
   describe "parseData" $ do
     it "returns an error for malformed JSON" $ do
-      pending
       parseData (B.pack "{") `shouldBe` Left "not enough input"
 
     it "parses JSON strings, replacing Y/N with booleans" $ do

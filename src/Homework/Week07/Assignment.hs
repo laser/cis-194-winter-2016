@@ -34,7 +34,7 @@ ynToBool x            = x
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData = undefined
+parseData = eitherDecode
 
 -- #3
 data Market = Market { marketname :: T.Text
