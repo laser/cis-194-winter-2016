@@ -45,11 +45,18 @@ data Market = Market { marketname :: T.Text
 instance FromJSON Market
 
 parseMarkets :: B.ByteString -> Either String [Market]
-parseMarkets = undefined
+parseMarkets x = resultToEither (fmap fromJSON (parseData x))
+  where resultToEither (Right (Success markets)) = Right markets
+        resultToEither (Right (Error e)) = Left e
+        resultToEither (Left e) = Left e
 
 -- #4
 loadData :: IO [Market]
-loadData = undefined
+loadData = do
+    marketFile <- B.readFile "./src/Homework/Week07/markets.json"
+    case parseMarkets marketFile of
+        (Right m) -> return m
+        (Left e) -> fail e
 
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
