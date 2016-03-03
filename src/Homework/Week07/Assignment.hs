@@ -69,7 +69,11 @@ instance Ord a => Monoid (OrdList a) where
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = undefined
+search makeMonoid marketName markets = foldr1 (<>) $ fmap (makeMonoid . snd) $ filter predicate $ fmap marketWithName markets
+    where predicate (name, _) = marketName `T.isInfixOf` name
+
+marketWithName :: Market -> (T.Text, Market)
+marketWithName market@(Market {marketname = name}) = (name, market)
 
 -- #7
 firstFound :: Searcher (Maybe Market)
