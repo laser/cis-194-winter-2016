@@ -98,4 +98,5 @@ orderedNtoS = compose2 (sortOn y) allFound
 headMaybe = listToMaybe
 
 compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
-compose2 = (.) . (.)
+-- compose2 = (.) . (.)
+compose2 g f x y = g $ f x y
