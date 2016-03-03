@@ -91,8 +91,11 @@ allFound term markets = search (:[]) term markets
 
 -- #10
 numberFound :: Searcher Int
-numberFound term markets = foldl (\x _ -> x+1) 0 (search (:[]) term markets)
+numberFound term markets = length $ allFound term markets
+
+instance Ord Market where
+    compare (Market{y = y1}) (Market{y=y2}) = compare y1 y2
 
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS term markets = sort $ allFound term markets
