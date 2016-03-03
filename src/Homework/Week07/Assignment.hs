@@ -54,7 +54,8 @@ parseMarkets = eitherDecode
 loadData :: IO [Market]
 loadData = do
     jsonMarkets <- B.readFile "markets.json"
-    either fail return $ parseMarkets jsonMarkets
+    let markets = parseMarkets jsonMarkets
+    either fail return markets
 
 -- #5
 data OrdList a = OrdList {
@@ -63,17 +64,16 @@ data OrdList a = OrdList {
 
 instance Ord a => Monoid (OrdList a) where
     mempty = OrdList []
-    mappend (OrdList lhsList) (OrdList rhsList) = OrdList (sort $ lhsList <> rhsList)
+    mappend (OrdList xs) (OrdList ys) = OrdList (sort $ xs <> ys)
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search makeMonoid marketName markets = foldr1 (<>) $ fmap (makeMonoid . snd) $ filter predicate $ fmap marketWithName markets
-    where predicate (name, _) = marketName `T.isInfixOf` name
-
-marketWithName :: Market -> (T.Text, Market)
-marketWithName market@(Market {marketname = name}) = (name, market)
+search toMonoid name markets =
+    mconcat $ fmap (toMonoid . snd) $ filter byName $ fmap marketWithName markets
+        where byName (marketName, _) = name `T.isInfixOf` marketName
+              marketWithName market@(Market {marketname = name}) = (name, market)
 
 -- #7
 firstFound :: Searcher (Maybe Market)
