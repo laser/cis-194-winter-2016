@@ -70,12 +70,8 @@ instance Ord a => Monoid (OrdList a) where
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search = search1
-
-search1 :: Monoid m => (Market -> m) -> Searcher m
-search1 mak_m term markets = mconcat (map mak_m (filter (match term) markets))
+search mak_m term markets = mconcat (map mak_m (filter (match term) markets))
     where match term (Market {marketname = name}) = T.isInfixOf term name
-
 
 -- #7
 firstFound :: Searcher (Maybe Market)
