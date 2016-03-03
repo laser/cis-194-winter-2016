@@ -72,22 +72,22 @@ type Searcher m = T.Text -> [Market] -> m
 search :: Monoid m => (Market -> m) -> Searcher m
 search = search1
 
-search1 :: Monoid m => (Market -> m) -> T.Text -> [Market] -> m
+search1 :: Monoid m => (Market -> m) -> Searcher m
 search1 mak_m term markets = mconcat (map mak_m (filter (match term) markets))
     where match term (Market {marketname = name}) = T.isInfixOf term name
 
 
 -- #7
 firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+firstFound term markets =  find (\x -> 1==1) $ search (:[]) term markets
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound term markets= find (\x -> 1==1) $ reverse $ search (:[]) term markets
 
 -- #9
 allFound :: Searcher [Market]
-allFound = undefined
+allFound term markets = search (:[]) term markets
 
 -- #10
 numberFound :: Searcher Int

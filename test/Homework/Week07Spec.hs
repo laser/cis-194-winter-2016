@@ -152,7 +152,7 @@ spec = do
 
   describe "firstFound" $ do
     it "returns the first market found" $ do
-      pending
+--       pending
       let (Right markets) = parseMarkets searchableJSON
       fromJust (firstFound (T.pack "oo") markets) `shouldBeNamed` "Foo"
       fromJust (firstFound (T.pack "ar") markets) `shouldBeNamed` "Bar"
@@ -160,7 +160,7 @@ spec = do
 
   describe "lastFound" $ do
     it "returns the last market found" $ do
-      pending
+--       pending
       let (Right markets) = parseMarkets searchableJSON
       fromJust (lastFound (T.pack "oo") markets) `shouldBeNamed` "FooBar"
       fromJust (lastFound (T.pack "ar") markets) `shouldBeNamed` "FooBar"
@@ -168,7 +168,7 @@ spec = do
 
   describe "allFound" $ do
     it "returns all markets found" $ do
-      pending
+--       pending
       let (Right markets) = parseMarkets searchableJSON
       length (allFound (T.pack "oo") markets) `shouldBe` 2
       length (allFound (T.pack "ar") markets) `shouldBe` 2
