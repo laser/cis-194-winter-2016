@@ -56,10 +56,12 @@ loadData = do
     either fail return $ parseMarkets jsonMarkets
 
 -- #5
-data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
+data OrdList a = OrdList {
+    getOrdList :: [a]
+} deriving (Eq, Show)
 
 instance Ord a => Monoid (OrdList a) where
-  -- mempty = ???
+    mempty = OrdList []
   -- mappend = ???
 
 -- #6

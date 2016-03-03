@@ -107,7 +107,6 @@ spec = do
   describe "Monoid OrdList" $ do
     describe "mempty" $ do
       it "is the empty list" $ do
-        pending
         mempty `shouldBe` OrdList ([] :: [Integer])
 
     describe "mappend" $ do
