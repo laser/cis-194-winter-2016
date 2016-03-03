@@ -17,6 +17,7 @@ module Homework.Week07.Assignment (
 ) where
 
 import Data.Aeson
+import Data.List
 import Data.Monoid
 import GHC.Generics
 
@@ -62,7 +63,7 @@ data OrdList a = OrdList {
 
 instance Ord a => Monoid (OrdList a) where
     mempty = OrdList []
-  -- mappend = ???
+    mappend (OrdList lhsList) (OrdList rhsList) = OrdList (sort $ lhsList <> rhsList)
 
 -- #6
 type Searcher m = T.Text -> [Market] -> m
