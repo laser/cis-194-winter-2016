@@ -4,7 +4,7 @@ module Homework.Week08.Assignment (
   abParser_,
   intPair,
   intOrUppercase,
-  splitWith,safeInt
+  splitWith,safeInt,twobytwo,grouple
 ) where
 
 import Data.Maybe
@@ -12,6 +12,7 @@ import Homework.Week08.AParser
 import Control.Applicative
 import Data.Char
 import Data.Either
+
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
@@ -30,23 +31,36 @@ instance Applicative Parser  where
              apply _  = Nothing
 
 -- #3
+
+twobytwo = go
+  where go [] = []
+        go (x:y: xs) = [x , y] : go xs
+        go (x:xs)    = [x] : go xs
+
+grouple srch xs = let (f,s) = span (== srch) $ snd $ span (/= srch) $  twobytwo xs
+                  in concat <$> [f,s]
+
 abParser :: Parser (Char, Char)
 abParser = Parser $ f
-  where f ('a' : 'b' : xs)  = Just (('a','b'), xs)
-        f _                 = Nothing
+  where f = (\ s -> cooler $  grouple "ab" s)
+        cooler [ (a : b :[] ), rest ] = Just ((a,b), rest)
+        cooler _ = Nothing
+        f' ('a' : 'b' : xs)  = Just (('a','b'), xs)
+        f' _                 = Nothing
 
 abParser_ :: Parser ()
 abParser_ = Parser $ f
-  where f ('a':'b':xs) = Just ((), xs)
-        f _            = Nothing
+  where f = (\ s-> cooler $ grouple "ab" s)
+        cooler [(_:_:[]), rest ] = Just ((), rest)
+        cooler _                 = Nothing
 
 intPair :: Parser [Integer]
-intPair = Parser f
+intPair = Parser f'
   where
-    f       s  = Just ( take 2 $ rights $ fst $ results s , concat $ lefts $ snd $ results s )
-    results s  =  span (isRight) $ fmap safeInt $ splitWith (==' ' ) s
-
-
+    f'      = parser . span isRight . fmap safeInt . splitWith (==' ' )
+    parser ( rightxs, leftxs )
+      | length rightxs == 2 = Just (rights rightxs, mconcat $ lefts leftxs)
+      | otherwise  = Nothing
 
 safeInt :: String -> Either String Integer
 safeInt s = maybeInt
