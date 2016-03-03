@@ -51,7 +51,9 @@ parseMarkets = eitherDecode
 
 -- #4
 loadData :: IO [Market]
-loadData = undefined
+loadData = do
+    jsonMarkets <- B.readFile "markets.json"
+    either fail return $ parseMarkets jsonMarkets
 
 -- #5
 data OrdList a = OrdList { getOrdList :: [a] } deriving (Eq, Show)
