@@ -71,10 +71,8 @@ instance Ord a => Monoid (OrdList a) where
 type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
-search toMonoid name markets =
-    mconcat $ fmap (toMonoid . snd) $ filter byName $ fmap marketWithName markets
-        where marketWithName market@(Market {marketname = name}) = (name, market)
-              byName (marketName, _) = name `T.isInfixOf` marketName
+search toMonoid name = mconcat . fmap toMonoid . filter (byName name)
+    where byName name = \ Market {marketname = marketName} -> name `T.isInfixOf` marketName
 
 -- #7
 firstFound :: Searcher (Maybe Market)
