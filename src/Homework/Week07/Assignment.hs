@@ -85,7 +85,7 @@ firstFound = compose2 headMaybe (search ( : []))
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = undefined
+lastFound = compose2 (headMaybe . reverse) (search ( : []))
 
 -- #9
 allFound :: Searcher [Market]
