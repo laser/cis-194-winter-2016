@@ -17,7 +17,7 @@ module Homework.Week07.Assignment (
 ) where
 
 import Data.Aeson
-import Data.List (sort)
+import Data.List (sort, sortOn)
 import Data.Maybe (listToMaybe)
 import Data.Monoid
 import GHC.Generics
@@ -81,7 +81,6 @@ search toMonoid name markets =
 -- #7
 firstFound :: Searcher (Maybe Market)
 firstFound = compose2 headMaybe (search ( : []))
--- firstFound name markets = headMaybe $ search ( : []) name markets
 
 -- #8
 lastFound :: Searcher (Maybe Market)
@@ -89,7 +88,7 @@ lastFound = compose2 (headMaybe . reverse) (search ( : []))
 
 -- #9
 allFound :: Searcher [Market]
-allFound = search ( : [])
+allFound = compose2 id search ( : [])
 
 -- #10
 numberFound :: Searcher Int
@@ -97,7 +96,8 @@ numberFound = compose2 length allFound
 
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = undefined
+orderedNtoS = compose2 (sortOn latitude) allFound
+    where latitude (Market {y = lat}) = lat
 
 -- helpers
 compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
