@@ -17,13 +17,16 @@ module Homework.Week07.Assignment (
 ) where
 
 import Data.Aeson
-import Data.List
+import Data.List (sort)
+import Data.Maybe (listToMaybe)
 import Data.Monoid
 import GHC.Generics
 
 import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
+
+headMaybe = listToMaybe
 
 -- #1
 ynToBool :: Value -> Value
@@ -77,7 +80,8 @@ search toMonoid name markets =
 
 -- #7
 firstFound :: Searcher (Maybe Market)
-firstFound = undefined
+firstFound = compose2 headMaybe (search ( : []))
+-- firstFound name markets = headMaybe $ search ( : []) name markets
 
 -- #8
 lastFound :: Searcher (Maybe Market)
@@ -94,3 +98,7 @@ numberFound = undefined
 -- #11
 orderedNtoS :: Searcher [Market]
 orderedNtoS = undefined
+
+-- helpers
+compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
+compose2 = (.) . (.)

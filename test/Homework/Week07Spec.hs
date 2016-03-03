@@ -138,7 +138,6 @@ spec = do
 
   describe "firstFound" $ do
     it "returns the first market found" $ do
-      pending
       let (Right markets) = parseMarkets searchableJSON
       fromJust (firstFound (T.pack "oo") markets) `shouldBeNamed` "Foo"
       fromJust (firstFound (T.pack "ar") markets) `shouldBeNamed` "Bar"
