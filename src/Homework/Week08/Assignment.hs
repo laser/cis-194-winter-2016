@@ -56,7 +56,6 @@ intPair = Parser f
              | length theRights == 2 = Just (rights theRights, mconcat $ lefts theLefts)
              | otherwise  = Nothing
 
-eitherInteger :: String -> Either String Integer
 eitherInteger s = readEither s :: Either String Integer
 
 -- #4
