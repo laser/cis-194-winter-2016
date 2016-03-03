@@ -72,7 +72,7 @@ type Searcher m = T.Text -> [Market] -> m
 
 search :: Monoid m => (Market -> m) -> Searcher m
 search toMonoid name = mconcat . fmap toMonoid . filter (byName name)
-    where byName name = \ Market {marketname = marketName} -> name `T.isInfixOf` marketName
+    where byName name = \ market -> name `T.isInfixOf` (marketname market)
 
 -- #7
 firstFound :: Searcher (Maybe Market)
@@ -92,8 +92,7 @@ numberFound = compose2 length allFound
 
 -- #11
 orderedNtoS :: Searcher [Market]
-orderedNtoS = compose2 (sortOn latitude) allFound
-    where latitude (Market {y = lat}) = lat
+orderedNtoS = compose2 (sortOn y) allFound
 
 -- helpers
 headMaybe = listToMaybe
