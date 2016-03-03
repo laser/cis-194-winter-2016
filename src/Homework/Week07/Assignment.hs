@@ -26,19 +26,17 @@ import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
-headMaybe = listToMaybe
-
 -- #1
 ynToBool :: Value -> Value
 ynToBool (String "Y") = Bool True
 ynToBool (String "N") = Bool False
 ynToBool (Array xs)   = Array (fmap ynToBool xs)
 ynToBool (Object xs)  = Object (fmap ynToBool xs)
-ynToBool x            = x
+ynToBool other        = other
 
 -- #2
 parseData :: B.ByteString -> Either String Value
-parseData x = fmap ynToBool (eitherDecode x)
+parseData = fmap ynToBool . eitherDecode
 
 -- #3
 data Market = Market {
@@ -75,16 +73,16 @@ type Searcher m = T.Text -> [Market] -> m
 search :: Monoid m => (Market -> m) -> Searcher m
 search toMonoid name markets =
     mconcat $ fmap (toMonoid . snd) $ filter byName $ fmap marketWithName markets
-        where byName (marketName, _) = name `T.isInfixOf` marketName
-              marketWithName market@(Market {marketname = name}) = (name, market)
+        where marketWithName market@(Market {marketname = name}) = (name, market)
+              byName (marketName, _) = name `T.isInfixOf` marketName
 
 -- #7
 firstFound :: Searcher (Maybe Market)
-firstFound = compose2 headMaybe (search ( : []))
+firstFound = compose2 headMaybe allFound
 
 -- #8
 lastFound :: Searcher (Maybe Market)
-lastFound = compose2 (headMaybe . reverse) (search ( : []))
+lastFound = compose2 (headMaybe . reverse) allFound
 
 -- #9
 allFound :: Searcher [Market]
@@ -100,5 +98,7 @@ orderedNtoS = compose2 (sortOn latitude) allFound
     where latitude (Market {y = lat}) = lat
 
 -- helpers
+headMaybe = listToMaybe
+
 compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
 compose2 = (.) . (.)
