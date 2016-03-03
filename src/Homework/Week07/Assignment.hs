@@ -89,7 +89,7 @@ lastFound = compose2 (headMaybe . reverse) (search ( : []))
 
 -- #9
 allFound :: Searcher [Market]
-allFound = undefined
+allFound = search ( : [])
 
 -- #10
 numberFound :: Searcher Int

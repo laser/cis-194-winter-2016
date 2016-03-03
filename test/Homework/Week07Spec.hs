@@ -152,7 +152,6 @@ spec = do
 
   describe "allFound" $ do
     it "returns all markets found" $ do
-      pending
       let (Right markets) = parseMarkets searchableJSON
       length (allFound (T.pack "oo") markets) `shouldBe` 2
       length (allFound (T.pack "ar") markets) `shouldBe` 2
