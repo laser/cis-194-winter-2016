@@ -159,7 +159,6 @@ spec = do
 
   describe "numberFound" $ do
     it "returns the number of markets found" $ do
-      pending
       let (Right markets) = parseMarkets searchableJSON
       numberFound (T.pack "oo") markets `shouldBe` 2
       numberFound (T.pack "ar") markets `shouldBe` 2

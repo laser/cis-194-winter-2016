@@ -93,7 +93,7 @@ allFound = search ( : [])
 
 -- #10
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound = compose2 length allFound
 
 -- #11
 orderedNtoS :: Searcher [Market]
