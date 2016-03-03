@@ -26,8 +26,9 @@ instance Functor Parser where
 -- #2
 instance Applicative Parser  where
   pure  a = Parser $ \s -> Just (a,s)
-  (<*>) (Parser fab )  (Parser fa) = Parser $ (\ s -> apply $ fa s  )
-       where apply (Just (a,rest)) = fmap (\ (fn,r) -> (fn a, r)) $ fab rest
+  (<*>) (Parser fab )  (Parser fa) = Parser $ f
+       where f     = apply . fa
+             apply (Just (a,rest)) = fmap (\ (fn,r) -> (fn a, r)) $ fab rest
              apply _  = Nothing
 
 -- #3
@@ -36,27 +37,26 @@ pair :: Applicative f => f a -> f b -> f (a,b)
 pair = liftA2 (,)
 
 abParser :: Parser (Char, Char)
-abParser = Parser $ f'
+abParser = Parser $ f
   where ab = "ab"
         tuplify (a:b:_) = (a,b)
-        f' s
+        f s
            | isInfixOf ab s = Just (tuplify ab, mconcat $ splitOn ab s)
            | otherwise      = Nothing
 
 abParser_ :: Parser ()
-abParser_ = Parser $ f'
+abParser_ = Parser $ f
   where ab   = "ab"
-        tuplify (a:b:_) = (a,b)
-        f' s
+        f s
            | isInfixOf ab s = Just ( () , mconcat $ splitOn ab s)
            | otherwise      = Nothing
 
 intPair :: Parser [Integer]
-intPair = Parser f'
+intPair = Parser f
   where
-    f'      = parser . span isRight . fmap eitherInteger . splitWhen (==' ' )
-    parser ( rightxs, leftxs )
-      | length rightxs == 2 = Just (rights rightxs, mconcat $ lefts leftxs)
+    f      = parser . span isRight . fmap eitherInteger . splitWhen (==' ' )
+    parser ( theRights, theLefts )
+      | length theRights == 2 = Just (rights theRights, mconcat $ lefts theLefts)
       | otherwise  = Nothing
 
 eitherInteger :: String -> Either String Integer
