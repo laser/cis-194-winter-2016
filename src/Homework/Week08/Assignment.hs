@@ -4,15 +4,15 @@ module Homework.Week08.Assignment (
   abParser_,
   intPair,
   intOrUppercase,
-  splitWith,safeInt,twobytwo,grouple
+  eitherInteger
 ) where
 
-import Data.Maybe
 import Homework.Week08.AParser
 import Control.Applicative
-import Data.Char
 import Data.Either
-
+import Data.List.Split
+import Data.List
+import Text.Read
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
@@ -31,50 +31,36 @@ instance Applicative Parser  where
              apply _  = Nothing
 
 -- #3
-
-twobytwo = go
-  where go [] = []
-        go (x:y: xs) = [x , y] : go xs
-        go (x:xs)    = [x] : go xs
-
-grouple srch xs = let (f,s) = span (== srch) $ snd $ span (/= srch) $  twobytwo xs
-                  in concat <$> [f,s]
+-- oh this is soooo cool.
+pair :: Applicative f => f a -> f b -> f (a,b)
+pair = liftA2 (,)
 
 abParser :: Parser (Char, Char)
-abParser = Parser $ f
-  where f = (\ s -> cooler $  grouple "ab" s)
-        cooler [ (a : b :[] ), rest ] = Just ((a,b), rest)
-        cooler _ = Nothing
-        f' ('a' : 'b' : xs)  = Just (('a','b'), xs)
-        f' _                 = Nothing
+abParser = Parser $ f'
+  where ab = "ab"
+        tuplify (a:b:_) = (a,b)
+        f' s
+           | isInfixOf ab s = Just (tuplify ab, mconcat $ splitOn ab s)
+           | otherwise      = Nothing
 
 abParser_ :: Parser ()
-abParser_ = Parser $ f
-  where f = (\ s-> cooler $ grouple "ab" s)
-        cooler [(_:_:[]), rest ] = Just ((), rest)
-        cooler _                 = Nothing
+abParser_ = Parser $ f'
+  where ab   = "ab"
+        tuplify (a:b:_) = (a,b)
+        f' s
+           | isInfixOf ab s = Just ( () , mconcat $ splitOn ab s)
+           | otherwise      = Nothing
 
 intPair :: Parser [Integer]
 intPair = Parser f'
   where
-    f'      = parser . span isRight . fmap safeInt . splitWith (==' ' )
+    f'      = parser . span isRight . fmap eitherInteger . splitWhen (==' ' )
     parser ( rightxs, leftxs )
       | length rightxs == 2 = Just (rights rightxs, mconcat $ lefts leftxs)
       | otherwise  = Nothing
 
-safeInt :: String -> Either String Integer
-safeInt s = maybeInt
-  where allDigits = all isDigit s
-        maybeInt
-                  | allDigits  = Right (read s :: Integer)
-                  | otherwise  = Left s
-
--- im too lazy to declare dep in cabal so im re-inventing the wheel
-splitWith :: (a -> Bool) ->  [a] -> [[a]]
-splitWith _  []   = []
-splitWith pred xs = filter ( (0  < ) . length) $
-                        (takeWhile (not . pred) $ dropWhile pred xs ) :
-                           (splitWith pred $ dropWhile (not . pred)$ dropWhile pred xs)
+eitherInteger :: String -> Either String Integer
+eitherInteger s = readEither s :: Either String Integer
 
 -- #4
 instance Alternative Parser where

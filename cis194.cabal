@@ -39,6 +39,7 @@ library
                      , text
                      , containers
                      , unordered-containers
+                     , split
   default-language:    Haskell2010
 
 test-suite cis194-test
