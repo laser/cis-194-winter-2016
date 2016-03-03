@@ -91,7 +91,7 @@ allFound term markets = search (:[]) term markets
 
 -- #10
 numberFound :: Searcher Int
-numberFound = undefined
+numberFound term markets = foldl (\x _ -> x+1) 0 (search (:[]) term markets)
 
 -- #11
 orderedNtoS :: Searcher [Market]
