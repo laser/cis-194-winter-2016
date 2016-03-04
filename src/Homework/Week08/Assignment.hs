@@ -4,7 +4,7 @@ module Homework.Week08.Assignment (
   abParser_,
   intPair,
   intOrUppercase,
-  eitherInteger
+  parseInteger
 ) where
 
 import Homework.Week08.AParser
@@ -13,7 +13,7 @@ import Data.Either
 import Data.List.Split
 import Data.List
 import Text.Read
-
+import Data.Char
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
 first f (a,c) = (f a,c)
@@ -62,9 +62,26 @@ eitherInteger s = readEither s :: Either String Integer
 
 -- #4
 instance Alternative Parser where
-  empty = undefined
-  _ <|> _ = undefined
+  empty = Parser $ \s -> Nothing
+  (Parser r) <|> (Parser r') = Parser $ (\s ->  go (r s) (r' s))
+    where go (Just result) _            = Just result
+          go Nothing      (Just result) = Just result
+          go _            _             = Nothing
 
 -- #5
 intOrUppercase :: Parser ()
-intOrUppercase = undefined
+intOrUppercase = parseInteger <|> parseUpper
+
+parseInteger :: Parser ()
+parseInteger = Parser $ f .  doParse
+  where doParse = \s -> (takeWhile isDigit s, s)
+        f ([]    , _   ) = Nothing
+        f (digits, rest) = Just ((), drop (length digits) rest)
+
+parseUpper :: Parser ()
+parseUpper = Parser $  f . doParse
+  where doParse = \s -> (takeWhile isUpper s, s)
+        f ([]    , _   ) = Nothing
+        f ((x:_) , rest) = Just ((), drop 1 rest )
+
+
