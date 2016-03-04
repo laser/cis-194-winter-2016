@@ -3,8 +3,7 @@ module Homework.Week08.Assignment (
   abParser,
   abParser_,
   intPair,
-  intOrUppercase,
-  parseInteger
+  intOrUppercase
 ) where
 
 import Homework.Week08.AParser
