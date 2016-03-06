@@ -8,13 +8,15 @@ module Homework.Week08.Assignment (
 
 import Homework.Week08.AParser
 import Control.Applicative
+import Control.Monad (join)
 
--- #1
-first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+
+first :: (a -> b) -> (a , c) -> (b , c)
+first f (a, c) = (f a, c)
 
 instance Functor Parser where
-  fmap = undefined
+  fmap f p = Parser f'
+     where f' = fmap (first f) . runParser p
 
 -- #2
 instance Applicative Parser where
