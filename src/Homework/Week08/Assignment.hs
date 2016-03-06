@@ -11,7 +11,7 @@ import Control.Applicative
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+first fun tuple = (fun (fst tuple), snd tuple)
 
 instance Functor Parser where
   fmap = undefined
