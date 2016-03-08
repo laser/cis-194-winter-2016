@@ -20,7 +20,7 @@ spec = do
   describe "Functor Parser" $ do
     describe "fmap" $ do
       it "applies a function to the result of a parser" $ do
-        pending
+--         pending
         let p = fmap (+1) posInt
         runParser p "41" `shouldBe` Just (42, "")
         runParser p "x"  `shouldBe` Nothing

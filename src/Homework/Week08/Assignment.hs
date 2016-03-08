@@ -11,10 +11,10 @@ import Control.Applicative
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+first f (a,c) = (f a, c)
 
 instance Functor Parser where
-  fmap = undefined
+  fmap fab (Parser fa) = Parser (\x -> fmap (first fab) (fa x))
 
 -- #2
 instance Applicative Parser where
