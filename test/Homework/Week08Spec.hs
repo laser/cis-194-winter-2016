@@ -28,12 +28,10 @@ spec = do
   describe "Applicative Parser" $ do
     describe "pure" $ do
       it "creates a parser that consumes nothing and returns a value" $ do
-        pending
-        -- property $ \str -> runParser (pure ()) str == Just ((), str)
+        property $ \str -> runParser (pure ()) str == Just ((), str)
 
     describe "<*>" $ do
       it "applies a function from a parser to the result of a parser" $ do
-        pending
         let p1 = pure (+1) <*> posInt
         runParser p1 "41" `shouldBe` Just (42, "")
 
@@ -42,7 +40,6 @@ spec = do
 
   describe "abParser" $ do
     it "parses the characters 'a' and 'b' as a pair" $ do
-      pending
       runParser abParser "abcdef" `shouldBe` Just (('a', 'b'), "cdef")
       runParser abParser "bcdefa" `shouldBe` Nothing
       runParser abParser "aecdbf" `shouldBe` Nothing

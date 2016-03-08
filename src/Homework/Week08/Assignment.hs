@@ -20,12 +20,18 @@ instance Functor Parser where
 
 -- #2
 instance Applicative Parser where
-  pure = undefined
-  _ <*> _ = undefined
+  pure a  =  Parser (\s -> Just (a, s))
+  f <*> v =  Parser (\s -> do
+               (x, s0) <-  runParser f s
+               (y, s1) <-  runParser v s0
+               return (x y, s1))
 
 -- #3
+-- fmap (,) ? parseChar leftChar <*> parseChar rightChar
 abParser :: Parser (Char, Char)
-abParser = undefined
+abParser  = undefined --[char 'a', char 'b']
+             --in undefined
+   --where parseChar x = undefined
 
 abParser_ :: Parser ()
 abParser_ = undefined
