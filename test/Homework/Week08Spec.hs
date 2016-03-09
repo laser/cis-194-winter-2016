@@ -46,7 +46,6 @@ spec = do
 
   describe "abParser_" $ do
     it "parses the characters 'a' and 'b' but returns nothing" $ do
-      pending
       runParser abParser_ "abcdef" `shouldBe` Just ((), "cdef")
       runParser abParser_ "bcdefa" `shouldBe` Nothing
       runParser abParser_ "aecdbf" `shouldBe` Nothing

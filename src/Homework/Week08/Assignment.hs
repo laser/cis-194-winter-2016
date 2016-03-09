@@ -9,6 +9,7 @@ module Homework.Week08.Assignment (
 import Homework.Week08.AParser
 import Control.Applicative
 import Control.Monad (join)
+import Data.Functor (void)
 
 
 first :: (a -> b) -> (a , c) -> (b , c)
@@ -29,12 +30,13 @@ instance Applicative Parser where
 -- #3
 -- fmap (,) ? parseChar leftChar <*> parseChar rightChar
 abParser :: Parser (Char, Char)
-abParser  = undefined --[char 'a', char 'b']
-             --in undefined
-   --where parseChar x = undefined
+abParser =  (,) <$> (char 'a') <*> (char 'b')-- (char 'a') <*> (char 'b')
+
 
 abParser_ :: Parser ()
-abParser_ = undefined
+abParser_ = void abParser
+
+-- void' = fmap (const ())
 
 intPair :: Parser [Integer]
 intPair = undefined
