@@ -34,7 +34,7 @@ abParser_ :: Parser ()
 abParser_ = void abParser
 
 intPair :: Parser [Integer]
-intPair = fmap (\p -> [fst p, snd p]) $ (,) <$> posInt <*> (char ' ' *> posInt)
+intPair = (\a b -> [a, b]) <$> posInt <*> (char ' ' *> posInt)
 
 -- #4
 instance Alternative Parser where
