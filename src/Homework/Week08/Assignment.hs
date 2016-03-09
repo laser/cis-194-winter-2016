@@ -21,9 +21,10 @@ instance Functor Parser where
 -- #2
 instance Applicative Parser where
   pure a = Parser $ \s -> Just (a, s)
-  (Parser f) <*> (Parser g) = Parser $ \s -> do
-    (f', s') <- f s
-    fmap (first f') (g s')
+  (Parser f) <*> (Parser g) = Parser $ \s ->
+    case f s of
+      Nothing -> Nothing
+      Just (f', s') -> fmap (first f') (g s')
 
 -- #3
 abParser :: Parser (Char, Char)
