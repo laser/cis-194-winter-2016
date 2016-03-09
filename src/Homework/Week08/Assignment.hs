@@ -10,11 +10,12 @@ import Homework.Week08.AParser
 import Control.Applicative
 
 -- #1
-first :: (a -> b) -> (a,c) -> (b,c)
-first = undefined
+first :: (a -> b) -> (a, c) -> (b, c)
+first f (x, y) = (f x, y)
 
 instance Functor Parser where
-  fmap = undefined
+  fmap f p = Parser (fp f p)
+    where fp f p = \ xs -> (first f) <$> (runParser p xs)
 
 -- #2
 instance Applicative Parser where
