@@ -13,8 +13,14 @@ import Control.Applicative
 first :: (a -> b) -> (a,c) -> (b,c)
 first fun tuple = (fun (fst tuple), snd tuple)
 
+-- helper :: Parser Int -> String -> Maybe(Int, String)
+-- helper p input = runParser p input
+
 instance Functor Parser where
-  fmap = undefined
+  fmap fun parser = Parser $ \string ->
+      case runParser parser string of
+        Nothing -> Nothing
+        Just value -> Just (first fun value)
 
 -- #2
 instance Applicative Parser where
