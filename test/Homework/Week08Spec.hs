@@ -33,7 +33,7 @@ spec = do
 
     describe "<*>" $ do
       it "applies a function from a parser to the result of a parser" $ do
-        pending
+--         pending
         let p1 = pure (+1) <*> posInt
         runParser p1 "41" `shouldBe` Just (42, "")
 
