@@ -8,6 +8,7 @@ module Homework.Week08.Assignment (
 
 import Homework.Week08.AParser
 import Control.Applicative
+import Data.Char
 
 -- #1
 first :: (a -> b) -> (a,c) -> (b,c)
@@ -47,5 +48,8 @@ instance Alternative Parser where
                         Just(a', rem) -> Just(a', rem)
 
 -- #5
+-- upperCase :: Char -> Parser Char
+-- upperCase = satisfy $ isUpper
+
 intOrUppercase :: Parser ()
-intOrUppercase = undefined
+intOrUppercase = ((\_ -> ()) <$> posInt) <|> ((\_ -> ()) <$> satisfy isUpper)
