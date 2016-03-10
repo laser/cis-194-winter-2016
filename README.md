@@ -14,7 +14,7 @@ Week | Lecture                                                | Assignment Due  
 6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 | Greg Wiley (Monoids)       |  
 7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 | Joe Vargas (Functor)       |
 8    | [Functors][8] [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 3  | Hal Arnold (Applicative Functors) |
-9    | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 |                            |
+9    | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 | Alexis King (Monads) |                           |
 10   | [Monads][11]                                           | [risk][30]              | Mar. 17 | Erin (Monad Transformers)                        |
 11   | Monad Transformers                                                    | TBD                     | Mar. 24 | ???                        |
 12   | TBD                                                    | TBD                     | Mar. 31 | ???                        |
