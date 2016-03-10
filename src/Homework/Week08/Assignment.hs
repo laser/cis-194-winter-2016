@@ -33,10 +33,10 @@ abParser :: Parser (Char, Char)
 abParser = (fmap (\a b -> (a,b)) (char 'a')) <*> (char 'b')
 
 abParser_ :: Parser ()
-abParser_ = (fmap (\a b -> ()) (char 'a')) <*> (char 'b')
+abParser_ = (\a b -> ()) <$> (char 'a') <*> (char 'b')
 
 intPair :: Parser [Integer]
-intPair = undefined
+intPair = (\a _ b -> a:b:[]) <$> posInt <*> char ' ' <*> posInt
 
 -- #4
 instance Alternative Parser where
