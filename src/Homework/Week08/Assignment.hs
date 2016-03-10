@@ -19,7 +19,7 @@ instance Functor Parser where
 
 -- #2
 instance Applicative Parser where
-  pure = undefined
+  pure a = Parser (\ xs -> Just (a, xs))
   _ <*> _ = undefined
 
 -- #3
