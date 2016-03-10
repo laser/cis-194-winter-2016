@@ -20,7 +20,8 @@ instance Functor Parser where
 -- #2
 instance Applicative Parser where
   pure a = Parser (\ xs -> Just (a, xs))
-  _ <*> _ = undefined
+  ff <*> fa = Parser f
+    where f xs = maybe Nothing (\ (h, ys) -> runParser (h <$> fa) ys) (runParser ff xs)
 
 -- #3
 abParser :: Parser (Char, Char)
