@@ -62,12 +62,12 @@ spec = do
   describe "Alternative Parser" $ do
     describe "empty" $ do
       it "is a parser that always fails" $ do
-        pending
+--         pending
         runParser (empty :: Parser ()) "abc" `shouldBe` Nothing
 
     describe "<|>" $ do
       it "uses the first parser if successful" $ do
-        pending
+--         pending/
         let p1 = char '*' <|> char '$'
         runParser p1 "*abc" `shouldBe` Just ('*', "abc")
 
@@ -75,7 +75,7 @@ spec = do
         runParser p2 "1234" `shouldBe` Just ('1', "234")
 
       it "user the second parser if the first one fails" $ do
-        pending
+--         pending
         let p1 = char '*' <|> char '$'
         runParser p1 "$abc" `shouldBe` Just ('$', "abc")
 

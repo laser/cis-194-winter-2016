@@ -40,8 +40,11 @@ intPair = (\a _ b -> a:b:[]) <$> posInt <*> char ' ' <*> posInt
 
 -- #4
 instance Alternative Parser where
-  empty = undefined
-  _ <|> _ = undefined
+  empty = Parser (\x -> Nothing)
+  (Parser fa) <|> (Parser fb)  = Parser f
+        where f a = case (fa a) of
+                        Nothing -> fb a
+                        Just(a', rem) -> Just(a', rem)
 
 -- #5
 intOrUppercase :: Parser ()
