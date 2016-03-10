@@ -18,10 +18,11 @@ instance Functor Parser where
 
 -- #2
 instance Applicative Parser where
-  pure = \x -> Parser (\y -> Just(x, y))
-  p1 <*> p2 = Parser $ \x -> case (runParser p1 x) of
-                               Just(f, rem) -> fmap (first f) (runParser p2 rem)
-                               Nothing -> Nothing
+  pure = \a -> Parser (\b -> Just(a, b))
+  (Parser fab) <*> (Parser fa) = Parser f
+        where f a = case (fab a) of
+                        Nothing -> Nothing
+                        Just(a', rem) -> fmap (first a') (fa rem)
 
 
   --Parser (\x -> fmap (fb) (fa x))
