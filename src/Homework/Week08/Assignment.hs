@@ -28,11 +28,12 @@ instance Applicative Parser where
   --Parser (\x -> fmap (fb) (fa x))
 
 -- #3
+
 abParser :: Parser (Char, Char)
-abParser = undefined
+abParser = (fmap (\a b -> (a,b)) (char 'a')) <*> (char 'b')
 
 abParser_ :: Parser ()
-abParser_ = undefined
+abParser_ = (fmap (\a b -> ()) (char 'a')) <*> (char 'b')
 
 intPair :: Parser [Integer]
 intPair = undefined
