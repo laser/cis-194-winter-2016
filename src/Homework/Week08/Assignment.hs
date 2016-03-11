@@ -29,7 +29,7 @@ abParser = f <$> (char 'a') <*> (char 'b')
   where f x y = (x, y)
 
 abParser_ :: Parser ()
-abParser_ = undefined
+abParser_ = (\ _ -> ()) <$> abParser
 
 intPair :: Parser [Integer]
 intPair = undefined
