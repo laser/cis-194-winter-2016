@@ -36,7 +36,7 @@ intPair = (\ x _ y -> [x, y]) <$> posInt <*> (char ' ') <*> posInt
 
 -- #4
 instance Alternative Parser where
-  empty = undefined
+  empty = Parser (\ _ -> Nothing)
   _ <|> _ = undefined
 
 -- #5
