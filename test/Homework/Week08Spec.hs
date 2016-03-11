@@ -39,7 +39,6 @@ spec = do
 
   describe "abParser" $ do
     it "parses the characters 'a' and 'b' as a pair" $ do
-      pending
       runParser abParser "abcdef" `shouldBe` Just (('a', 'b'), "cdef")
       runParser abParser "bcdefa" `shouldBe` Nothing
       runParser abParser "aecdbf" `shouldBe` Nothing

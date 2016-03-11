@@ -25,7 +25,8 @@ instance Applicative Parser where
 
 -- #3
 abParser :: Parser (Char, Char)
-abParser = undefined
+abParser = f <$> (char 'a') <*> (char 'b')
+  where f x y = (x, y)
 
 abParser_ :: Parser ()
 abParser_ = undefined
