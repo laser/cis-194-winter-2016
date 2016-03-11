@@ -10,6 +10,7 @@ import Homework.Week08.AParser
 import Control.Applicative
 import Control.Monad (join)
 import Data.Functor (void)
+import Data.Char (isUpper)
 
 
 first :: (a -> b) -> (a , c) -> (b , c)
@@ -39,13 +40,30 @@ abParser_ = void abParser
 -- void' = fmap (const ())
 
 intPair :: Parser [Integer]
-intPair = undefined
+intPair  = -- z <$> posInt <*> liftA2 (flip const) (char ' ') posInt -- (char ' ' *> posInt)
+    (\i _ j -> [i,j]) <$> posInt <*> char ' ' <*> posInt
+-- where
+--   z :: Integer -> Integer -> [Integer]
+--   z a b = [a, b]
+--  liftA3 (\i _ j -> [i,j]) postInt (char ' ') posInt
+
 
 -- #4
 instance Alternative Parser where
-  empty = undefined
-  _ <|> _ = undefined
+  empty   = Parser  (\_ -> Nothing)
+  p <|> q = Parser  (\s -> runParser p s <|> runParser q s)
+
+-- case runParser p s of
+--   (Just (a, s1))  -> Just (a, s1)
+--   Nothing         -> case (runParser q s) of
+--       (Just (b, s2)) -> Just(b, s2)
+--       Nothing   -> Nothing
+{-
+instance Alternative (Maybe a) where
+  (Just x) <|> _ = Just x
+  Nothing <|> x = x
+-}
 
 -- #5
 intOrUppercase :: Parser ()
-intOrUppercase = undefined
+intOrUppercase = (void $ satisfy isUpper) <|> void posInt
