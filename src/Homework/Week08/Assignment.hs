@@ -15,33 +15,28 @@ first :: (a -> b) -> (a, c) -> (b, c)
 first f (x, y) = (f x, y)
 
 instance Functor Parser where
-  fmap f p = Parser fp
-    where fp xs = (first f) <$> (runParser p xs)
+  fmap f p = Parser $ \xs -> (first f) <$> (runParser p xs)
 
 -- #2
 instance Applicative Parser where
-  pure x    = Parser (\xs -> Just (x, xs))
-  p1 <*> p2 = Parser f
-    where f xs = maybe Nothing (\(g, ys) -> runParser (g <$> p2) ys) (runParser p1 xs)
+  pure x    = Parser $ \xs -> Just (x, xs)
+  p1 <*> p2 = Parser $ \xs -> maybe Nothing (\(g, ys) -> runParser (g <$> p2) ys) (runParser p1 xs)
 
 -- #3
 abParser :: Parser (Char, Char)
-abParser = f <$> (char 'a') <*> (char 'b')
-  where f x y = (x, y)
+abParser = (,) <$> (char 'a') <*> (char 'b')
 
 abParser_ :: Parser ()
-abParser_ = (\_ -> ()) <$> abParser
+abParser_ = const () <$> abParser
 
 intPair :: Parser [Integer]
 intPair = (\x _ y -> [x, y]) <$> posInt <*> (char ' ') <*> posInt
 
 -- #4
 instance Alternative Parser where
-  empty     = Parser (\_ -> Nothing)
-  p1 <|> p2 = Parser p
-    where p xs = maybe (runParser p2 xs) Just (runParser p1 xs)
+  empty     = Parser $ const Nothing
+  p1 <|> p2 = Parser $ \xs -> (runParser p1 xs) <|> (runParser p2 xs)
 
 -- #5
 intOrUppercase :: Parser ()
-intOrUppercase = (consume <$> posInt) <|> (consume <$> (satisfy isUpper))
-    where consume _ = ()
+intOrUppercase = (const () <$> posInt) <|> (const () <$> (satisfy isUpper))
