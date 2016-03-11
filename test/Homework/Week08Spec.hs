@@ -51,7 +51,6 @@ spec = do
 
   describe "intPair" $ do
     it "parses two integer values separated by a space" $ do
-      pending
       runParser intPair "12 34" `shouldBe` Just ([12, 34], "")
 
   describe "Alternative Parser" $ do

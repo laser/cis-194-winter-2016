@@ -32,7 +32,7 @@ abParser_ :: Parser ()
 abParser_ = (\ _ -> ()) <$> abParser
 
 intPair :: Parser [Integer]
-intPair = undefined
+intPair = (\ x _ y -> [x, y]) <$> posInt <*> (char ' ') <*> posInt
 
 -- #4
 instance Alternative Parser where
