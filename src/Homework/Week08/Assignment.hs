@@ -37,7 +37,8 @@ intPair = (\ x _ y -> [x, y]) <$> posInt <*> (char ' ') <*> posInt
 -- #4
 instance Alternative Parser where
   empty = Parser (\ _ -> Nothing)
-  _ <|> _ = undefined
+  p1 <|> p2 = Parser p
+    where p xs = maybe (runParser p2 xs) Just (runParser p1 xs)
 
 -- #5
 intOrUppercase :: Parser ()
