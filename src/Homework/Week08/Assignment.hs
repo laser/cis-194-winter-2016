@@ -8,7 +8,8 @@ module Homework.Week08.Assignment (
 
 import Homework.Week08.AParser
 import Control.Applicative
-import Data.Char (isUpper)
+import Data.Char                (isUpper)
+import Data.Functor             (void)
 
 -- #1
 first :: (a -> b) -> (a, c) -> (b, c)
@@ -27,7 +28,7 @@ abParser :: Parser (Char, Char)
 abParser = (,) <$> (char 'a') <*> (char 'b')
 
 abParser_ :: Parser ()
-abParser_ = const () <$> abParser
+abParser_ = void abParser
 
 intPair :: Parser [Integer]
 intPair = (\x _ y -> [x, y]) <$> posInt <*> (char ' ') <*> posInt
@@ -39,4 +40,4 @@ instance Alternative Parser where
 
 -- #5
 intOrUppercase :: Parser ()
-intOrUppercase = (const () <$> posInt) <|> (const () <$> (satisfy isUpper))
+intOrUppercase = (void posInt) <|> (void (satisfy isUpper))
