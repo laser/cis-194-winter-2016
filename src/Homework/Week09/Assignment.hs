@@ -12,20 +12,22 @@ module Homework.Week09.Assignment (
 import Control.Applicative
 
 import Homework.Week09.AParser
+import Data.Char
 
 -- #1
 zeroOrMore :: Parser a -> Parser [a]
-zeroOrMore p = undefined
+-- zeroOrMore p = undefined
+zeroOrMore p =  (:) <$> p  <*> (zeroOrMore p) <|> pure []
 
 oneOrMore :: Parser a -> Parser [a]
-oneOrMore p = undefined
+oneOrMore p = (:) <$> p  <*> zeroOrMore p
 
 -- #2
 spaces :: Parser String
-spaces = undefined
+spaces = zeroOrMore (satisfy isSpace)
 
 ident :: Parser String
-ident = undefined
+ident = (:) <$> (satisfy isAlpha) <*> zeroOrMore (satisfy isAlphaNum)
 
 -- #3
 type Ident = String
@@ -38,5 +40,11 @@ data SExpr = A Atom
            | Comb [SExpr]
   deriving (Eq, Show)
 
+parseAtom :: Parser Atom
+parseAtom = I <$> ident <|> N <$> posInt
+
+parseComb :: Parser [SExpr]
+parseComb = char '(' *> oneOrMore parseSExpr <* char ')'
+
 parseSExpr :: Parser SExpr
-parseSExpr = undefined
+parseSExpr = spaces *> ((A <$> parseAtom) <|> (Comb <$> parseComb)) <* spaces
