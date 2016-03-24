@@ -4,20 +4,21 @@ Click [here](http://coursework-progress.herokuapp.com/) to chart your progress t
 
 ## Schedule
 
-Week | Lecture                                                | Assignment Due          | Due     | Presenter                  | 
----- | ------------------------------------------------------ | ----------------------- | ------- | -------------------------- |
-1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 14 |                            |
-2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 21 |                            |
-3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 28 |                            |
-4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 4  | Sean Shubin (Type Classes) |
-5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 11 | Mary Flagstad (Streams)    |
-6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 | Greg Wiley (Monoids)       |  
-7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 | Joe Vargas (Functor)       |
-8    | [Functors][8] [Applicative functors (part 1)][9]                     | [parsers, part one][28] | Mar. 3  | Hal Arnold (Applicative Functors) |
-9    | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 |                            |
-10   | [Monads][11]                                           | [risk][30]              | Mar. 17 | Erin (Monad Transformers)                        |
-11   | Monad Transformers                                                    | TBD                     | Mar. 24 | ???                        |
-12   | TBD                                                    | TBD                     | Mar. 31 | ???                        |
+Week | Lecture                                                | Assignment Due          | Due     | Presenter                         |
+---- | ------------------------------------------------------ | ----------------------- | ------- | --------------------------------- |
+1    | [Introduction to Haskell][1]                           | [cc numbers, hanoi][21] | Jan. 14 |                                   |
+2    | [Algebraic Data Types][2]                              | [log parsing][22]       | Jan. 21 |                                   |
+3    | [Recursion patterns, polymorphism, and the Prelude][3] | [code golf][23]         | Jan. 28 |                                   |
+4    | [Parametric Polymorphism][4]                           | [BST, recursion][24]    | Feb. 4  | Sean Shubin (Type Classes)        |
+5    | [More polymorphism and type classes][5]                | [calculator][25]        | Feb. 11 | Mary Flagstad (Streams)           |
+6    | [Lazy evaluation][6]                                   | [streams][26]           | Feb. 18 | Greg Wiley (Monoids)              |
+7    | [Monoids, I/O][7]                                      | [markets, JSON][27]     | Feb. 25 | Joe Vargas (Functor)              |
+8    | [Functors][8] [Applicative functors (part 1)][9]       | [parsers, part one][28] | Mar. 3  | Hal Arnold (Applicative Functors) |
+9    | [Applicative functors (part 2)][10]                    | [parsers, part two][29] | Mar. 10 | Alexis King (Monads I)            |
+10   | [Monads][11]                                           |                         | N/A     | Alexis King (Monads II)           |                           |
+11   | Monads                                                 | [risk][30]              | Mar. 24 | Erin (Monad Transformers)         |
+12   | Monad Transformers (read [this][12] and [this][13])    | TBD                     | Mar. 31 | ???                               |
+13   | TBD                                                    | TBD                     | Apr. 7  | N/A                               |
 
   [1]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week01L-intro.pdf
   [2]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week02L-ADTs.pdf
@@ -30,6 +31,8 @@ Week | Lecture                                                | Assignment Due  
   [9]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week09L-applicative.pdf
   [10]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week10L-applicative-cont.pdf
   [11]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/lectures/Week11L-monads.pdf
+  [12]: http://book.realworldhaskell.org/read/monad-transformers.html
+  [13]: https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md
 
   [21]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week01A-intro.pdf
   [22]: https://github.com/laser/cis-194-winter-2016/blob/master/pdfs/assignments/Week02A-ADTs.pdf
