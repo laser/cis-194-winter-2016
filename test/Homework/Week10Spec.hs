@@ -39,12 +39,12 @@ spec = do
   describe "battle" $ do
     it "simulates a single Risk battle" $ do
       attack <- fuzz attackers 1000 (battle $ Battlefield 10 20)
-      attack `shouldBeRoughly` (9.5, 0.1)
+      attack `shouldBeRoughly` (8.5, 0.1)
 
       defense <- fuzz defenders 1000 (battle $ Battlefield 10 20)
-      defense `shouldBeRoughly` (18.5, 0.1)
+      defense `shouldBeRoughly` (19.5, 0.1)
 
   describe "invade" $ do
     it "simulates a repeated Risk battle" $ do
       attack <- fuzz attackers 1000 (invade $ Battlefield 10 20)
-      attack `shouldBeRoughly` (3.72, 0.5)
+      attack `shouldBeRoughly` (1.0, 0.5)

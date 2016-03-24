@@ -45,8 +45,8 @@ clamp low n high = min high $ max n low
 
 accumulateRoll :: Ord a => Battlefield -> (a, a) -> Battlefield
 accumulateRoll field (attack, defense)
-  | attack > defense = field { attackers = attackers field - 1 }
-  | otherwise        = field { defenders = defenders field - 1 }
+  | attack > defense = field { defenders = defenders field - 1 }
+  | otherwise        = field { attackers = attackers field - 1 }
 
 battle :: Battlefield -> Rand StdGen Battlefield
 battle field@(Battlefield attack defense) = do
