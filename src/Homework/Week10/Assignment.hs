@@ -34,11 +34,12 @@ battle :: Battlefield -> Rand StdGen Battlefield
 battle bf = do
   attackRolls <- rolls (attackers bf)
   defendRolls <- rolls (defenders bf)
-  return $ foldr decide bf (zip attackRolls defendRolls)
-  where
-    decide (aRoll, dRoll) b
-      | aRoll > dRoll = b { defenders = defenders b - 1 }
-      | otherwise = b { attackers = attackers b - 1 }
+  return $ foldr (uncurry fatal) bf (zip attackRolls defendRolls)
+
+fatal :: DieValue -> DieValue -> Battlefield -> Battlefield
+fatal aRoll dRoll bf
+  | aRoll > dRoll = bf { defenders = defenders bf - 1 }
+  | otherwise = bf { attackers = attackers bf - 1 }
 
 rolls :: Int -> Rand StdGen [DieValue]
 rolls n = (reverse . sort) <$> sequence (replicate n die)
@@ -54,8 +55,11 @@ successProb :: Battlefield -> Rand StdGen Double
 successProb bf = do
   bfs <- sequence $ replicate 1000 (invade bf)
   let success = sum $ map (\b -> if 0 == defenders b then 1 else 0) bfs
-  return $ (success / 1000)
+  return $ success / 1000
 
 -- #5
 exactSuccessProb :: Battlefield -> Double
-exactSuccessProb = undefined
+exactSuccessProb (Battlefield a d) = aRatio / (aRatio + dRatio)
+  where
+    aRatio = sum [x ^ a / 6 | x <- [1..5]]
+    dRatio = sum [x ^ d / 6 | x <- [2..6]]
