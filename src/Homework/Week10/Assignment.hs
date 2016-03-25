@@ -59,7 +59,8 @@ successProb bf = do
 
 -- #5
 exactSuccessProb :: Battlefield -> Double
-exactSuccessProb (Battlefield a d) = aRatio / (aRatio + dRatio)
+exactSuccessProb (Battlefield a d) = aWeight / (aWeight + dWeight) -- Normalize
   where
-    aRatio = sum [x ^ a / 6 | x <- [1..5]]
-    dRatio = sum [x ^ d / 6 | x <- [2..6]]
+    -- Weights: Given a die roll for each [1..6] what is the chance of winning against another die roll.
+    aWeight = sum [x ^ a / 6 | x <- [0..5]]
+    dWeight = sum [x ^ d / 6 | x <- [1..6]]
