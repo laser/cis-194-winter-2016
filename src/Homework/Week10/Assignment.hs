@@ -2,7 +2,13 @@
 
 module Homework.Week10.Assignment (
   DieValue(..),
-  die
+  Battlefield(..),
+  battle,
+  invade,
+  successProb,
+  exactSuccessProb,
+  getAttackers,
+  getDefenders
 )where
 
 import           Control.Monad
@@ -51,31 +57,50 @@ dice :: Int -> Rand StdGen [DieValue]
 dice n = replicateM n die
 
 getAttackers :: Battlefield -> Army
-getAttackers bf@(att, _)
+getAttackers bf
   | att <= 1  = 0
-  | att >= 4  = 3
+  | att > 3   = 3
   | otherwise = att
+    where att = attackers bf
 
 getDefenders :: Battlefield -> Army
-getDefenders bf@(_, def)
+getDefenders bf
   | def > 2 = 2
   | otherwise = def
+    where def = defenders bf
+
+fight :: Battlefield -> (DieValue, DieValue) -> Battlefield
+fight bf (attack, defense)
+  | attack > defense = bf { defenders = defenders bf - 1 }
+  | otherwise        = bf { attackers = attackers bf - 1 }
 
 battle :: Battlefield -> Rand StdGen Battlefield
 battle bf = do
-  attackRolls <- sort <$> dice att
-  defenseRolls <- sort <$> dice def
-  return bf
-  where att = getAttackers bf
-        def = getDefenders bf
+  let att = getAttackers bf
+  let def = getDefenders bf
+  attacks <- sort <$> dice att
+  defenses <- sort <$> dice def
+  let fights = zip attacks defenses
+  return $ foldl' fight bf fights
 
 -- #3
 invade :: Battlefield -> Rand StdGen Battlefield
-invade = undefined
+invade bf@(Battlefield att def)
+  | def == 0 || att < 2 = return bf
+  | otherwise = battle bf >>= invade
 
 -- #4
+getScore :: Battlefield -> Double
+getScore bf@(Battlefield att def)
+  | att > def = 1
+  | otherwise = 0
+
 successProb :: Battlefield -> Rand StdGen Double
-successProb = undefined
+successProb bf = do
+  invasions <- replicateM 1000 $ invade bf
+  let score = fmap getScore invasions
+  let wins = sum score
+  return $ wins / 1000
 
 -- #5
 exactSuccessProb :: Battlefield -> Double
