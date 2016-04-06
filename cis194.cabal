@@ -31,12 +31,17 @@ library
                      , Homework.Week09.Assignment
                      , Homework.Week09.AParser
                      , Homework.Week10.Assignment
+                     , Homework.Week11.Assignment
+                     , Homework.Week11.Reference
+                     , Homework.Week11.Types
   build-depends:       base >= 4.7 && < 5
                      , MonadRandom
                      , QuickCheck
                      , aeson
                      , bytestring
                      , text
+                     , sqlite-simple
+                     , transformers
   default-language:    Haskell2010
 
 test-suite cis194-test
