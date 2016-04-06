@@ -30,30 +30,74 @@ dbName = "week11.sqlite"
 -- or write your own version (for extra credit!)
 
 newtype ReaderT r m a = ReaderT { runReaderT :: r -> m a }
-ask = undefined
-lift = undefined
+
+ask :: Monad m => ReaderT r m r
+ask = ReaderT return
+
+lift :: Monad m => m a -> ReaderT r m a
+lift ma = ReaderT (const ma)
+
+instance Functor m => Functor (ReaderT r m) where
+  fmap f (ReaderT g) = ReaderT $ \r -> fmap f (g r)
+
+instance Applicative m => Applicative (ReaderT r m) where
+  pure a = ReaderT $ const (pure a)
+  f <*> g = ReaderT $ \r -> runReaderT f r <*> runReaderT g r
+
+instance Monad m => Monad (ReaderT r m) where
+  return = pure
+  f >>= g = ReaderT $ \r -> runReaderT f r >>= \a -> runReaderT (g a) r
 
 ----------- database lib
 
 insertUser :: FullName -> EmailAddress -> ReaderT Connection IO UserId
-insertUser = undefined
+insertUser fn ea = do
+  conn <- ask
+  lift $ execute
+    conn
+    " INSERT INTO `users` \
+    \ (full_name, email_address) \
+    \ VALUES (?, ?)"
+    (fn, ea)
+  lift $ lastInsertRowId conn >>= return . UserId
 
 getUsers :: ReaderT Connection IO [User]
-getUsers = undefined
+getUsers = do
+  conn <- ask
+  lift $ query_
+    conn
+    " SELECT id, full_name, email_address \
+    \ FROM `users`"
 
 deleteUserById :: UserId -> ReaderT Connection IO ()
-deleteUserById = undefined
+deleteUserById userId = do
+  conn <- ask
+  _ <- lift $ execute
+    conn
+    " DELETE FROM `users` \
+    \ WHERE id = ?"
+    (Only userId)
+  return ()
 
 getUserById :: UserId -> ReaderT Connection IO (Maybe User)
-getUserById = undefined
+getUserById userId = do
+  conn <- ask
+  rs <- lift $ query
+    conn
+    " SELECT id, full_name, email_address \
+    \ FROM `users` \
+    \ WHERE id = ?"
+    (Only userId)
+  case rs of
+    [] -> return Nothing
+    user:_ -> return (Just user)
 
 setupDB :: ReaderT Connection IO ()
-setupDB = undefined
-{-setupDB = do-}
-  {-conn <- ask-}
-  {-lift $ execute_ conn "DROP TABLE IF EXISTS `users`"-}
-  {-lift $ execute_ conn-}
-    {-" CREATE TABLE IF NOT EXISTS `users` \-}
-    {-\ ( id INTEGER PRIMARY KEY \-}
-    {-\ , full_name VARCHAR NOT NULL \-}
-    {-\ , email_address VARCHAR NOT NULL) "-}
+setupDB = do
+  conn <- ask
+  lift $ execute_ conn "DROP TABLE IF EXISTS `users`"
+  lift $ execute_ conn
+    " CREATE TABLE IF NOT EXISTS `users` \
+    \ ( id INTEGER PRIMARY KEY \
+    \ , full_name VARCHAR NOT NULL \
+    \ , email_address VARCHAR NOT NULL) "

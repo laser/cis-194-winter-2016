@@ -23,12 +23,10 @@ spec :: Spec
 spec = do
   describe "week 11" $ do
     it "manages the user lifecycle using the reference implementation" $ do
-      pending
       referenceLifecycle
 
     it "enable the following test (and un-comment it out below) when you are ready" $ do
-      pending
-      -- lifecycle
+      lifecycle
 
 -- This set of tests asserts the behavior of our legacy database library. The
 -- library opens and closes a connection for each database call, which is not
@@ -65,34 +63,34 @@ referenceLifecycle = do
 -- This set of tests hits our new database library, which shares a connection
 -- across database queries which it reads from its environment (ReaderT). You
 -- will need to re-implement the legacy library to use ReaderT Connection IO a.
-{-lifecycle :: IO ()-}
-{-lifecycle = do-}
-  {-conn <- open dbName-}
-  {-(flip runReaderT) conn $ do-}
-    {--- set up the database-}
-    {-setupDB-}
+lifecycle :: IO ()
+lifecycle = do
+  conn <- open dbName
+  (flip runReaderT) conn $ do
+    -- set up the database
+    setupDB
 
-    {--- ensure no rows already exist-}
-    {-users <- getUsers-}
-    {-lift (users `shouldBe` [])-}
+    -- ensure no rows already exist
+    users <- getUsers
+    lift (users `shouldBe` [])
 
-    {--- insert some users-}
-    {-id1 <- insertUser (FullName "Jebb Harrow") (EmailAddress "test0@example.com")-}
-    {-id2 <- insertUser (FullName "Sue Meforit") (EmailAddress "test1@example.com")-}
-    {-id3 <- insertUser (FullName "Yoko Ohnoes") (EmailAddress "test2@example.com")-}
+    -- insert some users
+    id1 <- insertUser (FullName "Jebb Harrow") (EmailAddress "test0@example.com")
+    id2 <- insertUser (FullName "Sue Meforit") (EmailAddress "test1@example.com")
+    id3 <- insertUser (FullName "Yoko Ohnoes") (EmailAddress "test2@example.com")
 
-    {--- should have three in there now...-}
-    {-users <- getUsers-}
-    {-lift (map (userId) users `shouldBe` [id1, id2, id3])-}
+    -- should have three in there now...
+    users <- getUsers
+    lift (map (userId) users `shouldBe` [id1, id2, id3])
 
-    {--- load by id-}
-    {-u2 <- getUserById id2-}
-    {-lift (fromJust u2 `shouldBe` (User id2 (FullName "Sue Meforit") (EmailAddress "test1@example.com")))-}
+    -- load by id
+    u2 <- getUserById id2
+    lift (fromJust u2 `shouldBe` (User id2 (FullName "Sue Meforit") (EmailAddress "test1@example.com")))
 
-    {--- delete by id-}
-    {-deleteUserById id2-}
+    -- delete by id
+    deleteUserById id2
 
-    {--- now we should have 2-}
-    {-users <- getUsers-}
-    {-lift (map (userId) users `shouldBe` [id1, id3])-}
-  {-close conn-}
+    -- now we should have 2
+    users <- getUsers
+    lift (map (userId) users `shouldBe` [id1, id3])
+  close conn
